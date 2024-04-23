@@ -1,0 +1,29 @@
+MODULE main
+IVAR
+	c0 : boolean;
+	u0 : boolean;
+	c1 : boolean;
+	u1 : boolean;
+	c2 : boolean;
+	u2 : boolean;
+	c3 : boolean;
+	u3 : boolean;
+	c4 : boolean;
+	u4 : boolean;
+	c5 : boolean;
+	u5 : boolean;
+	c6 : boolean;
+	u6 : boolean;
+	c7 : boolean;
+	u7 : boolean;
+	c8 : boolean;
+	u8 : boolean;
+	c9 : boolean;
+	u9 : boolean;
+	c10 : boolean;
+	u10 : boolean;
+	c11 : boolean;
+	u11 : boolean;
+LTLSPEC F(c0 <-> u0) & X(F(c1 <-> u1)) & X X(F(c2 <-> u2)) & X X X(F(c3 <-> u3)) & X X X X(F(c4 <-> u4)) & X X X X X(F(c5 <-> u5)) & X X X X X X(F(c6 <-> u6)) & X X X X X X X(F(c7 <-> u7)) & X X X X X X X X(F(c8 <-> u8)) & X X X X X X X X X(F(c9 <-> u9)) & X X X X X X X X X X(F(c10 <-> u10)) & X X X X X X X X X X X(F(c11 <-> u11))
+--OUTPUT : c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11
+--INPUT : u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11

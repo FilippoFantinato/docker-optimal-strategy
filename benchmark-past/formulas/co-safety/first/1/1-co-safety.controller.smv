@@ -1,0 +1,6 @@
+MODULE controller(u0)
+VAR
+	c0 : boolean;
+ASSIGN
+	c0 := u0;
+LTLSPEC F(c0 <-> u0)

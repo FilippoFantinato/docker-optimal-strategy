@@ -1,0 +1,157 @@
+#!/bin/bash
+
+n=
+formula=
+controller=
+
+c_var="c"
+u_vars=()
+
+generate_module() {
+    echo -e "MODULE main\nIVAR" >> $formula
+    for i in `seq 0 $((n - 1))`; do
+        echo -e "\t${u_vars[i]} : boolean;" >> $formula
+    done
+    echo -e "\t$c_var : boolean;" >> $formula
+}
+
+generate_next() {
+    times=$1
+    next=""
+    for i in `seq 1 $times`; do
+        next="$next X"
+    done
+    echo $next
+}
+
+generate_ltl_spec() {
+    ltlspec="G(($c_var <-> ${u_vars[0]})"
+    k=$((n - 1))
+    for i in `seq 1 $k`; do
+        ltlspec="$ltlspec | `generate_next $i` G(($c_var <-> ${u_vars[i]})"
+    done
+    for i in `seq 0 $k`; do
+        ltlspec="$ltlspec)"
+    done
+    echo -e "LTLSPEC $ltlspec"
+}
+
+generate_comments() {
+    c_comment="--OUTPUT : c"
+    u_comment="--INPUT : "
+    k=$((n - 1))
+    for i in `seq 0 $((k - 1))`; do
+        u_comment="$u_comment${u_vars[i]},"
+    done
+    u_comment="$u_comment${u_vars[k]}"
+    echo $c_comment >> $formula
+    echo $u_comment >> $formula
+}
+
+generate_formula() {
+    generate_module
+    echo `generate_ltl_spec` >> $formula
+    generate_comments
+}
+
+generate_controller() {
+    us=""
+    for i in "${!u_vars[@]}"; do
+        us="$us${u_vars[i]}"
+        if [ "$((i + 1))" -ne "${#u_vars[@]}" ]; then
+            us="$us,"
+        fi
+    done
+    echo "MODULE controller($us)" > $controller
+    echo -e "VAR" >> $controller
+    echo -e "\tc : boolean;" >> $controller
+    echo -e "ASSIGN" >> $controller
+    echo -e "\t$c_var := ${u_vars[0]};" >> $controller
+    echo `generate_ltl_spec` >> $controller
+}
+
+generate_plant() {
+    plant_args=""
+    echo "MODULE plant($c_var)" >> $plant
+    echo "VAR" >> $plant
+    for u in "${u_vars[@]}"; do
+        echo -e "\t$u : boolean;" >> $plant
+    done
+    echo "ASSIGN" >> $plant
+    for i in "${!u_vars[@]}"; do
+        v=
+        if [ "$((i % 2))" -eq 1 ]; then
+            v="TRUE"
+        else
+            v="FALSE"
+        fi
+        u=${u_vars[i]}
+        echo -e "\tinit($u) := $v;" >> $plant
+        echo -e "\tnext($u) := !$u;" >> $plant
+    done
+}
+
+main() {
+    if [ -f "$formula" ]; then
+        rm -f $formula
+    fi
+
+    if [ -f "$controller" ]; then
+        rm -f $controller
+    fi
+
+    if [ -f "$plant" ]; then
+        rm -f $plant
+    fi
+
+    for i in `seq 0 $((n - 1))`; do
+        u_vars+=( "u$i" )
+    done
+
+    generate_formula
+    generate_controller
+    generate_plant
+}
+
+usage() {
+    echo "Usage: generate-safety-single -n number --formula path --plant path"
+}
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    -h | --help)
+        usage
+        exit 0
+        ;;
+    -f | --formula)
+        formula=$2
+        shift 2
+        ;;
+    -c | --controller)
+        controller=$2
+        shift 2
+        ;;
+    -p | --plant)
+        plant=$2
+        shift 2
+        ;;
+    -n)
+        n=$2
+        shift 2
+        ;;
+    --) 
+        shift 
+        break ;;
+    *) >&2 echo Unsupported option: $1
+       usage 
+       exit 1
+       ;;
+  esac
+done
+
+if [ -z "$n" ] || [ -z "$formula" ]; then
+    usage
+    exit 1
+fi
+
+main

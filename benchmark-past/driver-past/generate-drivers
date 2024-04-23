@@ -1,0 +1,24 @@
+#!/bin/bash
+
+finally_dir="./finally"
+until="./until"
+
+cd $(dirname $0)
+
+for i in `seq 1 100`; do
+    echo "Generating $finally_dir/$i"
+    mkdir -p $finally_dir/$i
+    ./generate-boolean-driver -n $i \
+        --finally \
+        --plant $finally_dir/$i/$i-driver.plant.smv \
+        --controller $finally_dir/$i/$i-driver.controller.smv
+done
+
+# for i in `seq 1 100`; do
+#     echo "Generating $until/$i"
+#     mkdir -p $until/$i
+#     ./generate-boolean-driver -n $i \
+#         --until
+#         --plant $until/$i/$i-driver.plant.smv \
+#         --controller $until/$i/$i-driver.controller.smv
+# done

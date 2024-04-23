@@ -1,0 +1,33 @@
+#!/bin/bash
+
+first="./first"
+second="./second"
+third="./third"
+
+cd $(dirname $0)
+
+# for i in `seq 1 100`; do
+#     echo "Generating $first/$i"
+#     mkdir -p $first/$i
+#     ./generate-co-safety-1 -n $i \
+#         --plant $first/$i/$i-co-safety.plant.smv \
+#         --formula $first/$i/$i-co-safety.formula.smv \
+#         --controller $first/$i/$i-co-safety.controller.smv
+# done
+
+# for i in `seq 1 100`; do
+#     echo "Generating $second/$i"
+#     mkdir -p $second/$i
+#     ./generate-co-safety-2 -n $i \
+#         --plant $second/$i/$i-co-safety.plant.smv \
+#         --formula $second/$i/$i-co-safety.formula.smv \
+#         --controller $second/$i/$i-co-safety.controller.smv
+# done
+
+for i in `seq 1 100`; do
+    echo "Generating $third/$i"
+    mkdir -p $third/$i
+    ./generate-co-safety-3 -n $i \
+        --formula $third/$i/$i-co-safety.formula.smv \
+        --controller $third/$i/$i-co-safety.controller.smv
+done

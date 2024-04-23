@@ -1,0 +1,7 @@
+MODULE main
+IVAR
+	u0 : boolean;
+	c : boolean;
+LTLSPEC G((c <-> u0))
+--OUTPUT : c
+--INPUT : u0

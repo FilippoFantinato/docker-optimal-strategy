@@ -1,0 +1,31 @@
+MODULE plant(move0, move1)
+    VAR
+        man     : boolean;
+        wolf    : boolean;
+        goat    : boolean;
+        cabbage : boolean;
+    DEFINE
+        no_carry      := !move0 & !move1; -- move=e
+        carry_goat    := move0  & !move1; -- move=g
+        carry_wolf    := !move0 & move1;  -- move=w
+        carry_cabbage := move0  & move1;  -- move=c
+    ASSIGN
+        init(man)     := FALSE;
+        init(goat)    := FALSE;
+        init(wolf)    := FALSE;
+        init(cabbage) := FALSE;
+    ASSIGN
+        next(cabbage) := case
+            (carry_cabbage & cabbage=man) : !cabbage;
+            TRUE : cabbage;
+        esac;
+        next(goat) := case
+            (carry_goat & goat=man) : !goat;
+            TRUE : goat;
+        esac;
+        next(wolf) := case
+            (carry_wolf & wolf=man) : !wolf;
+            TRUE : wolf;
+        esac;
+        next(man) := !man;
+

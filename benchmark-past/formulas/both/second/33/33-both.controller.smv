@@ -1,0 +1,44 @@
+MODULE controller(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20,u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31,u32)
+VAR
+	c : boolean;
+	steps: 0..32
+ASSIGN
+	c := case
+		steps=0 : u0;
+		steps=1 : u1;
+		steps=2 : u2;
+		steps=3 : u3;
+		steps=4 : u4;
+		steps=5 : u5;
+		steps=6 : u6;
+		steps=7 : u7;
+		steps=8 : u8;
+		steps=9 : u9;
+		steps=10 : u10;
+		steps=11 : u11;
+		steps=12 : u12;
+		steps=13 : u13;
+		steps=14 : u14;
+		steps=15 : u15;
+		steps=16 : u16;
+		steps=17 : u17;
+		steps=18 : u18;
+		steps=19 : u19;
+		steps=20 : u20;
+		steps=21 : u21;
+		steps=22 : u22;
+		steps=23 : u23;
+		steps=24 : u24;
+		steps=25 : u25;
+		steps=26 : u26;
+		steps=27 : u27;
+		steps=28 : u28;
+		steps=29 : u29;
+		steps=30 : u30;
+		steps=31 : u31;
+		steps=32 : u32;
+		else : c;
+	esac;
+	init(steps) := 0;
+	next(steps) := case steps < 32 : steps + 1; else : steps; esac;
+LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,6](c <-> u1))) & X X(G[0,3](F[0,6](c <-> u2))) & X X X(G[0,3](F[0,6](c <-> u3))) & X X X X(G[0,3](F[0,6](c <-> u4))) & X X X X X(G[0,3](F[0,6](c <-> u5))) & X X X X X X(G[0,3](F[0,6](c <-> u6))) & X X X X X X X(G[0,3](F[0,6](c <-> u7))) & X X X X X X X X(G[0,3](F[0,6](c <-> u8))) & X X X X X X X X X(G[0,3](F[0,6](c <-> u9))) & X X X X X X X X X X(G[0,3](F[0,6](c <-> u10))) & X X X X X X X X X X X(G[0,3](F[0,6](c <-> u11))) & X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u12))) & X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u13))) & X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u14))) & X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u15))) & X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u16))) & X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u17))) & X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u18))) & X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u19))) & X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u20))) & X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u21))) & X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u22))) & X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u23))) & X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u24))) & X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u25))) & X X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u26))) & X X X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u27))) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u28))) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u29))) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u30))) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u31))) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X(G[0,3](F[0,6](c <-> u32)))

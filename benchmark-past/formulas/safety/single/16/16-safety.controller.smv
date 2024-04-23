@@ -1,0 +1,6 @@
+MODULE controller(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15)
+VAR
+	c : boolean;
+ASSIGN
+	c := u0;
+LTLSPEC G((c <-> u0) | X G((c <-> u1) | X X G((c <-> u2) | X X X G((c <-> u3) | X X X X G((c <-> u4) | X X X X X G((c <-> u5) | X X X X X X G((c <-> u6) | X X X X X X X G((c <-> u7) | X X X X X X X X G((c <-> u8) | X X X X X X X X X G((c <-> u9) | X X X X X X X X X X G((c <-> u10) | X X X X X X X X X X X G((c <-> u11) | X X X X X X X X X X X X G((c <-> u12) | X X X X X X X X X X X X X G((c <-> u13) | X X X X X X X X X X X X X X G((c <-> u14) | X X X X X X X X X X X X X X X G((c <-> u15)))))))))))))))))

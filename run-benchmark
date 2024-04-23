@@ -1,0 +1,129 @@
+#!/bin/bash
+
+shopt -s globstar
+
+plant=
+directory=
+output=
+upper_bound=
+controllables=
+cosafety=0
+
+controller_extension=".controller.smv"
+plant_extension=".plant.smv"
+formula_extension=".formula.smv"
+
+calc() { awk "BEGIN{ printf \"%.2f\n\", $* }"; }
+
+running_benchmark() {
+    controller=$1
+    dir=`dirname $controller`
+    filename=`basename $controller`
+    name=${filename%%.*}
+    
+    local p=
+    if [ -z "$plant" ]; then
+        p=$dir/$name$plant_extension
+    else
+        p=$plant
+    fi
+
+    local c=
+    if [ -z $controllables ]; then
+        c=`awk '{if($1 ~ /--OUTPUT/){print $3} }' $dir/$name$formula_extension`
+    else
+        c=$controllables
+    fi
+    
+    avg=0
+    for i in `seq 1 $times`; do
+        local ts=$(date +%s%N)
+        if [ "$cosafety" -eq 1 ]; then
+            ./optimal-strategy -c $controller -p $p --controllables $c --co-safety -u $upper_bound &> /dev/null
+        else
+            ./optimal-strategy -c $controller -p $p --controllables $c -u $upper_bound &> /dev/null
+        fi
+        if [ "$?" -ne 0 ]; then
+            echo "Failing at running $controller"
+            break
+        fi
+        local tt=$((($(date +%s%N) - $ts)/1000000))
+        avg=$((avg + tt))
+    done
+    echo `calc $avg/$times`
+}
+
+main() {
+    rm -f $output
+    echo "x,running_time" > $output
+    for file in `ls -1v $directory/**/*$controller_extension`; do
+        echo "Running: $file"
+        x=`basename $(dirname $file)`
+        running_time=`running_benchmark $file`
+        # running_benchmark $file
+        echo "$x,$running_time" >> $output
+    done
+}
+
+usage() {
+    echo "Usage: run-benchmark [-h|--help] | [--co-safety] | [-p|--plant path] | -d|--directory path | [-u|--upper-bound number] | -t|--times number | --output path | [--controllables v1,v2,...]"
+}
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    -h | --help)
+        usage
+        exit 0
+        ;;
+    -p | --plant)
+        plant=$2
+        if [ ! -e $plant ]; then
+            echo "$plant does not exist"
+            exit 1
+        fi
+        shift 2
+        ;;
+    -d | --directory)    
+        directory=$2
+        if [ ! -e $directory ]; then
+            echo "$directory does not exist"
+            exit 1
+        fi
+        shift 2
+        ;;
+    -o | --output)
+        output=$2
+        shift 2
+        ;;
+    -u | --upper-bound)
+        upper_bound=$2
+        shift 2
+        ;;
+    -t | --times)
+        times=$2
+        shift 2
+        ;;
+    --controllables) 
+        controllables=$2
+        shift 2
+        ;;
+    --co-safety)
+        cosafety=1
+        shift
+        ;;
+    --)
+        shift
+        break ;;
+    *) >&2 echo Unsupported option: $1
+       usage 
+       exit 1
+       ;;
+  esac
+done
+
+if [ -z "$directory" ] || [ -z "$times" ] || [ -z "$output" ]; then
+    usage
+    exit 1
+fi
+
+main

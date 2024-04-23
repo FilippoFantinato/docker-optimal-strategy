@@ -1,0 +1,340 @@
+#!/bin/bash
+
+set -e
+
+plant=""
+controller=""
+cosafety=0
+controllables=""
+output=""
+
+unique_dir=`uuidgen -r`
+
+plant_main="$unique_dir/plant-main.smv"
+closed_loop="$unique_dir/closed-loop.smv"
+plant_monitor="$unique_dir/plant-monitor.smv"
+formula="$unique_dir/formula.smv"
+formula_monitor="$unique_dir/formula-monitor.smv"
+arena="$unique_dir/arena.smv"
+game="$unique_dir/arena.aag"
+controller_vars=""
+plant_vars=""
+controller_ivars=""
+plant_ivars=""
+
+exec_nuxmv() {
+    nuXmv -source $1
+}
+
+get_module_name() {
+    echo `sed -nr 's/^MODULE\s*(.*?)(\(.*|$)/\1/p' $1`
+}
+
+get_module_vars() {
+    echo `sed -nr 's/.*MODULE.*\((.*)\).*/\1/p' $1`
+}
+
+get_vars() {
+    echo `sed -nr 's/(\s)*(.*)(\s)*:(\s)*boolean;/\2/p' $1`
+}
+
+build_module_args() {
+    echo `awk -F '(,| |\t|\n)*' '{for(i=1;i<NF;++i) if($i) printf "%s,", $i; printf "%s", $NF}' $1`
+    # echo `awk -F '( |\t|\n)*' -v prefix=$2 '{for(i=1;i<NF;++i) printf "%s.%s,", $prefix, $i; printf "%s.%s", $prefix, $NF}' $1`
+}
+
+build_controller_args() {
+    echo `awk -F '(,| |\t|\n)*' '{for(i=1;i<NF;++i) if($i) printf "p.%s,", $i ; printf "p.%s", $NF}' $1`
+}
+
+build_plant_args() {
+    echo `awk -F '(,| |\t|\n)*' '{for(i=1;i<NF;++i) if($i) printf "c.%s,", $i ; printf "c.%s", $NF}' $1`
+}
+
+build_ivars() {
+    echo `awk -F '(,| |\t|\n)*' '{for(i=1;i<=NF;++i) printf "%s : boolean;", $i}' $1`
+}
+
+get_ltlspec() {
+    echo `cat $1 | grep -Poz '(?<=LTLSPEC)(.|\n)*?(?=($|;|(MODULE)|(FROZENVAR)|(ASSIGN)|(VAR)|(PARSYNTH)|(LTLSPEC)))' | tr -d '\n'`
+}
+
+get_invarspec() {
+    echo `grep -Poz '(?<=INVARSPEC)(.|\n)*?(?=($|;|(ASSIGN)|(DEFINE)))' $1 | tr -d '\0\n ' | sed 's/!//'`
+}
+
+remove_invarspec() {
+    sed -E -i '/INVARSPEC/,/(ASSIGN)|(DEFINE)/{/(ASSIGN)|(DEFINE)/!d}' $1
+}
+
+check_ltlspec() {
+    check_ltlspec_command="$unique_dir/check-ltlspec.commands.txt"
+
+    main_module="MODULE main\nVAR"
+    controller_module_args=""
+    if [ -n "$plant" ]; then
+        plant_name=`get_module_name $plant`
+        plant_module_args=`get_module_vars $plant | build_plant_args`
+        main_module="$main_module p: $plant_name($plant_module_args);"
+        cat $plant >> $closed_loop
+        controller_module_args=`get_module_vars $controller | build_controller_args`
+    fi
+
+    controller_name=`get_module_name $controller`
+    main_module="$main_module c: $controller_name($controller_module_args);"
+
+    cat $controller      >> $closed_loop
+    echo -e $main_module >> $closed_loop
+
+    echo "set on_failure_script_quits 1; read_model -i $closed_loop; go; check_ltlspec; quit;" > $check_ltlspec_command
+
+    check_ltlspec_output=`exec_nuxmv $check_ltlspec_command`
+    rm -f $check_ltlspec_command
+
+    echo `grep -ic "is true" <<< $check_ltlspec_output`
+}
+
+compute_upper_bound() {
+    upper_bound_command="$unique_dir/upper_bound.commands.txt"
+    echo "set on_failure_script_quits 1; read_model -i $closed_loop; go_bmc; synth_param -a ic3 -s -l -c; show_param_synth_problems; quit" > $upper_bound_command
+    synth_param_output=`exec_nuxmv $upper_bound_command | sed -nr 's/.*region: (.*).*/\1/p'`
+    rm -f $upper_bound_command
+    
+    if [ "$synth_param_output" == "TRUE" ]; then
+        echo 0
+    elif [ "$synth_param_output" == "FALSE" ]; then
+        exit 1
+    else
+        echo `(grep -Eo '[0-9]+' | sort -n | head -1) <<< $synth_param_output`
+    fi
+}
+
+compute_plant_monitor() {
+    plant_monitor_command="$unique_dir/plant-monitor.commands.txt"
+    cat $plant > $plant_main
+    sed -i 's/MODULE .*/MODULE main/g' $plant_main
+    plant_ivars=`get_module_vars $plant | build_ivars`
+    sed -i "2i IVAR\n$plant_ivars" $plant_main
+
+    echo "set on_failure_script_quits 1; read_model -i $plant_main; go; build_boolean_model; _smv2fsmv -o $plant_monitor; quit" >> $plant_monitor_command
+    
+    exec_nuxmv $plant_monitor_command > /dev/null
+    
+    rm -f $plant_monitor_command
+}
+
+compute_formula_monitor() {
+    upper_bound=$1
+    formula_monitor_command="$unique_dir/formula-monitor.commands.txt"
+
+    ivar=$controller_ivars
+    if [ -n "$plant" ]; then
+        ivar="$ivar$plant_ivars"
+    fi
+    echo -e "MODULE main\nIVAR\n$ivar" > $formula
+    
+    ltlspec=`get_ltlspec $controller`
+    if [[ $cosafety -eq 1 ]]; then
+        echo -e "LTLSPEC !($ltlspec)" >> $formula
+        echo "set on_failure_script_quits 1; read_model -i $formula; go; _ebr2fsmv_time_limit -n 0 -u $upper_bound -c -o $formula_monitor; quit" > $formula_monitor_command
+    else
+        echo -e "LTLSPEC ($ltlspec)" >> $formula
+        echo "set on_failure_script_quits 1; read_model -i $formula; go; _ebr2fsmv_time_limit -n 0 -u $upper_bound -o $formula_monitor; quit" > $formula_monitor_command
+    fi
+
+    exec_nuxmv $formula_monitor_command > /dev/null
+
+    rm -f $formula_monitor_command
+}
+
+build_formula_arena() {
+    module_vars=`build_module_args <<< $controller_vars`
+
+    formula_invarspec=`get_invarspec $formula_monitor`
+    sed -i "/MODULE/ s/$/($module_vars)/" $formula_monitor
+    remove_invarspec $formula_monitor
+    formula_monitor_name=`get_module_name $formula_monitor`
+
+    cat $formula_monitor > $arena
+    
+    echo -e "MODULE main\nIVAR\n$controller_ivars\nVAR\nphi: $formula_monitor_name($module_vars);" >> $arena
+    echo -e "INVARSPEC !phi.$formula_invarspec" >> $arena
+}
+
+build_full_arena() {
+    arena_vars="`build_module_args <<< $(get_module_vars $plant)`,`build_module_args <<< $(get_module_vars $controller)`"
+
+    formula_invarspec=`get_invarspec $formula_monitor`
+    sed -i "/MODULE/ s/$/($arena_vars)/" $formula_monitor
+    remove_invarspec $formula_monitor
+    formula_monitor_name=`get_module_name $formula_monitor`
+
+    plant_invarspec=`get_invarspec $plant_monitor`
+    sed -i "/MODULE/ s/$/($arena_vars)/" $plant_monitor
+    remove_invarspec $plant_monitor
+    plant_monitor_name=`get_module_name $plant_monitor`
+
+    cat $formula_monitor > $arena
+    cat $plant_monitor >> $arena
+
+    # arena_ivars="$controller_ivars$plant_ivars"
+    arena_ivars=`build_ivars <<< $arena_vars`
+    echo -e "MODULE main IVAR $arena_ivars VAR phi: $formula_monitor_name($arena_vars); plant: $plant_monitor_name($arena_vars);" >> $arena
+
+    if [[ $cosafety -eq 1 ]]; then
+        echo -e "INVARSPEC !plant.$plant_invarspec & !phi.$formula_invarspec" >> $arena
+    else
+        echo -e "INVARSPEC !plant.$plant_invarspec -> !phi.$formula_invarspec" >> $arena
+    fi
+}
+
+build_game() {
+    build_game_command="$unique_dir/build-game.commands.txt"
+    echo "set on_failure_script_quits 1; read_model -i $arena; go_bmc; fsmv2aig -c $controllables -f $game; quit" > $build_game_command
+    
+    exec_nuxmv $build_game_command > /dev/null
+    
+    rm -f $build_game_command
+}
+
+
+solve_game() {
+    game_output=
+    if [ -z "$output" ]; then
+        game_output=$([[ $cosafety -eq 1 ]] && 
+                    echo `simple-synth $game -s --smv sub --co-safety` ||
+                    echo `simple-synth $game -s --smv sub`)
+        # -s --smv sub
+    else
+        game_output=$([[ $cosafety -eq 1 ]] && 
+                    echo `simple-synth $game -s --smv sub -o $output --co-safety` ||
+                    echo `simple-synth $game -s --smv sub -o $output`)
+    fi
+
+
+    echo `grep -c "Realizable" <<< $game_output`
+}
+
+clean() {
+    rm -r $unique_dir
+    # rm -f $plant_main
+    # rm -f $closed_loop
+    # rm -f $plant_monitor
+    # rm -f $formula
+    # rm -f $formula_monitor
+    # rm -f $arena
+    # rm -f $game
+}
+
+main() {
+    mkdir $unique_dir
+    controller_vars=`get_vars $controller`
+    controller_ivars=`build_ivars <<< $controller_vars`
+    if [ -n "$plant" ]; then
+        plant_vars=`get_vars $plant`
+        plant_ivars=`build_ivars <<< $plant_vars`
+    fi
+
+    echo "Checking the property on the system..."
+    # if [ "`check_ltlspec`" -eq "0" ]; then
+    #     echo "The formula does not hold on the system"
+    #     exit 1
+    # fi
+
+    if [ -z "$upper_bound" ]; then
+        echo "Computing the upper bound..."
+        upper_bound=`compute_upper_bound`
+    fi
+
+    if [ "$upper_bound" -ne "0" ]; then
+        echo "Computing formula monitor..."
+        compute_formula_monitor $upper_bound
+        if [ -z "$plant" ]; then
+            echo "Computing formula arena..."
+            build_formula_arena
+        else
+            echo "Computing plant monitor..."
+            compute_plant_monitor
+            echo "Computing full arena..."
+            build_full_arena
+        fi
+        echo "Building the game..."
+        build_game
+        echo "Solving the game..."
+        if [ `solve_game` -eq 1 ]; then
+            echo "$controller is not optimal"
+        else
+            echo "$controller is optimal"
+        fi
+    else
+        echo "$controller is optimal"
+    fi
+}
+
+usage() {
+    echo "Usage: optimal-strategy [-h|--help] | [--co-safety] | [-p|--plant path] | -c|--controller path | [-u|--upper-bound number] | --output path | --controllables v1,v2,..."
+    echo "  -h, --help          shows help message and exits"
+    echo "  --co-safety         whether the formula to synthesize belongs just to the co-safety fragment of LTL"
+    echo "  -p, --plant         path to the plant, if present"
+    echo "  -c, --controller    path to the controller to test"
+    echo "  -u, --upper-bound   upper bound to use; if it is not set the upper bound will be retrieved by solving a parameterized model checking problem"
+    echo "  --output            path to the output file"
+    echo "  --controllables     controllables variables separated by a comma, e.g. v1,v2,v3,..."
+}
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    -h | --help)
+        usage
+        exit 0
+        ;;
+    -p | --plant)
+        plant=$2
+        if [ ! -e $plant ]; then
+            echo "$plant does not exist"
+            exit 1
+        fi
+        shift 2
+        ;;
+    -c | --controller)    
+        controller=$2
+        if [ ! -e $controller ]; then
+            echo "$controller does not exist"
+            exit 1
+        fi
+        shift 2
+        ;;
+    -o | --output)
+        output=$2
+        shift 2
+        ;;
+    -u | --upper-bound)
+        upper_bound=$2
+        shift 2
+        ;;
+    --controllables) 
+        controllables=$2
+        shift 2
+        ;;
+    --co-safety)
+        cosafety=1
+        shift
+        ;;
+    --)
+        shift 
+        break ;;
+    *) >&2 echo Unsupported option: $1
+       usage 
+       exit 1
+       ;;
+  esac
+done
+
+if [ -z "$controller" ] || [ -z "$controllables" ]; then
+    usage
+    exit 1
+fi
+
+trap clean EXIT
+
+main

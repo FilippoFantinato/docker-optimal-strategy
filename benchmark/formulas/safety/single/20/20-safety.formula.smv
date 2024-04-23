@@ -1,0 +1,26 @@
+MODULE main
+IVAR
+	u0 : boolean;
+	u1 : boolean;
+	u2 : boolean;
+	u3 : boolean;
+	u4 : boolean;
+	u5 : boolean;
+	u6 : boolean;
+	u7 : boolean;
+	u8 : boolean;
+	u9 : boolean;
+	u10 : boolean;
+	u11 : boolean;
+	u12 : boolean;
+	u13 : boolean;
+	u14 : boolean;
+	u15 : boolean;
+	u16 : boolean;
+	u17 : boolean;
+	u18 : boolean;
+	u19 : boolean;
+	c : boolean;
+LTLSPEC G((c <-> u0) | X G((c <-> u1) | X X G((c <-> u2) | X X X G((c <-> u3) | X X X X G((c <-> u4) | X X X X X G((c <-> u5) | X X X X X X G((c <-> u6) | X X X X X X X G((c <-> u7) | X X X X X X X X G((c <-> u8) | X X X X X X X X X G((c <-> u9) | X X X X X X X X X X G((c <-> u10) | X X X X X X X X X X X G((c <-> u11) | X X X X X X X X X X X X G((c <-> u12) | X X X X X X X X X X X X X G((c <-> u13) | X X X X X X X X X X X X X X G((c <-> u14) | X X X X X X X X X X X X X X X G((c <-> u15) | X X X X X X X X X X X X X X X X G((c <-> u16) | X X X X X X X X X X X X X X X X X G((c <-> u17) | X X X X X X X X X X X X X X X X X X G((c <-> u18) | X X X X X X X X X X X X X X X X X X X G((c <-> u19)))))))))))))))))))))
+--OUTPUT : c
+--INPUT : u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19

@@ -1,0 +1,68 @@
+MODULE controller(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20,u21,u22,u23,u24,u25,u26,u27,u28,u29,u30,u31,u32,u33,u34,u35,u36,u37,u38,u39,u40,u41,u42,u43,u44,u45,u46,u47,u48,u49,u50,u51,u52,u53,u54,u55,u56)
+VAR
+	c : boolean;
+	steps: 0..56
+ASSIGN
+	c := case
+		steps=0 : u0;
+		steps=1 : u1;
+		steps=2 : u2;
+		steps=3 : u3;
+		steps=4 : u4;
+		steps=5 : u5;
+		steps=6 : u6;
+		steps=7 : u7;
+		steps=8 : u8;
+		steps=9 : u9;
+		steps=10 : u10;
+		steps=11 : u11;
+		steps=12 : u12;
+		steps=13 : u13;
+		steps=14 : u14;
+		steps=15 : u15;
+		steps=16 : u16;
+		steps=17 : u17;
+		steps=18 : u18;
+		steps=19 : u19;
+		steps=20 : u20;
+		steps=21 : u21;
+		steps=22 : u22;
+		steps=23 : u23;
+		steps=24 : u24;
+		steps=25 : u25;
+		steps=26 : u26;
+		steps=27 : u27;
+		steps=28 : u28;
+		steps=29 : u29;
+		steps=30 : u30;
+		steps=31 : u31;
+		steps=32 : u32;
+		steps=33 : u33;
+		steps=34 : u34;
+		steps=35 : u35;
+		steps=36 : u36;
+		steps=37 : u37;
+		steps=38 : u38;
+		steps=39 : u39;
+		steps=40 : u40;
+		steps=41 : u41;
+		steps=42 : u42;
+		steps=43 : u43;
+		steps=44 : u44;
+		steps=45 : u45;
+		steps=46 : u46;
+		steps=47 : u47;
+		steps=48 : u48;
+		steps=49 : u49;
+		steps=50 : u50;
+		steps=51 : u51;
+		steps=52 : u52;
+		steps=53 : u53;
+		steps=54 : u54;
+		steps=55 : u55;
+		steps=56 : u56;
+		else : c;
+	esac;
+	init(steps) := 0;
+	next(steps) := case steps < 56 : steps + 1; else : steps; esac;
+LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u0)) & X X((!c)U(c <-> u0)) & X X X((!c)U(c <-> u0)) & X X X X((!c)U(c <-> u0)) & X X X X X((!c)U(c <-> u0)) & X X X X X X((!c)U(c <-> u0)) & X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X X((!c)U(c <-> u0))

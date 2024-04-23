@@ -1,0 +1,84 @@
+MODULE Machine(move0, move1, move2, move3)
+VAR
+   x0 : boolean;
+   x1 : boolean;
+   x2 : boolean;
+   x3 : boolean;
+   x4 : boolean;
+   y0 : boolean;
+   y1 : boolean;
+   y2 : boolean;
+   y3 : boolean;
+   y4 : boolean;
+DEFINE
+    move_up := !move3 & !move2 & !move1 & !move0;
+    move_down := !move3 & !move2 & !move1 & move0;
+    move_right := !move3 & !move2 & move1 & !move0;
+    move_left := !move3 & !move2 & move1 & move0;
+    move_right_up := !move3 & move2 & !move1 & !move0;
+    move_right_down := !move3 & move2 & !move1 & move0;
+    move_left_up := !move3 & move2 & move1 & !move0;
+    move_left_down := !move3 & move2 & move1 & move0;
+    move_stop := move3 & !move2 & !move1 & !move0;
+ASSIGN
+   init(x0) := FALSE;
+   init(x1) := FALSE;
+   init(x2) := FALSE;
+   init(x3) := FALSE;
+   init(x4) := FALSE;
+   init(y0) := FALSE;
+   init(y1) := FALSE;
+   init(y2) := FALSE;
+   init(y3) := FALSE;
+   init(y4) := FALSE;
+ASSIGN
+    next(x0) := case
+        (move_right | move_right_up | move_right_down) &  !(x0 & x1 & x2 & x3 & x4) : !x0;
+        (move_left | move_left_up | move_left_down) &  !(!x0 & !x1 & !x2 & !x3 & !x4) : !x0;
+        TRUE : x0;
+    esac;
+    next(x1) := case
+        (move_right | move_right_up | move_right_down) & (x0) & !(x0 & x1 & x2 & x3 & x4) : !x1;
+        (move_left | move_left_up | move_left_down) & (!x0) & !(!x0 & !x1 & !x2 & !x3 & !x4) : !x1;
+        TRUE : x1;
+    esac;
+    next(x2) := case
+        (move_right | move_right_up | move_right_down) & (x0 & x1) & !(x0 & x1 & x2 & x3 & x4) : !x2;
+        (move_left | move_left_up | move_left_down) & (!x0 & !x1) & !(!x0 & !x1 & !x2 & !x3 & !x4) : !x2;
+        TRUE : x2;
+    esac;
+    next(x3) := case
+        (move_right | move_right_up | move_right_down) & (x0 & x1 & x2) & !(x0 & x1 & x2 & x3 & x4) : !x3;
+        (move_left | move_left_up | move_left_down) & (!x0 & !x1 & !x2) & !(!x0 & !x1 & !x2 & !x3 & !x4) : !x3;
+        TRUE : x3;
+    esac;
+    next(x4) := case
+        (move_right | move_right_up | move_right_down) & (x0 & x1 & x2 & x3) & !(x0 & x1 & x2 & x3 & x4) : !x4;
+        (move_left | move_left_up | move_left_down) & (!x0 & !x1 & !x2 & !x3) & !(!x0 & !x1 & !x2 & !x3 & !x4) : !x4;
+        TRUE : x4;
+    esac;
+    next(y0) := case
+        (move_up | move_left_up | move_right_up) &  !(y0 & y1 & y2 & y3 & y4) : !y0;
+        (move_down | move_left_down | move_right_down) &  !(!y0 & !y1 & !y2 & !y3 & !y4) : !y0;
+        TRUE : y0;
+    esac;
+    next(y1) := case
+        (move_up | move_left_up | move_right_up) & (y0) & !(y0 & y1 & y2 & y3 & y4) : !y1;
+        (move_down | move_left_down | move_right_down) & (!y0) & !(!y0 & !y1 & !y2 & !y3 & !y4) : !y1;
+        TRUE : y1;
+    esac;
+    next(y2) := case
+        (move_up | move_left_up | move_right_up) & (y0 & y1) & !(y0 & y1 & y2 & y3 & y4) : !y2;
+        (move_down | move_left_down | move_right_down) & (!y0 & !y1) & !(!y0 & !y1 & !y2 & !y3 & !y4) : !y2;
+        TRUE : y2;
+    esac;
+    next(y3) := case
+        (move_up | move_left_up | move_right_up) & (y0 & y1 & y2) & !(y0 & y1 & y2 & y3 & y4) : !y3;
+        (move_down | move_left_down | move_right_down) & (!y0 & !y1 & !y2) & !(!y0 & !y1 & !y2 & !y3 & !y4) : !y3;
+        TRUE : y3;
+    esac;
+    next(y4) := case
+        (move_up | move_left_up | move_right_up) & (y0 & y1 & y2 & y3) & !(y0 & y1 & y2 & y3 & y4) : !y4;
+        (move_down | move_left_down | move_right_down) & (!y0 & !y1 & !y2 & !y3) & !(!y0 & !y1 & !y2 & !y3 & !y4) : !y4;
+        TRUE : y4;
+    esac;

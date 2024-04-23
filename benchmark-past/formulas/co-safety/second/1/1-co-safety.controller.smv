@@ -1,0 +1,12 @@
+MODULE controller(u0)
+VAR
+	c : boolean;
+	steps: 0..0
+ASSIGN
+	c := case
+		steps=0 : u0;
+		else : c;
+	esac;
+	init(steps) := 0;
+	next(steps) := case steps < 0 : steps + 1; else : steps; esac;
+LTLSPEC (!c)U(c <-> u0)

@@ -1,0 +1,16 @@
+MODULE controller
+VAR
+    a : boolean;
+ASSIGN
+    init(a) := FALSE;
+    next(a) := !a;
+
+LTLSPEC F[0,5] a
+
+FROZENVAR maxtime: 0..10;
+VAR time: 0..10;
+ASSIGN
+init(time) := 0;
+next(time) := case time < 10 : time + 1; TRUE: time; esac;
+-- compute worst-case time to reach the goal
+PARSYNTH r := { maxtime | VALID (F[0,5] (a & time<=maxtime)) };

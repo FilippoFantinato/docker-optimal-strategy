@@ -1,0 +1,10 @@
+MODULE controller(u0,u1,u2)
+VAR
+	c0 : boolean;
+	c1 : boolean;
+	c2 : boolean;
+ASSIGN
+	c0 := u0;
+	c1 := u1;
+	c2 := u2;
+LTLSPEC F[0,6](c0 <-> u0) & X(F[0,6](c1 <-> u1)) & X X(F[0,6](c2 <-> u2))

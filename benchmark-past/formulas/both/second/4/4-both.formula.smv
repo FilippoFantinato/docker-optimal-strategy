@@ -1,0 +1,10 @@
+MODULE main
+IVAR
+	c : boolean;
+	u0 : boolean;
+	u1 : boolean;
+	u2 : boolean;
+	u3 : boolean;
+LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,6](c <-> u1))) & X X(G[0,3](F[0,6](c <-> u2))) & X X X(G[0,3](F[0,6](c <-> u3)))
+--OUTPUT : c
+--INPUT : u0,u1,u2,u3

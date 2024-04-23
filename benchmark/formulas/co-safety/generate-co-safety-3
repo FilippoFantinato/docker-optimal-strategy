@@ -1,0 +1,113 @@
+#!/bin/bash
+
+n=
+formula=
+controller=
+
+c_var="c"
+u_var0="u0"
+u_var1="u1"
+
+generate_module() {
+    echo -e "MODULE main\nIVAR" >> $formula
+    echo -e "\t$u_var0 : boolean;" >> $formula
+    echo -e "\t$u_var1 : boolean;" >> $formula
+    echo -e "\t$c_var : boolean;" >> $formula
+}
+
+generate_next() {
+    times=$1
+    next=""
+    for i in `seq 1 $times`; do
+        next="$next X"
+    done
+    echo $next
+}
+
+generate_ltl_spec() {
+    ltlspec="F($c_var <-> $u_var0) & X F(!$c_var <-> $u_var1)"
+    k=$((n - 1))
+    for i in `seq 1 $k`; do
+        a=$(( 2 * i ))
+        ltlspec="$ltlspec & `generate_next $a`(F($c_var <-> $u_var0)) & `generate_next $b`(F(!$c_var <-> $u_var1))"
+    done
+    echo -e "LTLSPEC $ltlspec"
+}
+
+generate_comments() {
+    c_comment="--OUTPUT : c"
+    u_comment="--INPUT : u0,u1"
+    echo $c_comment >> $formula
+    echo $u_comment >> $formula
+}
+
+generate_controller() {
+    echo -e "MODULE controller($u_var0, $u_var1)" > $controller
+    echo -e "VAR" >> $controller
+    echo -e "\tc : boolean;" >> $controller
+    echo -e "ASSIGN" >> $controller
+    echo -e "\tinit($c_var) := TRUE;" >> $controller
+    echo -e "\tnext($c_var) := !$c_var;" >> $controller
+    echo `generate_ltl_spec` >> $controller
+}
+
+generate_formula() {
+    generate_module
+    echo `generate_ltl_spec` >> $formula
+    generate_comments
+}
+
+main() {
+    if [ -f "$formula" ]; then
+        rm -f $formula
+    fi
+    if [ -f "$controller" ]; then
+        rm -f $controller
+    fi
+
+    generate_formula
+    generate_controller
+}
+
+usage() {
+    echo "Usage: generate-co-safety-multiple -n number --formula path"
+}
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    -h | --help)
+        usage
+        exit 0
+        ;;
+    -f | --formula)
+        formula=$2
+        shift 2
+        ;;
+    -c | --controller)
+        controller=$2
+        shift 2
+        ;;
+    -p | --plant)
+        plant=$2
+        shift 2
+        ;;
+    -n)
+        n=$2
+        shift 2
+        ;;
+    --) 
+        shift 
+        break ;;
+    *) >&2 echo Unsupported option: $1
+       usage 
+       exit 1
+       ;;
+  esac
+done
+
+if [ -z "$n" ] || [ -z "$formula" ]; then
+    usage
+    exit 1
+fi
+
+main
