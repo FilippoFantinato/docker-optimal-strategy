@@ -83,12 +83,12 @@ next(state) := case
    s1: 0;
    TRUE: state;
 esac;
-LTLSPEC (!(((!x0) & (y0)) | ((x0) & (!y0))) U ((x0) & (y0)))
-VAR       time: 0..6;
-FROZENVAR maxtime: 0..6;
+LTLSPEC (!() U ((x0) & (y0)))
+VAR       time: 0..3;
+FROZENVAR maxtime: 0..3;
 ASSIGN
   init(time) := 0;
   next(time) := case
   s0 | s1 : 0;
-  time < 6 : time + 1; TRUE: time; esac;
-  PARSYNTH r := { maxtime | VALID  (!(((!x0) & (y0)) | ((x0) & (!y0))) U ((x0) & (y0) & (time <= maxtime)))};
+  time < 3 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  (!(((!x0) & (y0)) | ((x0) & (!y0))) U ((x0) & (y0) & (time <= maxtime))) & G(time <= maxtime)};

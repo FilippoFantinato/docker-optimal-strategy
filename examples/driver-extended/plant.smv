@@ -3,6 +3,9 @@ VAR
     f_x0 : boolean;
     f_x1 : boolean;
     f_x2 : boolean;
+    f_y0 : boolean;
+    f_y1 : boolean;
+    f_y2 : boolean;
     f_counter0 : boolean;
     f_counter1 : boolean;
     d_x0 : boolean;
@@ -41,4 +44,57 @@ ASSIGN
         TRUE : FALSE;
     esac;
     next(d_counter0) := !d_counter0;
+    next(d_counter1) := case 
+        d_counter1 & d_counter0 : FALSE;
+        d_counter1 & !d_counter0 : TRUE;
+        !d_counter1 & d_counter0 : TRUE;
+        TRUE : FALSE;
+    esac;
     next(c_counter0) := !c_counter0;
+    next(c_counter1) := case 
+        c_counter1 & c_counter0 : FALSE;
+        c_counter1 & !c_counter0 : TRUE;
+        !c_counter1 & c_counter0 : TRUE;
+        TRUE : FALSE;
+    esac;
+ASSIGN
+    init(f_x0) := FALSE;
+    init(f_x1) := FALSE;
+    init(f_x2) := FALSE;
+    init(d_x0) := FALSE;
+    init(d_x1) := FALSE;
+    init(d_x2) := FALSE;
+    init(c_x0) := FALSE;
+    init(c_x1) := FALSE;
+    init(c_x2) := FALSE;
+ASSIGN
+    next(x0) := case
+        (move_right | move_right_up | move_right_down) &  !(x0 & x1 & x2) : !x0;
+        (move_left | move_left_up | move_left_down) &  !(!x0 & !x1 & !x2) : !x0;
+        TRUE : x0;
+    esac;
+    next(x1) := case
+        (move_right | move_right_up | move_right_down) & (x0) & !(x0 & x1 & x2) : !x1;
+        (move_left | move_left_up | move_left_down) & (!x0) & !(!x0 & !x1 & !x2) : !x1;
+        TRUE : x1;
+    esac;
+    next(x2) := case
+        (move_right | move_right_up | move_right_down) & (x0 & x1) & !(x0 & x1 & x2) : !x2;
+        (move_left | move_left_up | move_left_down) & (!x0 & !x1) & !(!x0 & !x1 & !x2) : !x2;
+        TRUE : x2;
+    esac;
+    next(y0) := case
+        (move_up | move_left_up | move_right_up) &  !(y0 & y1 & y2) : !y0;
+        (move_down | move_left_down | move_right_down) &  !(!y0 & !y1 & !y2) : !y0;
+        TRUE : y0;
+    esac;
+    next(y1) := case
+        (move_up | move_left_up | move_right_up) & (y0) & !(y0 & y1 & y2) : !y1;
+        (move_down | move_left_down | move_right_down) & (!y0) & !(!y0 & !y1 & !y2) : !y1;
+        TRUE : y1;
+    esac;
+    next(y2) := case
+        (move_up | move_left_up | move_right_up) & (y0 & y1) & !(y0 & y1 & y2) : !y2;
+        (move_down | move_left_down | move_right_down) & (!y0 & !y1) & !(!y0 & !y1 & !y2) : !y2;
+        TRUE : y2;
+    esac;

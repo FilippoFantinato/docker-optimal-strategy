@@ -143,12 +143,12 @@ next(state) := case
    s3: 0;
    TRUE: state;
 esac;
-LTLSPEC (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((!x1 & x0) & (!y1 & y0))) & (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((x1 & !x0) & (y1 & !y0))) & (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((x1 & x0) & (y1 & y0)))
-VAR       time: 0..18;
-FROZENVAR maxtime: 0..18;
+LTLSPEC (!() U ((!x1 & x0) & (!y1 & y0))) & (!() U ((x1 & !x0) & (y1 & !y0))) & (!() U ((x1 & x0) & (y1 & y0)))
+VAR       time: 0..9;
+FROZENVAR maxtime: 0..9;
 ASSIGN
   init(time) := 0;
   next(time) := case
   s0 | s1 | s2 | s3 : 0;
-  time < 18 : time + 1; TRUE: time; esac;
-  PARSYNTH r := { maxtime | VALID  (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((!x1 & x0) & (!y1 & y0) & (time <= maxtime))) & (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((x1 & !x0) & (y1 & !y0) & (time <= maxtime))) & (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((x1 & x0) & (y1 & y0) & (time <= maxtime)))};
+  time < 9 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((!x1 & x0) & (!y1 & y0) & (time <= maxtime))) & (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((x1 & !x0) & (y1 & !y0) & (time <= maxtime))) & (!(((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0)) | ((!x1 & !x0) & (!y1 & y0)) | ((!x1 & x0) & (!y1 & !y0)) | ((x1 & !x0) & (y1 & y0)) | ((x1 & x0) & (y1 & !y0))) U ((x1 & x0) & (y1 & y0) & (time <= maxtime))) & G(time <= maxtime)};
