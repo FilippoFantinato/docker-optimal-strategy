@@ -9,9 +9,12 @@ VAR
     d_x1 : boolean;
     d_x2 : boolean;
     d_counter0 : boolean;
+    d_counter1 : boolean;
     c_x0 : boolean;
     c_x1 : boolean;
     c_x2 : boolean;
+    c_counter0 : boolean;
+    c_counter1 : boolean;
 DEFINE
     move_up := !move3 & !move2 & !move1 & !move0;
     move_down := !move3 & !move2 & !move1 & move0;
@@ -22,5 +25,20 @@ DEFINE
     move_left_up := !move3 & move2 & move1 & !move0;
     move_left_down := !move3 & move2 & move1 & move0;
     move_stop := move3 & !move2 & !move1 & !move0;
-
-
+ASSIGN
+    init(f_counter0) := FALSE;
+    init(f_counter1) := FALSE;
+    init(d_counter0) := FALSE;
+    init(d_counter1) := FALSE;
+    init(c_counter0) := FALSE;
+    init(c_counter1) := FALSE;
+ASSIGN
+    next(f_counter0) := !f_counter0; 
+    next(f_counter1) := case 
+        f_counter1 & f_counter0 : FALSE;
+        f_counter1 & !f_counter0 : TRUE;
+        !f_counter1 & f_counter0 : TRUE;
+        TRUE : FALSE;
+    esac;
+    next(d_counter0) := !d_counter0;
+    next(c_counter0) := !c_counter0;

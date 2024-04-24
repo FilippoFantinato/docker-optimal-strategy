@@ -382,18 +382,58 @@ generate_badstates() {
     echo $bs
 }
 
+# generate_ltlspec_until() {
+#     max_time=$((n * 3))
+#     bs=`generate_badstates`
+
+#     ltlspec="!($bs) U (((`x_equals_to 1`) & (`y_equals_to 1`))"
+#     for i in `seq 2 $n`; do
+#         ltlspec="$ltlspec & (!($bs) U (((`x_equals_to $i`) & (`y_equals_to $i`))"
+#     done
+#     for i in `seq 2 $n`; do
+#         ltlspec="$ltlspec))"
+#     done
+#     ltlspec="$ltlspec)"
+    
+#     echo -e "LTLSPEC $ltlspec" >> $controller
+# }
+
+# generate_synth_param_until() {
+#     max_time=$((n * 6))
+
+#     bs=`generate_badstates`
+
+#     synth_param=""
+#     for i in `seq 1 $((n-1))`; do
+#         synth_param="$synth_param(!($bs) U (((`x_equals_to $i`) & (`y_equals_to $i`)) & "
+#     done
+#     synth_param="$synth_param!($bs) U (((`x_equals_to $n`) & (`y_equals_to $n`)) & (time <= maxtime))"
+#     for i in `seq 1 $((n-1))`; do
+#         synth_param="$synth_param))"
+#     done
+
+#     echo -e "VAR       time: 0..$max_time;" >> $controller
+#     echo -e "FROZENVAR maxtime: 0..$max_time;" >> $controller
+#     echo -e "ASSIGN" >> $controller
+#     echo -e "  init(time) := 0;" >> $controller
+#     echo -e "  next(time) := case" >> $controller
+#     states="s0"
+#     for i in `seq 1 $n`; do
+#     states="$states | s$i"
+#     done 
+#     echo -e "  $states : 0;" >> $controller
+#     echo -e "  time < $max_time : time + 1; TRUE: time; esac;" >> $controller
+#     echo -e "  PARSYNTH r := { maxtime | VALID  $synth_param};" >> $controller
+# }
+
 generate_ltlspec_until() {
     max_time=$((n * 3))
     bs=`generate_badstates`
 
-    ltlspec="!($bs) U (((`x_equals_to 1`) & (`y_equals_to 1`))"
+    ltlspec="(!($bs) U ((`x_equals_to 1`) & (`y_equals_to 1`)))"
     for i in `seq 2 $n`; do
-        ltlspec="$ltlspec & (!($bs) U (((`x_equals_to $i`) & (`y_equals_to $i`))"
+        ltlspec="$ltlspec & (!($bs) U ((`x_equals_to $i`) & (`y_equals_to $i`)))"
     done
-    for i in `seq 2 $n`; do
-        ltlspec="$ltlspec))"
-    done
-    ltlspec="$ltlspec)"
     
     echo -e "LTLSPEC $ltlspec" >> $controller
 }
@@ -403,13 +443,9 @@ generate_synth_param_until() {
 
     bs=`generate_badstates`
 
-    synth_param=""
-    for i in `seq 1 $((n-1))`; do
-        synth_param="$synth_param(!($bs) U (((`x_equals_to $i`) & (`y_equals_to $i`)) & "
-    done
-    synth_param="$synth_param!($bs) U (((`x_equals_to $n`) & (`y_equals_to $n`)) & (time <= maxtime))"
-    for i in `seq 1 $((n-1))`; do
-        synth_param="$synth_param))"
+    synth_param="(!($bs) U ((`x_equals_to 1`) & (`y_equals_to 1`) & (time <= maxtime)))"
+    for i in `seq 2 $n`; do
+        synth_param="$synth_param & (!($bs) U ((`x_equals_to $i`) & (`y_equals_to $i`) & (time <= maxtime)))"
     done
 
     echo -e "VAR       time: 0..$max_time;" >> $controller
