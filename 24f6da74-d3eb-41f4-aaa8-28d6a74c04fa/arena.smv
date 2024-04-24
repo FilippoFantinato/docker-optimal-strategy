@@ -1,5 +1,6 @@
 MODULE ltl_spec_0(move0,move1,move2,move3,x0,x1,x2,x3,y0,y1,y2,y3)
 VAR
+   EBR_0_ERROR_12 : boolean;
    EBR_0_ERROR_11 : boolean;
    EBR_0_ERROR_10 : boolean;
    EBR_0_ERROR_9 : boolean;
@@ -21,8 +22,10 @@ VAR
    EBR_0_COUNTER_1 : boolean;
    EBR_0_COUNTER_0 : boolean;
 DEFINE
-   EBR_0_ERROR := (!EBR_0_EXPIRED & !(((((((((((!EBR_0_ERROR_0 | !EBR_0_ERROR_1) | !EBR_0_ERROR_2) | !EBR_0_ERROR_3) | !EBR_0_ERROR_4) | !EBR_0_ERROR_5) | !EBR_0_ERROR_6) | !EBR_0_ERROR_7) | !EBR_0_ERROR_8) | !EBR_0_ERROR_9) | !EBR_0_ERROR_10) | !EBR_0_ERROR_11));
+   EBR_0_ERROR := (!EBR_0_EXPIRED & !((((((((((((!EBR_0_ERROR_0 | !EBR_0_ERROR_1) | !EBR_0_ERROR_2) | !EBR_0_ERROR_3) | !EBR_0_ERROR_4) | !EBR_0_ERROR_5) | !EBR_0_ERROR_6) | !EBR_0_ERROR_7) | !EBR_0_ERROR_8) | !EBR_0_ERROR_9) | !EBR_0_ERROR_10) | !EBR_0_ERROR_11) | !EBR_0_ERROR_12));
    EBR_0_EXPIRED := (EBR_0_COUNTER_7 | (EBR_0_COUNTER_6 & (EBR_0_COUNTER_5 & (EBR_0_COUNTER_4 | (EBR_0_COUNTER_3 | (EBR_0_COUNTER_2 & (EBR_0_COUNTER_1 | EBR_0_COUNTER_0)))))));
+ASSIGN
+   init(EBR_0_ERROR_12) := FALSE;
 ASSIGN
    init(EBR_0_ERROR_11) := FALSE;
 ASSIGN
@@ -63,6 +66,11 @@ ASSIGN
    init(EBR_0_COUNTER_1) := FALSE;
 ASSIGN
    init(EBR_0_COUNTER_0) := FALSE;
+ASSIGN
+   next(EBR_0_ERROR_12) := case
+(!EBR_0_ERROR_12 & ((((!x3 | !x2) | x1) | !x0) | (((!y3 | !y2) | y1) | !y0))) : FALSE;
+TRUE : TRUE;
+esac;
 ASSIGN
    next(EBR_0_ERROR_11) := case
 (!EBR_0_ERROR_11 & ((((!x3 | !x2) | x1) | x0) | (((!y3 | !y2) | y1) | y0))) : FALSE;
@@ -158,7 +166,7 @@ VAR
    MON_0_ERROR_x0 : boolean;
    MON_0_SIM_x0 : boolean;
 DEFINE
-   MON_0_ERROR := (MON_0_ERROR_y3 | (MON_0_ERROR_x3 | (MON_0_ERROR_y2 | (MON_0_ERROR_x2 | (MON_0_ERROR_y1 | (MON_0_ERROR_x1 | (MON_0_ERROR_y0 | MON_0_ERROR_x0)))))));
+   MON_0_ERROR := (MON_0_ERROR_y0 | (MON_0_ERROR_x0 | (MON_0_ERROR_y3 | (MON_0_ERROR_x3 | (MON_0_ERROR_y2 | (MON_0_ERROR_x2 | (MON_0_ERROR_y1 | MON_0_ERROR_x1)))))));
    move_stop := (((move3 & !move2) & !move1) & !move0);
    move_left_down := (((!move3 & move2) & move1) & move0);
    move_left_up := (((!move3 & move2) & move1) & !move0);
@@ -168,6 +176,14 @@ DEFINE
    move_right := (((!move3 & !move2) & move1) & !move0);
    move_down := (((!move3 & !move2) & !move1) & move0);
    move_up := (((!move3 & !move2) & !move1) & !move0);
+ASSIGN
+   init(MON_0_ERROR_y0) := FALSE;
+ASSIGN
+   init(MON_0_SIM_y0) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_x0) := FALSE;
+ASSIGN
+   init(MON_0_SIM_x0) := FALSE;
 ASSIGN
    init(MON_0_ERROR_y3) := FALSE;
 ASSIGN
@@ -193,13 +209,21 @@ ASSIGN
 ASSIGN
    init(MON_0_SIM_x1) := FALSE;
 ASSIGN
-   init(MON_0_ERROR_y0) := FALSE;
+   next(MON_0_ERROR_y0) := (MON_0_ERROR_y0 | MON_0_SIM_y0 != y0);
 ASSIGN
-   init(MON_0_SIM_y0) := FALSE;
+   next(MON_0_SIM_y0) := case
+(((move_up | move_left_up) | move_right_up) & !(((MON_0_SIM_y0 & MON_0_SIM_y1) & MON_0_SIM_y2) & MON_0_SIM_y3)) : !MON_0_SIM_y0;
+(((move_down | move_left_down) | move_right_down) & !(((!MON_0_SIM_y0 & !MON_0_SIM_y1) & !MON_0_SIM_y2) & !MON_0_SIM_y3)) : !MON_0_SIM_y0;
+TRUE : MON_0_SIM_y0;
+esac;
 ASSIGN
-   init(MON_0_ERROR_x0) := FALSE;
+   next(MON_0_ERROR_x0) := (MON_0_ERROR_x0 | MON_0_SIM_x0 != x0);
 ASSIGN
-   init(MON_0_SIM_x0) := FALSE;
+   next(MON_0_SIM_x0) := case
+(((move_right | move_right_up) | move_right_down) & !(((MON_0_SIM_x0 & MON_0_SIM_x1) & MON_0_SIM_x2) & MON_0_SIM_x3)) : !MON_0_SIM_x0;
+(((move_left | move_left_up) | move_left_down) & !(((!MON_0_SIM_x0 & !MON_0_SIM_x1) & !MON_0_SIM_x2) & !MON_0_SIM_x3)) : !MON_0_SIM_x0;
+TRUE : MON_0_SIM_x0;
+esac;
 ASSIGN
    next(MON_0_ERROR_y3) := (MON_0_ERROR_y3 | MON_0_SIM_y3 != y3);
 ASSIGN
@@ -247,22 +271,6 @@ ASSIGN
 ((((move_right | move_right_up) | move_right_down) & MON_0_SIM_x0) & !(((MON_0_SIM_x0 & MON_0_SIM_x1) & MON_0_SIM_x2) & MON_0_SIM_x3)) : !MON_0_SIM_x1;
 ((((move_left | move_left_up) | move_left_down) & !MON_0_SIM_x0) & !(((!MON_0_SIM_x0 & !MON_0_SIM_x1) & !MON_0_SIM_x2) & !MON_0_SIM_x3)) : !MON_0_SIM_x1;
 TRUE : MON_0_SIM_x1;
-esac;
-ASSIGN
-   next(MON_0_ERROR_y0) := (MON_0_ERROR_y0 | MON_0_SIM_y0 != y0);
-ASSIGN
-   next(MON_0_SIM_y0) := case
-(((move_up | move_left_up) | move_right_up) & !(((MON_0_SIM_y0 & MON_0_SIM_y1) & MON_0_SIM_y2) & MON_0_SIM_y3)) : !MON_0_SIM_y0;
-(((move_down | move_left_down) | move_right_down) & !(((!MON_0_SIM_y0 & !MON_0_SIM_y1) & !MON_0_SIM_y2) & !MON_0_SIM_y3)) : !MON_0_SIM_y0;
-TRUE : MON_0_SIM_y0;
-esac;
-ASSIGN
-   next(MON_0_ERROR_x0) := (MON_0_ERROR_x0 | MON_0_SIM_x0 != x0);
-ASSIGN
-   next(MON_0_SIM_x0) := case
-(((move_right | move_right_up) | move_right_down) & !(((MON_0_SIM_x0 & MON_0_SIM_x1) & MON_0_SIM_x2) & MON_0_SIM_x3)) : !MON_0_SIM_x0;
-(((move_left | move_left_up) | move_left_down) & !(((!MON_0_SIM_x0 & !MON_0_SIM_x1) & !MON_0_SIM_x2) & !MON_0_SIM_x3)) : !MON_0_SIM_x0;
-TRUE : MON_0_SIM_x0;
 esac;
 MODULE main IVAR move0 : boolean;move1 : boolean;move2 : boolean;move3 : boolean;x0 : boolean;x1 : boolean;x2 : boolean;x3 : boolean;y0 : boolean;y1 : boolean;y2 : boolean;y3 : boolean; VAR phi: ltl_spec_0(move0,move1,move2,move3,x0,x1,x2,x3,y0,y1,y2,y3); plant: monitor_0(move0,move1,move2,move3,x0,x1,x2,x3,y0,y1,y2,y3);
 INVARSPEC !plant.MON_0_ERROR & !phi.EBR_0_ERROR

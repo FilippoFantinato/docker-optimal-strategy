@@ -57,3 +57,7 @@ Running: ./benchmark/driver/finally/9/9-driver.controller.smv
 Running: ./benchmark/driver/finally/10/10-driver.controller.smv
 Running: ./benchmark/driver/finally/11/11-driver.controller.smv
 Running: ./benchmark/driver/finally/12/12-driver.controller.smv
+Running: ./benchmark/formulas/both/first/10/10-both.controller.smv
+Running: ./benchmark/formulas/both/first/10/10-both.controller.smv
+Running: ./benchmark/formulas/both/first/10/10-both.controller.smv
+Running: ./benchmark/driver/finally/13/13-driver.controller.smv
