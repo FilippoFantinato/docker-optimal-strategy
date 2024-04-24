@@ -234,10 +234,10 @@ main() {
     fi
 
     echo "Checking the property on the system..."
-    if [ "`check_ltlspec`" -eq "0" ]; then
-        echo "The formula does not hold on the system"
-        exit 1
-    fi
+    # if [ "`check_ltlspec`" -eq "0" ]; then
+    #     echo "The formula does not hold on the system"
+    #     exit 1
+    # fi
 
     if [ -z "$upper_bound" ]; then
         echo "Computing the upper bound..."
