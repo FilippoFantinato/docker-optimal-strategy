@@ -427,8 +427,7 @@ generate_badstates() {
 # }
 
 generate_ltlspec_until() {
-    max_time=$((n * 3))
-
+    bs=`generate_badstates`
     ltlspec="(!($bs) U ((`x_equals_to 1`) & (`y_equals_to 1`)))"
     for i in `seq 2 $n`; do
         ltlspec="$ltlspec & (!($bs) U ((`x_equals_to $i`) & (`y_equals_to $i`)))"
@@ -446,7 +445,6 @@ generate_synth_param_until() {
     for i in `seq 2 $n`; do
         synth_param="$synth_param & (!($bs) U ((`x_equals_to $i`) & (`y_equals_to $i`) & (time <= maxtime)))"
     done
-    synth_param="$synth_param & G(time <= maxtime)"
 
     echo -e "VAR       time: 0..$max_time;" >> $controller
     echo -e "FROZENVAR maxtime: 0..$max_time;" >> $controller
