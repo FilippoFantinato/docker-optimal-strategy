@@ -1,0 +1,54 @@
+MODULE ltl_spec_0(move0,move1,move2,move3,f_x0,f_x1,f_x2,f_y0,f_y1,f_y2,c_x0,c_x1,c_x2,c_y0,c_y1,c_y2,d_x0,d_x1,d_x2,d_y0,d_y1,d_y2,f_counter0,d_counter0,d_counter1,c_counter0,c_counter1)
+VAR
+   EBR_0_PAST_1 : boolean;
+   EBR_0_ERROR_0 : boolean;
+   EBR_0_COUNTER_5 : boolean;
+   EBR_0_COUNTER_4 : boolean;
+   EBR_0_COUNTER_3 : boolean;
+   EBR_0_COUNTER_2 : boolean;
+   EBR_0_COUNTER_1 : boolean;
+   EBR_0_COUNTER_0 : boolean;
+DEFINE
+   EBR_0_ERROR := (!EBR_0_EXPIRED & EBR_0_ERROR_0);
+   EBR_0_EXPIRED := (EBR_0_COUNTER_5 | EBR_0_COUNTER_4);
+ASSIGN
+   init(EBR_0_PAST_1) := FALSE;
+ASSIGN
+   init(EBR_0_ERROR_0) := FALSE;
+ASSIGN
+   init(EBR_0_COUNTER_5) := FALSE;
+ASSIGN
+   init(EBR_0_COUNTER_4) := FALSE;
+ASSIGN
+   init(EBR_0_COUNTER_3) := FALSE;
+ASSIGN
+   init(EBR_0_COUNTER_2) := FALSE;
+ASSIGN
+   init(EBR_0_COUNTER_1) := FALSE;
+ASSIGN
+   init(EBR_0_COUNTER_0) := FALSE;
+ASSIGN
+   next(EBR_0_PAST_1) := case
+(((((!(f_x2 != d_x2) & (!(f_x2 = d_x2) | !(f_x1 != d_x1))) & ((!(f_x2 = d_x2) | !(f_x1 = d_x1)) | !(f_x0 != d_x0))) & !(f_y2 != d_y2)) & (!(f_y2 = d_y2) | !(f_y1 != d_y1))) & ((!(f_y2 = d_y2) | !(f_y1 = d_y1)) | !(f_y0 != d_y0))) : TRUE;
+EBR_0_PAST_1 : TRUE;
+TRUE : FALSE;
+esac;
+ASSIGN
+   next(EBR_0_ERROR_0) := case
+(!EBR_0_ERROR_0 & EBR_0_PAST_1) : FALSE;
+(!EBR_0_ERROR_0 & ((((((!(f_x2 != d_x2) & (!(f_x2 = d_x2) | !(f_x1 != d_x1))) & ((!(f_x2 = d_x2) | !(f_x1 = d_x1)) | !(f_x0 != d_x0))) & !(f_y2 != d_y2)) & (!(f_y2 = d_y2) | !(f_y1 != d_y1))) & ((!(f_y2 = d_y2) | !(f_y1 = d_y1)) | !(f_y0 != d_y0))) & (((((!(f_x2 = c_x2) | !(f_x1 = c_x1)) | !(f_x0 = c_x0)) | !(f_y2 = c_y2)) | !(f_y1 = c_y1)) | !(f_y0 = c_y0)))) : FALSE;
+(!EBR_0_ERROR_0 & (((((!(f_x2 = c_x2) | !(f_x1 = c_x1)) | !(f_x0 = c_x0)) | !(f_y2 = c_y2)) | !(f_y1 = c_y1)) | !(f_y0 = c_y0))) : FALSE;
+TRUE : TRUE;
+esac;
+ASSIGN
+   next(EBR_0_COUNTER_5) := ((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) | ((EBR_0_COUNTER_4 & (EBR_0_COUNTER_3 & (EBR_0_COUNTER_2 & (EBR_0_COUNTER_1 & EBR_0_COUNTER_0)))) <-> !EBR_0_COUNTER_5));
+ASSIGN
+   next(EBR_0_COUNTER_4) := ((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) | ((EBR_0_COUNTER_3 & (EBR_0_COUNTER_2 & (EBR_0_COUNTER_1 & EBR_0_COUNTER_0))) <-> !EBR_0_COUNTER_4));
+ASSIGN
+   next(EBR_0_COUNTER_3) := ((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) | ((EBR_0_COUNTER_2 & (EBR_0_COUNTER_1 & EBR_0_COUNTER_0)) <-> !EBR_0_COUNTER_3));
+ASSIGN
+   next(EBR_0_COUNTER_2) := ((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) | ((EBR_0_COUNTER_1 & EBR_0_COUNTER_0) <-> !EBR_0_COUNTER_2));
+ASSIGN
+   next(EBR_0_COUNTER_1) := ((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) | (EBR_0_COUNTER_0 <-> !EBR_0_COUNTER_1));
+ASSIGN
+   next(EBR_0_COUNTER_0) := ((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) | !EBR_0_COUNTER_0);

@@ -1,4 +1,6 @@
-MODULE Plant(move0, move1, move2, move3)
+MODULE main
+IVAR
+move0 : boolean;move1 : boolean;move2 : boolean;move3 : boolean;
 VAR
     f_x0 : boolean;
     f_x1 : boolean;
