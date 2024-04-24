@@ -1,5 +1,6 @@
-MODULE ltl_spec_0(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11)
+MODULE ltl_spec_0(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12)
 VAR
+   EBR_0_ERROR_12 : boolean;
    EBR_0_ERROR_11 : boolean;
    EBR_0_ERROR_10 : boolean;
    EBR_0_ERROR_9 : boolean;
@@ -21,8 +22,10 @@ VAR
    EBR_0_COUNTER_1 : boolean;
    EBR_0_COUNTER_0 : boolean;
 DEFINE
-   EBR_0_ERROR := (!EBR_0_EXPIRED & !(((((((((((!EBR_0_ERROR_0 | !EBR_0_ERROR_1) | !EBR_0_ERROR_2) | !EBR_0_ERROR_3) | !EBR_0_ERROR_4) | !EBR_0_ERROR_5) | !EBR_0_ERROR_6) | !EBR_0_ERROR_7) | !EBR_0_ERROR_8) | !EBR_0_ERROR_9) | !EBR_0_ERROR_10) | !EBR_0_ERROR_11));
+   EBR_0_ERROR := (!EBR_0_EXPIRED & !((((((((((((!EBR_0_ERROR_0 | !EBR_0_ERROR_1) | !EBR_0_ERROR_2) | !EBR_0_ERROR_3) | !EBR_0_ERROR_4) | !EBR_0_ERROR_5) | !EBR_0_ERROR_6) | !EBR_0_ERROR_7) | !EBR_0_ERROR_8) | !EBR_0_ERROR_9) | !EBR_0_ERROR_10) | !EBR_0_ERROR_11) | !EBR_0_ERROR_12));
    EBR_0_EXPIRED := (EBR_0_COUNTER_7 | (EBR_0_COUNTER_6 & (EBR_0_COUNTER_5 & (EBR_0_COUNTER_4 | (EBR_0_COUNTER_3 | (EBR_0_COUNTER_2 & (EBR_0_COUNTER_1 | EBR_0_COUNTER_0)))))));
+ASSIGN
+   init(EBR_0_ERROR_12) := FALSE;
 ASSIGN
    init(EBR_0_ERROR_11) := FALSE;
 ASSIGN
@@ -63,6 +66,12 @@ ASSIGN
    init(EBR_0_COUNTER_1) := FALSE;
 ASSIGN
    init(EBR_0_COUNTER_0) := FALSE;
+ASSIGN
+   next(EBR_0_ERROR_12) := case
+(!EBR_0_COUNTER_7 & (!EBR_0_COUNTER_6 & (!EBR_0_COUNTER_5 & (!EBR_0_COUNTER_4 & (!EBR_0_COUNTER_3 | !EBR_0_COUNTER_2))))) : FALSE;
+(!EBR_0_ERROR_12 & ((c12 & !u12) | (u12 & !c12))) : FALSE;
+TRUE : TRUE;
+esac;
 ASSIGN
    next(EBR_0_ERROR_11) := case
 (!EBR_0_COUNTER_7 & (!EBR_0_COUNTER_6 & (!EBR_0_COUNTER_5 & (!EBR_0_COUNTER_4 & (!EBR_0_COUNTER_3 | (!EBR_0_COUNTER_2 & (!EBR_0_COUNTER_1 | !EBR_0_COUNTER_0))))))) : FALSE;
@@ -150,3 +159,139 @@ ASSIGN
    next(EBR_0_COUNTER_1) := ((((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) & EBR_0_COUNTER_6) & EBR_0_COUNTER_7) | (EBR_0_COUNTER_0 <-> !EBR_0_COUNTER_1));
 ASSIGN
    next(EBR_0_COUNTER_0) := ((((((((EBR_0_COUNTER_0 & EBR_0_COUNTER_1) & EBR_0_COUNTER_2) & EBR_0_COUNTER_3) & EBR_0_COUNTER_4) & EBR_0_COUNTER_5) & EBR_0_COUNTER_6) & EBR_0_COUNTER_7) | !EBR_0_COUNTER_0);
+MODULE monitor_0(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12)
+VAR
+   MON_0_ERROR_u12 : boolean;
+   MON_0_SIM_u12 : boolean;
+   MON_0_ERROR_u11 : boolean;
+   MON_0_SIM_u11 : boolean;
+   MON_0_ERROR_u10 : boolean;
+   MON_0_SIM_u10 : boolean;
+   MON_0_ERROR_u9 : boolean;
+   MON_0_SIM_u9 : boolean;
+   MON_0_ERROR_u8 : boolean;
+   MON_0_SIM_u8 : boolean;
+   MON_0_ERROR_u7 : boolean;
+   MON_0_SIM_u7 : boolean;
+   MON_0_ERROR_u6 : boolean;
+   MON_0_SIM_u6 : boolean;
+   MON_0_ERROR_u5 : boolean;
+   MON_0_SIM_u5 : boolean;
+   MON_0_ERROR_u4 : boolean;
+   MON_0_SIM_u4 : boolean;
+   MON_0_ERROR_u3 : boolean;
+   MON_0_SIM_u3 : boolean;
+   MON_0_ERROR_u2 : boolean;
+   MON_0_SIM_u2 : boolean;
+   MON_0_ERROR_u1 : boolean;
+   MON_0_SIM_u1 : boolean;
+   MON_0_ERROR_u0 : boolean;
+   MON_0_SIM_u0 : boolean;
+DEFINE
+   MON_0_ERROR := (MON_0_ERROR_u10 | (MON_0_ERROR_u6 | (MON_0_ERROR_u2 | (MON_0_ERROR_u9 | (MON_0_ERROR_u5 | (MON_0_ERROR_u1 | (MON_0_ERROR_u12 | (MON_0_ERROR_u8 | (MON_0_ERROR_u4 | (MON_0_ERROR_u0 | (MON_0_ERROR_u11 | (MON_0_ERROR_u7 | MON_0_ERROR_u3))))))))))));
+ASSIGN
+   init(MON_0_ERROR_u10) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u10) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u6) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u6) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u2) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u2) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u9) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u9) := TRUE;
+ASSIGN
+   init(MON_0_ERROR_u5) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u5) := TRUE;
+ASSIGN
+   init(MON_0_ERROR_u1) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u1) := TRUE;
+ASSIGN
+   init(MON_0_ERROR_u12) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u12) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u8) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u8) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u4) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u4) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u0) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u0) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u11) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u11) := TRUE;
+ASSIGN
+   init(MON_0_ERROR_u7) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u7) := TRUE;
+ASSIGN
+   init(MON_0_ERROR_u3) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u3) := TRUE;
+ASSIGN
+   next(MON_0_ERROR_u10) := (MON_0_ERROR_u10 | MON_0_SIM_u10 != u10);
+ASSIGN
+   next(MON_0_SIM_u10) := !MON_0_SIM_u10;
+ASSIGN
+   next(MON_0_ERROR_u6) := (MON_0_ERROR_u6 | MON_0_SIM_u6 != u6);
+ASSIGN
+   next(MON_0_SIM_u6) := !MON_0_SIM_u6;
+ASSIGN
+   next(MON_0_ERROR_u2) := (MON_0_ERROR_u2 | MON_0_SIM_u2 != u2);
+ASSIGN
+   next(MON_0_SIM_u2) := !MON_0_SIM_u2;
+ASSIGN
+   next(MON_0_ERROR_u9) := (MON_0_ERROR_u9 | MON_0_SIM_u9 != u9);
+ASSIGN
+   next(MON_0_SIM_u9) := !MON_0_SIM_u9;
+ASSIGN
+   next(MON_0_ERROR_u5) := (MON_0_ERROR_u5 | MON_0_SIM_u5 != u5);
+ASSIGN
+   next(MON_0_SIM_u5) := !MON_0_SIM_u5;
+ASSIGN
+   next(MON_0_ERROR_u1) := (MON_0_ERROR_u1 | MON_0_SIM_u1 != u1);
+ASSIGN
+   next(MON_0_SIM_u1) := !MON_0_SIM_u1;
+ASSIGN
+   next(MON_0_ERROR_u12) := (MON_0_ERROR_u12 | MON_0_SIM_u12 != u12);
+ASSIGN
+   next(MON_0_SIM_u12) := !MON_0_SIM_u12;
+ASSIGN
+   next(MON_0_ERROR_u8) := (MON_0_ERROR_u8 | MON_0_SIM_u8 != u8);
+ASSIGN
+   next(MON_0_SIM_u8) := !MON_0_SIM_u8;
+ASSIGN
+   next(MON_0_ERROR_u4) := (MON_0_ERROR_u4 | MON_0_SIM_u4 != u4);
+ASSIGN
+   next(MON_0_SIM_u4) := !MON_0_SIM_u4;
+ASSIGN
+   next(MON_0_ERROR_u0) := (MON_0_ERROR_u0 | MON_0_SIM_u0 != u0);
+ASSIGN
+   next(MON_0_SIM_u0) := !MON_0_SIM_u0;
+ASSIGN
+   next(MON_0_ERROR_u11) := (MON_0_ERROR_u11 | MON_0_SIM_u11 != u11);
+ASSIGN
+   next(MON_0_SIM_u11) := !MON_0_SIM_u11;
+ASSIGN
+   next(MON_0_ERROR_u7) := (MON_0_ERROR_u7 | MON_0_SIM_u7 != u7);
+ASSIGN
+   next(MON_0_SIM_u7) := !MON_0_SIM_u7;
+ASSIGN
+   next(MON_0_ERROR_u3) := (MON_0_ERROR_u3 | MON_0_SIM_u3 != u3);
+ASSIGN
+   next(MON_0_SIM_u3) := !MON_0_SIM_u3;
+MODULE main IVAR c0 : boolean;c1 : boolean;c2 : boolean;c3 : boolean;c4 : boolean;c5 : boolean;c6 : boolean;c7 : boolean;c8 : boolean;c9 : boolean;c10 : boolean;c11 : boolean;c12 : boolean;u0 : boolean;u1 : boolean;u2 : boolean;u3 : boolean;u4 : boolean;u5 : boolean;u6 : boolean;u7 : boolean;u8 : boolean;u9 : boolean;u10 : boolean;u11 : boolean;u12 : boolean; VAR phi: ltl_spec_0(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12); plant: monitor_0(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12);
+INVARSPEC !plant.MON_0_ERROR & !phi.EBR_0_ERROR

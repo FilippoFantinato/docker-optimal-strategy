@@ -1,6 +1,6 @@
 MODULE main
 IVAR
-c0 : boolean;c1 : boolean;c2 : boolean;c3 : boolean;c4 : boolean;c5 : boolean;c6 : boolean;c7 : boolean;c8 : boolean;c9 : boolean;c10 : boolean;c11 : boolean;
+c0 : boolean;c1 : boolean;c2 : boolean;c3 : boolean;c4 : boolean;c5 : boolean;c6 : boolean;c7 : boolean;c8 : boolean;c9 : boolean;c10 : boolean;c11 : boolean;c12 : boolean;
 VAR
 	u0 : boolean;
 	u1 : boolean;
@@ -14,6 +14,7 @@ VAR
 	u9 : boolean;
 	u10 : boolean;
 	u11 : boolean;
+	u12 : boolean;
 ASSIGN
 	init(u0) := FALSE;
 	next(u0) := !u0;
@@ -39,3 +40,5 @@ ASSIGN
 	next(u10) := !u10;
 	init(u11) := TRUE;
 	next(u11) := !u11;
+	init(u12) := FALSE;
+	next(u12) := !u12;

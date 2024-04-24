@@ -33,3 +33,4 @@ Running: ./benchmark/formulas/co-safety/second/12/12-co-safety.controller.smv
 Running: ./benchmark/driver/until/9/9-driver.controller.smv
 Running: ./benchmark/formulas/co-safety/second/13/13-co-safety.controller.smv
 Running: ./benchmark/driver/until/10/10-driver.controller.smv
+Running: ./benchmark/formulas/co-safety/first/13/13-co-safety.controller.smv

@@ -1,5 +1,7 @@
-MODULE monitor_0(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11)
+MODULE monitor_0(c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12)
 VAR
+   MON_0_ERROR_u12 : boolean;
+   MON_0_SIM_u12 : boolean;
    MON_0_ERROR_u11 : boolean;
    MON_0_SIM_u11 : boolean;
    MON_0_ERROR_u10 : boolean;
@@ -25,7 +27,23 @@ VAR
    MON_0_ERROR_u0 : boolean;
    MON_0_SIM_u0 : boolean;
 DEFINE
-   MON_0_ERROR := (MON_0_ERROR_u5 | (MON_0_ERROR_u1 | (MON_0_ERROR_u8 | (MON_0_ERROR_u4 | (MON_0_ERROR_u0 | (MON_0_ERROR_u11 | (MON_0_ERROR_u7 | (MON_0_ERROR_u3 | (MON_0_ERROR_u10 | (MON_0_ERROR_u6 | (MON_0_ERROR_u2 | MON_0_ERROR_u9)))))))))));
+   MON_0_ERROR := (MON_0_ERROR_u10 | (MON_0_ERROR_u6 | (MON_0_ERROR_u2 | (MON_0_ERROR_u9 | (MON_0_ERROR_u5 | (MON_0_ERROR_u1 | (MON_0_ERROR_u12 | (MON_0_ERROR_u8 | (MON_0_ERROR_u4 | (MON_0_ERROR_u0 | (MON_0_ERROR_u11 | (MON_0_ERROR_u7 | MON_0_ERROR_u3))))))))))));
+ASSIGN
+   init(MON_0_ERROR_u10) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u10) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u6) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u6) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u2) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u2) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u9) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u9) := TRUE;
 ASSIGN
    init(MON_0_ERROR_u5) := FALSE;
 ASSIGN
@@ -34,6 +52,10 @@ ASSIGN
    init(MON_0_ERROR_u1) := FALSE;
 ASSIGN
    init(MON_0_SIM_u1) := TRUE;
+ASSIGN
+   init(MON_0_ERROR_u12) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u12) := FALSE;
 ASSIGN
    init(MON_0_ERROR_u8) := FALSE;
 ASSIGN
@@ -59,21 +81,21 @@ ASSIGN
 ASSIGN
    init(MON_0_SIM_u3) := TRUE;
 ASSIGN
-   init(MON_0_ERROR_u10) := FALSE;
+   next(MON_0_ERROR_u10) := (MON_0_ERROR_u10 | MON_0_SIM_u10 != u10);
 ASSIGN
-   init(MON_0_SIM_u10) := FALSE;
+   next(MON_0_SIM_u10) := !MON_0_SIM_u10;
 ASSIGN
-   init(MON_0_ERROR_u6) := FALSE;
+   next(MON_0_ERROR_u6) := (MON_0_ERROR_u6 | MON_0_SIM_u6 != u6);
 ASSIGN
-   init(MON_0_SIM_u6) := FALSE;
+   next(MON_0_SIM_u6) := !MON_0_SIM_u6;
 ASSIGN
-   init(MON_0_ERROR_u2) := FALSE;
+   next(MON_0_ERROR_u2) := (MON_0_ERROR_u2 | MON_0_SIM_u2 != u2);
 ASSIGN
-   init(MON_0_SIM_u2) := FALSE;
+   next(MON_0_SIM_u2) := !MON_0_SIM_u2;
 ASSIGN
-   init(MON_0_ERROR_u9) := FALSE;
+   next(MON_0_ERROR_u9) := (MON_0_ERROR_u9 | MON_0_SIM_u9 != u9);
 ASSIGN
-   init(MON_0_SIM_u9) := TRUE;
+   next(MON_0_SIM_u9) := !MON_0_SIM_u9;
 ASSIGN
    next(MON_0_ERROR_u5) := (MON_0_ERROR_u5 | MON_0_SIM_u5 != u5);
 ASSIGN
@@ -82,6 +104,10 @@ ASSIGN
    next(MON_0_ERROR_u1) := (MON_0_ERROR_u1 | MON_0_SIM_u1 != u1);
 ASSIGN
    next(MON_0_SIM_u1) := !MON_0_SIM_u1;
+ASSIGN
+   next(MON_0_ERROR_u12) := (MON_0_ERROR_u12 | MON_0_SIM_u12 != u12);
+ASSIGN
+   next(MON_0_SIM_u12) := !MON_0_SIM_u12;
 ASSIGN
    next(MON_0_ERROR_u8) := (MON_0_ERROR_u8 | MON_0_SIM_u8 != u8);
 ASSIGN
@@ -106,19 +132,3 @@ ASSIGN
    next(MON_0_ERROR_u3) := (MON_0_ERROR_u3 | MON_0_SIM_u3 != u3);
 ASSIGN
    next(MON_0_SIM_u3) := !MON_0_SIM_u3;
-ASSIGN
-   next(MON_0_ERROR_u10) := (MON_0_ERROR_u10 | MON_0_SIM_u10 != u10);
-ASSIGN
-   next(MON_0_SIM_u10) := !MON_0_SIM_u10;
-ASSIGN
-   next(MON_0_ERROR_u6) := (MON_0_ERROR_u6 | MON_0_SIM_u6 != u6);
-ASSIGN
-   next(MON_0_SIM_u6) := !MON_0_SIM_u6;
-ASSIGN
-   next(MON_0_ERROR_u2) := (MON_0_ERROR_u2 | MON_0_SIM_u2 != u2);
-ASSIGN
-   next(MON_0_SIM_u2) := !MON_0_SIM_u2;
-ASSIGN
-   next(MON_0_ERROR_u9) := (MON_0_ERROR_u9 | MON_0_SIM_u9 != u9);
-ASSIGN
-   next(MON_0_SIM_u9) := !MON_0_SIM_u9;
