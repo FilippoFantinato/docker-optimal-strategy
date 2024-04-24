@@ -372,33 +372,45 @@ generate_synth_param_finally() {
     echo -e "  PARSYNTH r := { maxtime | VALID  $synth_param};" >> $controller
 }
 
+generate_badstates() {
+    bs="((`x_equals_to 2`) & (`y_equals_to 3`)) | ((`x_equals_to 3`) & (`y_equals_to 2`))"
+    for i in `seq 2 $n`; do
+        a=$((2*i))
+        b=$((2*i + 1))
+        bs="$bs | ((`x_equals_to $a`) & (`y_equals_to $b`)) | ((`x_equals_to $b`) & (`y_equals_to $a`))"
+    done
+    echo $bs
+}
+
 generate_ltlspec_until() {
     max_time=$((n * 3))
+    bs=`generate_badstates`
 
-    ltlspec="G (((`x_equals_to 0`) & (`y_equals_to 0`)) ->"
-    for i in `seq 1 $n`; do
-        ltlspec="$ltlspec F[0,3] (((`x_equals_to $i`) & (`y_equals_to $i`)) &"
+    ltlspec="!($bs) U (((`x_equals_to 1`) & (`y_equals_to 1`))"
+    for i in `seq 2 $n`; do
+        ltlspec="$ltlspec & (!($bs) U (((`x_equals_to $i`) & (`y_equals_to $i`))"
     done
-    ltlspec="$ltlspec F[0,$max_time] ((`x_equals_to 0`) & (`y_equals_to 0`)))"
-    for i in `seq 1 $n`; do
-        ltlspec="$ltlspec)"
+    for i in `seq 2 $n`; do
+        ltlspec="$ltlspec))"
     done
+    ltlspec="$ltlspec)"
     
     echo -e "LTLSPEC $ltlspec" >> $controller
 }
 
 generate_synth_param_until() {
-    max_time=$((n * 3))
+    max_time=$((n * 6))
 
-    synth_param="G (s0 ->"
-    for i in `seq 1 $n`; do
-        synth_param="$synth_param F[0,3] (s$i &"
+    bs=`generate_badstates`
+
+    synth_param=""
+    for i in `seq 1 $((n-1))`; do
+        synth_param="$synth_param(!($bs) U (((`x_equals_to $i`) & (`y_equals_to $i`)) & "
     done
-    synth_param="$synth_param F[0,$max_time] s0)"
-    for i in `seq 1 $n`; do
-        synth_param="$synth_param)"
+    synth_param="$synth_param!($bs) U (((`x_equals_to $n`) & (`y_equals_to $n`)) & (time <= maxtime))"
+    for i in `seq 1 $((n-1))`; do
+        synth_param="$synth_param))"
     done
-    synth_param="$synth_param & G(time <= maxtime)"
 
     echo -e "VAR       time: 0..$max_time;" >> $controller
     echo -e "FROZENVAR maxtime: 0..$max_time;" >> $controller

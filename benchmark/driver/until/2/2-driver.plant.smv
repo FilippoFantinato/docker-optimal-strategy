@@ -1,0 +1,42 @@
+MODULE Machine(move0, move1, move2, move3)
+VAR
+   x0 : boolean;
+   x1 : boolean;
+   y0 : boolean;
+   y1 : boolean;
+DEFINE
+    move_up := !move3 & !move2 & !move1 & !move0;
+    move_down := !move3 & !move2 & !move1 & move0;
+    move_right := !move3 & !move2 & move1 & !move0;
+    move_left := !move3 & !move2 & move1 & move0;
+    move_right_up := !move3 & move2 & !move1 & !move0;
+    move_right_down := !move3 & move2 & !move1 & move0;
+    move_left_up := !move3 & move2 & move1 & !move0;
+    move_left_down := !move3 & move2 & move1 & move0;
+    move_stop := move3 & !move2 & !move1 & !move0;
+ASSIGN
+   init(x0) := FALSE;
+   init(x1) := FALSE;
+   init(y0) := FALSE;
+   init(y1) := FALSE;
+ASSIGN
+    next(x0) := case
+        (move_right | move_right_up | move_right_down) &  !(x0 & x1) : !x0;
+        (move_left | move_left_up | move_left_down) &  !(!x0 & !x1) : !x0;
+        TRUE : x0;
+    esac;
+    next(x1) := case
+        (move_right | move_right_up | move_right_down) & (x0) & !(x0 & x1) : !x1;
+        (move_left | move_left_up | move_left_down) & (!x0) & !(!x0 & !x1) : !x1;
+        TRUE : x1;
+    esac;
+    next(y0) := case
+        (move_up | move_left_up | move_right_up) &  !(y0 & y1) : !y0;
+        (move_down | move_left_down | move_right_down) &  !(!y0 & !y1) : !y0;
+        TRUE : y0;
+    esac;
+    next(y1) := case
+        (move_up | move_left_up | move_right_up) & (y0) & !(y0 & y1) : !y1;
+        (move_down | move_left_down | move_right_down) & (!y0) & !(!y0 & !y1) : !y1;
+        TRUE : y1;
+    esac;

@@ -1,0 +1,26 @@
+MODULE Plant(move0, move1, move2, move3)
+VAR
+    f_x0 : boolean;
+    f_x1 : boolean;
+    f_x2 : boolean;
+    f_counter0 : boolean;
+    f_counter1 : boolean;
+    d_x0 : boolean;
+    d_x1 : boolean;
+    d_x2 : boolean;
+    d_counter0 : boolean;
+    c_x0 : boolean;
+    c_x1 : boolean;
+    c_x2 : boolean;
+DEFINE
+    move_up := !move3 & !move2 & !move1 & !move0;
+    move_down := !move3 & !move2 & !move1 & move0;
+    move_right := !move3 & !move2 & move1 & !move0;
+    move_left := !move3 & !move2 & move1 & move0;
+    move_right_up := !move3 & move2 & !move1 & !move0;
+    move_right_down := !move3 & move2 & !move1 & move0;
+    move_left_up := !move3 & move2 & move1 & !move0;
+    move_left_down := !move3 & move2 & move1 & move0;
+    move_stop := move3 & !move2 & !move1 & !move0;
+
+

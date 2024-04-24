@@ -1,0 +1,59 @@
+#define N 4
+#define M 4
+#define MOVES_TYPE \
+  {up,down,right,left,stop}
+
+MODULE main
+VAR p: Plant(c.move);
+VAR c: Controller(p.fox.x,p.fox.y,p.chicken.x,p.chicken.y,p.dog.x,p.dog.y);
+
+LTLSPEC
+  (p.fox.x!=p.dog.x | p.fox.y!=p.dog.y) U
+    (p.fox.x=p.chicken.x & p.fox.y=p.chicken.y)
+
+MODULE Plant(fox_move)
+VAR fox: Car(0,0,fox_move,1);
+VAR chicken: Car(N,M,chicken_move,3);
+VAR dog: Car(0,M,dog_move,3);
+VAR chicken_move: MOVES_TYPE;
+VAR dog_move: MOVES_TYPE;
+
+INVAR
+  !(dog.x=chicken.x & dog.y=chicken.y)
+INVAR
+  !(dog_move=stop)
+
+
+MODULE Car(init_x,init_y,move,time)
+VAR
+    x : 0 .. N;
+    y : 0 .. M;
+    counter: 0 .. 3;
+ASSIGN
+    init(counter):=0;
+    next(counter):=(counter+1)mod time;
+    init(x) := init_x;
+    init(y) := init_y;
+    next(x) := case
+        counter = 0 & move=right & x < N : x + 1;
+        counter = 0 & move=left & x>0  : x - 1;
+        TRUE : x;
+    esac;
+    next(y) := case
+        counter = 0 & move=up & y < M : y + 1;
+        counter = 0 & move=down & y>0  : y - 1;
+        TRUE : y;
+    esac;
+
+MODULE Controller(x,y,x_g,y_g,x_d,y_d)
+IVAR
+    move : {up,down,right,left,right_up,right_down,left_up,left_down,stop};
+
+TRANS
+    move = case
+        x < x_g & (x != next(x_d) - 1 | y != next(y_d)): right;
+        x > x_g & (x != next(x_d) + 1 | y != next(y_d)) : left;
+        y < y_g & (y != next(y_d) - 1 | x != next(x_d)) : up;
+        y > y_g & (y != next(y_d) + 1 | x != next(x_d)) : down;
+        TRUE : stop;
+    esac;
