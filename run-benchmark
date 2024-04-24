@@ -39,13 +39,14 @@ running_benchmark() {
     for i in `seq 1 $times`; do
         local ts=$(date +%s%N)
         if [ "$cosafety" -eq 1 ]; then
-            ./optimal-strategy -c $controller -p $p --controllables $c --co-safety -u $upper_bound &> /dev/null
+            timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c --co-safety -u $upper_bound &> /dev/null
         else
-            ./optimal-strategy -c $controller -p $p --controllables $c -u $upper_bound &> /dev/null
+            timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c -u $upper_bound &> /dev/null
         fi
-        if [ "$?" -ne 0 ]; then
-            echo "Failing at running $controller"
-            break
+        if [ "$?" -eq "124" ]; then
+            avg=1200000
+            times=1
+            break;
         fi
         local tt=$((($(date +%s%N) - $ts)/1000000))
         avg=$((avg + tt))

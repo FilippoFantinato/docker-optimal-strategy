@@ -204,7 +204,6 @@ solve_game() {
         game_output=$([[ $cosafety -eq 1 ]] && 
                     echo `./simple-synth -s --smv sub $game --co-safety` ||
                     echo `./simple-synth -s --smv sub $game`)
-                    # -s --smv sub
     else
         game_output=$([[ $cosafety -eq 1 ]] && 
                     echo `./simple-synth $game -s --smv sub -o $output --co-safety` ||
@@ -216,13 +215,6 @@ solve_game() {
 
 clean() {
     rm -r $unique_dir
-    # rm -f $plant_main
-    # rm -f $closed_loop
-    # rm -f $plant_monitor
-    # rm -f $formula
-    # rm -f $formula_monitor
-    # rm -f $arena
-    # rm -f $game
 }
 
 main() {
@@ -335,6 +327,6 @@ if [ -z "$controller" ] || [ -z "$controllables" ]; then
     exit 1
 fi
 
-# trap clean EXIT
+trap clean EXIT
 
 main

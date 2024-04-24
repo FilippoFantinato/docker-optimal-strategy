@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./run-benchmark -d ./benchmark/driver/until -o ./driver-until.csv -t 1 -u 100 --co-safety --controllables move0,move1,move2,move3
+./run-benchmark -d ./benchmark/driver/until -o ./driver-until.csv -t 10 -u 100 --co-safety --controllables move0,move1,move2,move3
 
