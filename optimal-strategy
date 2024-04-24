@@ -23,7 +23,7 @@ controller_ivars=""
 plant_ivars=""
 
 exec_nuxmv() {
-    nuXmv -source $1
+    ./nuXmv -source $1
 }
 
 get_module_name() {
@@ -202,12 +202,12 @@ solve_game() {
     game_output=
     if [ -z "$output" ]; then
         game_output=$([[ $cosafety -eq 1 ]] && 
-                    echo `simple-synth $game -s --smv sub --co-safety` ||
-                    echo `simple-synth $game -s --smv sub`)
+                    echo `./simple-synth $game -s --smv sub --co-safety` ||
+                    echo `./simple-synth $game -s --smv sub`)
     else
         game_output=$([[ $cosafety -eq 1 ]] && 
-                    echo `simple-synth $game -s --smv sub -o $output --co-safety` ||
-                    echo `simple-synth $game -s --smv sub -o $output`)
+                    echo `./simple-synth $game -s --smv sub -o $output --co-safety` ||
+                    echo `./simple-synth $game -s --smv sub -o $output`)
     fi
 
     echo `grep -c "Realizable" <<< $game_output`
