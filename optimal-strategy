@@ -202,8 +202,9 @@ solve_game() {
     game_output=
     if [ -z "$output" ]; then
         game_output=$([[ $cosafety -eq 1 ]] && 
-                    echo `./simple-synth $game -s --smv sub --co-safety` ||
-                    echo `./simple-synth $game -s --smv sub`)
+                    echo `./simple-synth $game --co-safety` ||
+                    echo `./simple-synth $game`)
+                    # -s --smv sub
     else
         game_output=$([[ $cosafety -eq 1 ]] && 
                     echo `./simple-synth $game -s --smv sub -o $output --co-safety` ||
