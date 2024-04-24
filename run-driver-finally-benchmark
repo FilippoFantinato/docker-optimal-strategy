@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./run-benchmark -d ./benchmark/driver/finally -o ./driver-finally.csv -t 1 -u 100 --co-safety --controllables move0,move1,move2,move3
+

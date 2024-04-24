@@ -1,6 +1,0 @@
-MODULE controller(u0,u1,u2,u3,u4,u5,u6,u7)
-VAR
-	c : boolean;
-ASSIGN
-	c := u0;
-LTLSPEC G((c <-> u0) | X G((c <-> u1) | X X G((c <-> u2) | X X X G((c <-> u3) | X X X X G((c <-> u4) | X X X X X G((c <-> u5) | X X X X X X G((c <-> u6) | X X X X X X X G((c <-> u7)))))))))

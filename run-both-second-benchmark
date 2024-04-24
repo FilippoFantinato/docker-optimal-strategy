@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./run-benchmark -d ./benchmark/formulas/both/second -o ./both-second.csv -t 1 -u 100
+

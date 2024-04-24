@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./run-benchmark -d ./benchmark/formulas/co-safety/second -o ./co-safety-second.csv -t 1 -u 100 --co-safety
+
