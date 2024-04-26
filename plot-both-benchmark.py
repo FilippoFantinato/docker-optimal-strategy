@@ -7,7 +7,7 @@ import csv
 x1 = [] 
 y1 = []
   
-with open("./data/both/both-first.csv",'r') as csvfile: 
+with open("./results/both/both-first.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -17,7 +17,7 @@ with open("./data/both/both-first.csv",'r') as csvfile:
 x2 = [] 
 y2 = []
 
-with open("./data/both/both-second.csv",'r') as csvfile: 
+with open("./results/both/both-second.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -27,7 +27,7 @@ with open("./data/both/both-second.csv",'r') as csvfile:
 x3 = [] 
 y3 = []
 
-with open("./data/both/both-third.csv",'r') as csvfile: 
+with open("./results/both/both-third.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -40,6 +40,6 @@ plt.plot(x3, y3, color = 'r')
 plt.yscale('log')
 plt.legend(['First formula', 'Second formula', 'Third formula'])
 plt.title("First benchmark")
-plt.xlabel('Number of states (n)') 
-plt.ylabel('Running time(ms)') 
+plt.xlabel('n') 
+plt.ylabel('Running time (ms)') 
 plt.show()

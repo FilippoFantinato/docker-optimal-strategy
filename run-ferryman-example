@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./optimal-strategy -p ./examples/ferryman/plant.smv -c ./examples/ferryman/slow-controller.smv --controllables move0,move1 --co-safety --output ./examples/ferryman/fast-controller.smv

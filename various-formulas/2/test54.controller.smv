@@ -1,0 +1,15 @@
+MODULE controller(u)
+VAR
+  c : boolean;
+ASSIGN
+  init(c) := TRUE;
+  next(c) := !c;
+
+LTLSPEC  F(c) & X F(!c) &X X F(c) & X X X F(!c) & X X X X F(c) & X X X X X F(!c) &X X X X X X F(c) & X X X X X X X F(!c) & X X X X X X X X F(!c) & X X X X X X X X X F(!c) & X X X X X X X X X X F(c) & X X X X X X X X X X X F(c) & X X X X X X X X X X X X F(!c) & X X X X X X X X X X X X X F(c) & X X X X X X X X X X X X X X F(!c | u)
+
+VAR       time: 0..16;
+FROZENVAR maxtime: 0..16;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 16 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  F(c & time<=maxtime) & X F(!c & time<=maxtime) &X X F(c & time<=maxtime) & X X X F(!c & time<=maxtime) & X X X X F(c & time<=maxtime) & X X X X X F(!c & time<=maxtime) &X X X X X X F(c & time<=maxtime) & X X X X X X X F(!c & time<=maxtime) & X X X X X X X X F(!c & time<=maxtime) & X X X X X X X X X F(!c & time<=maxtime) & X X X X X X X X X X F(c & time<=maxtime) & X X X X X X X X X X X F(c & time<=maxtime) & X X X X X X X X X X X X F(!c & time<=maxtime) & X X X X X X X X X X X X X F(c & time<=maxtime) & X X X X X X X X X X X X X X F((!c | u) & time<=maxtime)};

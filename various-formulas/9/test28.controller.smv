@@ -1,0 +1,60 @@
+MODULE controller(u)
+VAR
+    c1 : boolean;
+    c2 : boolean;
+    c3 : boolean;
+    c4 : boolean;
+    c5 : boolean;
+    c6 : boolean;
+    c7 : boolean;
+    c8 : boolean;
+    c9 : boolean;
+    c10 : boolean;
+    c11 : boolean;
+    c12 : boolean;
+    c13 : boolean;
+    c14 : boolean;
+    c15 : boolean;
+ASSIGN
+    init(c1) := FALSE;
+    init(c2) := FALSE;
+    init(c3) := FALSE;
+    init(c4) := FALSE;
+    init(c5) := FALSE;
+    init(c6) := FALSE;
+    init(c7) := FALSE;
+    init(c8) := FALSE;
+    init(c9) := FALSE;
+    init(c10) := FALSE;
+    init(c11) := FALSE;
+    init(c12) := FALSE;
+    init(c13) := FALSE;
+    init(c14) := FALSE;
+    init(c15) := FALSE;
+ASSIGN
+    next(c1) := !c1;
+    next(c2) := !c2;
+    next(c3) := !c3;
+    next(c4) := !c4;
+    next(c5) := !c5;
+    next(c6) := !c6;
+    next(c7) := !c7;
+    next(c8) := !c8;
+    next(c9) := !c9;
+    next(c10) := !c10;
+    next(c11) := !c11;
+    next(c12) := !c12;
+    next(c13) := !c13;
+    next(c14) := !c14;
+    next(c15) := !c15;
+
+LTLSPEC F(c1) & X F(c2) &X X F(c3) & X X X F(c4) & X X X X F(c5) & X X X X X F(c6) &X X X X X X F(c7) & X X X X X X X F(c8) & X X X X X X X X F(c9) & X X X X X X X X X F(c10) & X X X X X X X X X X F(c11) & X X X X X X X X X X X F(c12) & X X X X X X X X X X X X F(c13) & X X X X X X X X X X X X X F(c14) & X X X X X X X X X X X X X X F(c15 | u)
+
+VAR       time: 0..20;
+FROZENVAR maxtime: 0..20;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 20 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID 
+    F(c1) & X F(c2) &X X F(c3) & X X X F(c4) & X X X X F(c5) & X X X X X F(c6) &X X X X X X F(c7) & X X X X X X X F(c8) & X X X X X X X X F(c9) & X X X X X X X X X F(c10) & X X X X X X X X X X F(c11) & X X X X X X X X X X X F(c12) & X X X X X X X X X X X X F(c13) & X X X X X X X X X X X X X F(c14) & X X X X X X X X X X X X X X F((c15 | u) & time <= maxtime)
+  };

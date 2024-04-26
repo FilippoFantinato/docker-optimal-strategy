@@ -1,7 +1,0 @@
-MODULE controller(u0, u1)
-VAR
-	c : boolean;
-ASSIGN
-	init(c) := TRUE;
-	next(c) := !c;
-LTLSPEC F[0,6](c <-> u0) & X F[0,6](!c <-> u1) & X X(F[0,6](c <-> u0) & X (F[0,6](!c <-> u1))) & X X X X(F[0,6](c <-> u0) & X (F[0,6](!c <-> u1))) & X X X X X X(F[0,6](c <-> u0) & X (F[0,6](!c <-> u1)))

@@ -1,0 +1,6 @@
+MODULE plant(c1,c2,c3)
+VAR
+    u : boolean;
+ASSIGN
+    init(u) := FALSE;
+    next(u) := c1 xor c2 xor c3;

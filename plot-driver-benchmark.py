@@ -7,7 +7,7 @@ import csv
 x1 = [] 
 y1 = []
   
-with open("./data/driver/driver-finally.csv",'r') as csvfile: 
+with open("./results/driver/driver-finally.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -17,7 +17,7 @@ with open("./data/driver/driver-finally.csv",'r') as csvfile:
 x2 = [] 
 y2 = []
 
-with open("./data/driver/driver-until.csv",'r') as csvfile: 
+with open("./results/driver/driver-until.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -31,5 +31,5 @@ plt.yscale('log')
 plt.legend(['First formula (finally)', 'Second formula (until)'])
 plt.title("Driver example")
 plt.xlabel('Number of states (n)') 
-plt.ylabel('Running time(ms)') 
+plt.ylabel('Running time (ms)') 
 plt.show()

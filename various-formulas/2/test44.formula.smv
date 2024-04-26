@@ -1,9 +1,9 @@
 MODULE main
 IVAR
-	q : boolean;
-	p : boolean;
-LTLSPEC !((X X X X p) U (X X X q))
+	u : boolean;
+	c : boolean;
+LTLSPEC !((X X X X c) U (X X X u))
 
---INPUT : p
---OUTPUT : q
+--INPUT : c
+--OUTPUT : u
 --REALIZABLE

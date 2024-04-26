@@ -1,0 +1,86 @@
+#!/bin/bash
+
+shopt -s globstar
+
+cd $(dirname $0)
+
+basedir="./various-formulas"
+formula_extension=".formula.smv"
+
+running_controller() {
+    controller=$1
+    plant=$2
+    dir=`dirname $controller`
+    filename=`basename $controller`
+    name=${filename%%.*}
+    
+    local c=`awk '{if($1 ~ /--OUTPUT/){print $3} }' $dir/$name$formula_extension`
+
+    if [ -z "$plant" ]; then
+        ./optimal-strategy -c $controller --controllables $c --co-safety
+    else
+        ./optimal-strategy -c $controller -p $plant --controllables $c --co-safety
+    fi
+}
+
+
+# for controller in `ls -1v $basedir/1/*.controller.smv`; do
+#     echo "Running $controller..."
+#     running_controller $controller
+#     echo ""
+# done
+
+# for controller in `ls -1v $basedir/2/*.controller.smv`; do
+#     echo "Running $controller..."
+#     running_controller $controller $basedir/2/plant.smv
+#     echo ""
+# done
+
+# for controller in `ls -1v $basedir/3/*.controller.smv`; do
+#     echo "Running $controller..."
+#     running_controller $controller $basedir/3/plant.smv
+#     echo ""
+# done
+
+# for controller in `ls -1v $basedir/4/*.controller.smv`; do
+#     echo "Running $controller..."
+#     running_controller $controller $basedir/4/plant.smv
+#     echo ""
+# done
+
+for controller in `ls -1v $basedir/5/*.controller.smv`; do
+    echo "Running $controller..."
+    running_controller $controller $basedir/5/plant.smv
+    echo ""
+done
+
+for controller in `ls -1v $basedir/6/*.controller.smv`; do
+    echo "Running $controller..."
+    running_controller $controller $basedir/6/plant.smv
+    echo ""
+done
+
+for controller in `ls -1v $basedir/7/*.controller.smv`; do
+    echo "Running $controller..."
+    running_controller $controller $basedir/7/plant.smv
+    echo ""
+done
+
+for controller in `ls -1v $basedir/8/*.controller.smv`; do
+    echo "Running $controller..."
+    running_controller $controller $basedir/8/plant.smv
+    echo ""
+done
+
+for controller in `ls -1v $basedir/9/*.controller.smv`; do
+    echo "Running $controller..."
+    running_controller $controller $basedir/9/plant.smv
+    echo ""
+done
+
+
+for controller in `ls -1v $basedir/10/*.controller.smv`; do
+    echo "Running $controller..."
+    running_controller $controller $basedir/10/plant.smv
+    echo ""
+done

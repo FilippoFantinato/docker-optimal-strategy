@@ -1,9 +1,0 @@
-MODULE plant(c)
-VAR
-    u0 : boolean;
-    u1 : boolean;
-ASSIGN
-    init(u0) := TRUE;
-    init(u1) := FALSE;
-    next(u0) := !u0;
-    next(u1) := !u1;
