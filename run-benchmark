@@ -46,15 +46,15 @@ running_benchmark() {
         local ts=$(date +%s%N)
         if [ "$cosafety" -eq 1 ]; then
             if [ -z "$u" ]; then
-                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c --co-safety &> /dev/null
+                timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c --co-safety &> /dev/null
             else
-                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c --co-safety -u $u &> /dev/null
+                timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c --co-safety -u $u &> /dev/null
             fi
         else
             if [ -z "$u" ]; then
-                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c &> /dev/null
+                timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c &> /dev/null
             else
-                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c -u $u &> /dev/null
+                timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c -u $u &> /dev/null
             fi
         fi
         if [ "$?" -eq "124" ]; then
