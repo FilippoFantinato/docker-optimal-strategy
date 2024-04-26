@@ -1,0 +1,84 @@
+MODULE controller(u)
+--latches
+VAR
+EBR_0_COUNTER_1 : boolean;
+EBR_0_COUNTER_0 : boolean;
+EBR_0_COUNTER_2 : boolean;
+EBR_0_PAST_1 : boolean;
+EBR_0_ERROR_0 : boolean;
+ASSIGN
+init(EBR_0_COUNTER_1) := FALSE;
+next(EBR_0_COUNTER_1) := !a24;
+init(EBR_0_COUNTER_0) := FALSE;
+next(EBR_0_COUNTER_0) := !a30;
+init(EBR_0_COUNTER_2) := FALSE;
+next(EBR_0_COUNTER_2) := !a44;
+init(EBR_0_PAST_1) := FALSE;
+next(EBR_0_PAST_1) := !a68;
+init(EBR_0_ERROR_0) := FALSE;
+next(EBR_0_ERROR_0) := !a110;
+DEFINE
+--ands
+a12 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a16 := a12 & EBR_0_COUNTER_2;
+a18 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a20 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a22 := !a18 & !a20;
+a24 := !a16 & !a22;
+a26 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a28 := a26 & EBR_0_COUNTER_2;
+a30 := !a28 & EBR_0_COUNTER_0;
+a32 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a34 := a32 & EBR_0_COUNTER_2;
+a36 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a38 := a36 & EBR_0_COUNTER_2;
+a40 := !EBR_0_COUNTER_2 & !a36;
+a42 := !a38 & !a40;
+a44 := !a34 & !a42;
+a46 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a48 := !EBR_0_COUNTER_2 & a46;
+a52 := EBR_0_PAST_1;
+a54 := FALSE;
+a56 := !a52 & !a54;
+a58 := !u;
+a60 := u & !a56;
+a62 := !a58 & !a60;
+a64 := FALSE;
+a66 := !a48 & !a62;
+a68 := !a64 & !a66;
+a70 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a72 := !EBR_0_COUNTER_2 & a70;
+a76 := !EBR_0_ERROR_0 & EBR_0_PAST_1;
+a78 := a2 & a4;
+a80 := !u & !a78;
+a82 := !EBR_0_ERROR_0 & a80;
+a84 := a2 & a4;
+a86 := !EBR_0_ERROR_0 & !a84;
+a88 := FALSE;
+a90 := !a86;
+a92 := !a88 & !a90;
+a94 := FALSE;
+a96 := !a82 & !a92;
+a98 := !a94 & !a96;
+a100 := FALSE;
+a102 := !a76 & !a98;
+a104 := !a100 & !a102;
+a106 := FALSE;
+a108 := !a72 & !a104;
+a110 := !a106 & !a108;
+a112 := EBR_0_ERROR_0;
+a2 := TRUE;
+a4 := TRUE;
+--outputs
+formula := !a112;
+c1 := a2;
+c2 := a4;
+
+LTLSPEC  X (u U (c1 & c2))
+
+VAR       time: 0..3;
+FROZENVAR maxtime: 0..3;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 3 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  (X (u U (c1 & c2 & time<=maxtime)))};

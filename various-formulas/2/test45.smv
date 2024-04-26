@@ -1,0 +1,106 @@
+MODULE controller(p)
+--latches
+VAR
+EBR_0_SPECF_1 : boolean;
+EBR_0_ERROR_0 : boolean;
+EBR_0_COUNTER_1 : boolean;
+EBR_0_COUNTER_0 : boolean;
+EBR_0_PAST_4 : boolean;
+EBR_0_COUNTER_2 : boolean;
+EBR_0_COUNTER_3 : boolean;
+EBR_0_SPECF_3 : boolean;
+EBR_0_SPECF_2 : boolean;
+ASSIGN
+init(EBR_0_SPECF_1) := FALSE;
+next(EBR_0_SPECF_1) := EBR_0_SPECF_2;
+init(EBR_0_ERROR_0) := FALSE;
+next(EBR_0_ERROR_0) := !a58;
+init(EBR_0_COUNTER_1) := FALSE;
+next(EBR_0_COUNTER_1) := !a72;
+init(EBR_0_COUNTER_0) := FALSE;
+next(EBR_0_COUNTER_0) := !a80;
+init(EBR_0_PAST_4) := FALSE;
+next(EBR_0_PAST_4) := !a104;
+init(EBR_0_COUNTER_2) := FALSE;
+next(EBR_0_COUNTER_2) := !a120;
+init(EBR_0_COUNTER_3) := FALSE;
+next(EBR_0_COUNTER_3) := !a138;
+init(EBR_0_SPECF_3) := FALSE;
+next(EBR_0_SPECF_3) := !p;
+init(EBR_0_SPECF_2) := FALSE;
+next(EBR_0_SPECF_2) := EBR_0_SPECF_3;
+DEFINE
+--ands
+a18 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a20 := !EBR_0_COUNTER_2 & !a18;
+a22 := !EBR_0_COUNTER_3 & a20;
+a28 := !EBR_0_ERROR_0 & EBR_0_PAST_4;
+a30 := EBR_0_SPECF_1 & !a2;
+a32 := !EBR_0_ERROR_0 & a30;
+a34 := !EBR_0_ERROR_0 & !a2;
+a36 := FALSE;
+a38 := !a34;
+a40 := !a36 & !a38;
+a42 := FALSE;
+a44 := !a32 & !a40;
+a46 := !a42 & !a44;
+a48 := FALSE;
+a50 := !a28 & !a46;
+a52 := !a48 & !a50;
+a54 := FALSE;
+a56 := !a22 & !a52;
+a58 := !a54 & !a56;
+a60 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a62 := a60 & EBR_0_COUNTER_2;
+a64 := a62 & EBR_0_COUNTER_3;
+a66 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a68 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a70 := !a66 & !a68;
+a72 := !a64 & !a70;
+a74 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a76 := a74 & EBR_0_COUNTER_2;
+a78 := a76 & EBR_0_COUNTER_3;
+a80 := !a78 & EBR_0_COUNTER_0;
+a82 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a84 := !EBR_0_COUNTER_2 & !a82;
+a86 := !EBR_0_COUNTER_3 & a84;
+a88 := EBR_0_PAST_4;
+a90 := FALSE;
+a92 := !a88 & !a90;
+a94 := EBR_0_SPECF_1;
+a96 := !EBR_0_SPECF_1 & !a92;
+a98 := !a94 & !a96;
+a100 := FALSE;
+a102 := !a86 & !a98;
+a104 := !a100 & !a102;
+a106 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a108 := a106 & EBR_0_COUNTER_2;
+a110 := a108 & EBR_0_COUNTER_3;
+a112 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a114 := a112 & EBR_0_COUNTER_2;
+a116 := !EBR_0_COUNTER_2 & !a112;
+a118 := !a114 & !a116;
+a120 := !a110 & !a118;
+a122 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a124 := a122 & EBR_0_COUNTER_2;
+a126 := a124 & EBR_0_COUNTER_3;
+a128 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a130 := EBR_0_COUNTER_2 & a128;
+a132 := a130 & EBR_0_COUNTER_3;
+a134 := !EBR_0_COUNTER_3 & !a130;
+a136 := !a132 & !a134;
+a138 := !a126 & !a136;
+a142 := EBR_0_ERROR_0;
+a2 := TRUE;
+--outputs
+formula := !a142;
+q := a2;
+
+LTLSPEC (p) U (X X X q)
+
+VAR       time: 0..3;
+FROZENVAR maxtime: 0..3;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 3 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  ((p) U (X X X (q & time<=maxtime)))};

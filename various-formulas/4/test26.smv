@@ -1,0 +1,82 @@
+MODULE controller(u)
+--latches
+VAR
+EBR_0_ERROR_1 : boolean;
+EBR_0_COUNTER_1 : boolean;
+EBR_0_COUNTER_0 : boolean;
+EBR_0_ERROR_2 : boolean;
+EBR_0_COUNTER_2 : boolean;
+EBR_0_ERROR_0 : boolean;
+ASSIGN
+init(EBR_0_ERROR_1) := FALSE;
+next(EBR_0_ERROR_1) := !a34;
+init(EBR_0_COUNTER_1) := FALSE;
+next(EBR_0_COUNTER_1) := !a46;
+init(EBR_0_COUNTER_0) := FALSE;
+next(EBR_0_COUNTER_0) := !a52;
+init(EBR_0_ERROR_2) := FALSE;
+next(EBR_0_ERROR_2) := !a72;
+init(EBR_0_COUNTER_2) := FALSE;
+next(EBR_0_COUNTER_2) := !a86;
+init(EBR_0_ERROR_0) := FALSE;
+next(EBR_0_ERROR_0) := !a96;
+DEFINE
+--ands
+a16 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a18 := !EBR_0_COUNTER_2 & a16;
+a22 := !EBR_0_ERROR_1 & !a4;
+a24 := FALSE;
+a26 := !a22;
+a28 := !a24 & !a26;
+a30 := FALSE;
+a32 := !a18 & !a28;
+a34 := !a30 & !a32;
+a36 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a38 := a36 & EBR_0_COUNTER_2;
+a40 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a42 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a44 := !a40 & !a42;
+a46 := !a38 & !a44;
+a48 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a50 := a48 & EBR_0_COUNTER_2;
+a52 := !a50 & EBR_0_COUNTER_0;
+a54 := !EBR_0_COUNTER_2 & !EBR_0_COUNTER_1;
+a58 := !a6 & !u;
+a60 := !EBR_0_ERROR_2 & a58;
+a62 := FALSE;
+a64 := !a60;
+a66 := !a62 & !a64;
+a68 := FALSE;
+a70 := !a54 & !a66;
+a72 := !a68 & !a70;
+a74 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a76 := a74 & EBR_0_COUNTER_2;
+a78 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a80 := a78 & EBR_0_COUNTER_2;
+a82 := !EBR_0_COUNTER_2 & !a78;
+a84 := !a80 & !a82;
+a86 := !a76 & !a84;
+a90 := !EBR_0_ERROR_0 & !a2;
+a92 := FALSE;
+a94 := !a90;
+a96 := !a92 & !a94;
+a98 := EBR_0_ERROR_0 & EBR_0_ERROR_1;
+a100 := a98 & EBR_0_ERROR_2;
+a102 := a100;
+a2 := TRUE;
+a4 := TRUE;
+a6 := TRUE;
+--outputs
+formula := !a102;
+c1 := a2;
+c2 := a4;
+c3 := a6;
+
+LTLSPEC  F(c1) & X F(c2) & X X F(c3 | u)
+
+VAR       time: 0..3;
+FROZENVAR maxtime: 0..3;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 3 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  (F(c1) & X F(c2) & X X F((c3 | u) & time<=maxtime))};

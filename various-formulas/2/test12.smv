@@ -1,0 +1,74 @@
+MODULE controller(u)
+--latches
+VAR
+EBR_0_ERROR_1 : boolean;
+EBR_0_COUNTER_1 : boolean;
+EBR_0_COUNTER_0 : boolean;
+EBR_0_COUNTER_2 : boolean;
+EBR_0_ERROR_0 : boolean;
+ASSIGN
+init(EBR_0_ERROR_1) := FALSE;
+next(EBR_0_ERROR_1) := !a34;
+init(EBR_0_COUNTER_1) := FALSE;
+next(EBR_0_COUNTER_1) := !a46;
+init(EBR_0_COUNTER_0) := FALSE;
+next(EBR_0_COUNTER_0) := !a52;
+init(EBR_0_COUNTER_2) := FALSE;
+next(EBR_0_COUNTER_2) := !a66;
+init(EBR_0_ERROR_0) := FALSE;
+next(EBR_0_ERROR_0) := !a90;
+DEFINE
+--ands
+a12 := !EBR_0_COUNTER_2 & !EBR_0_COUNTER_1;
+a16 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a18 := !EBR_0_COUNTER_2 & !a16;
+a20 := !a12 & a18;
+a22 := a20 & u;
+a24 := a22;
+a26 := FALSE;
+a28 := !a24 & !a26;
+a30 := EBR_0_ERROR_1;
+a32 := !EBR_0_ERROR_1 & !a28;
+a34 := !a30 & !a32;
+a36 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a38 := a36 & EBR_0_COUNTER_2;
+a40 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a42 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a44 := !a40 & !a42;
+a46 := !a38 & !a44;
+a48 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a50 := a48 & EBR_0_COUNTER_2;
+a52 := !a50 & EBR_0_COUNTER_0;
+a54 := EBR_0_COUNTER_0 & EBR_0_COUNTER_1;
+a56 := a54 & EBR_0_COUNTER_2;
+a58 := EBR_0_COUNTER_1 & EBR_0_COUNTER_0;
+a60 := a58 & EBR_0_COUNTER_2;
+a62 := !EBR_0_COUNTER_2 & !a58;
+a64 := !a60 & !a62;
+a66 := !a56 & !a64;
+a70 := !EBR_0_COUNTER_1 & !EBR_0_COUNTER_0;
+a72 := !EBR_0_COUNTER_2 & a70;
+a74 := !EBR_0_COUNTER_2 & !EBR_0_COUNTER_1;
+a76 := !a72 & a74;
+a78 := a76 & a2;
+a80 := a78;
+a82 := FALSE;
+a84 := !a80 & !a82;
+a86 := EBR_0_ERROR_0;
+a88 := !EBR_0_ERROR_0 & !a84;
+a90 := !a86 & !a88;
+a92 := !EBR_0_ERROR_0 & !EBR_0_ERROR_1;
+a94 := !a92;
+a2 := TRUE;
+--outputs
+formula := !a94;
+c := a2;
+
+LTLSPEC  X(c | X u)
+
+VAR       time: 0..3;
+FROZENVAR maxtime: 0..3;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 3 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  (X(c | X u)) & G(time<=maxtime)};

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+for p in `ls ./**/*.formula.smv`; do
+  f=`basename $p`
+  d=`dirname $p`
+  name=${f%%.*}
+  contr=`awk '{if($1 ~ /--OUTPUT/){print $3} }' $p`
+  echo "read_model -i $p; go; _ebr2aig -n 0 -o $d/$name.aag -c \"$contr\"; quit;" > $d/$name.ebr2aig.commands.txt
+done
+
+for p in `ls ./**/*.ebr2aig.commands.txt`; do 
+  nuXmv -source $p 
+  rm $p
+done
+
+for p in `ls ./**/*.aag`; do
+  f=`basename $p`
+  d=`dirname $p`
+  name=${f%%.*}
+  ltlspec=`cat $d/$name.formula.smv | grep -Poz '(?<=LTLSPEC)(.|\n)*?(?=($|--|;|(MODULE)|(FROZENVAR)|(ASSIGN)|(VAR)|(PARSYNTH)|(LTLSPEC)))' | tr -d '\n'`
+  simple-synth $p -s --smv sub --co-safety -o $d/$name.smv
+  echo -e "\nLTLSPEC $ltlspec\n" >> $d/$name.smv
+  rm -f $p
+done
