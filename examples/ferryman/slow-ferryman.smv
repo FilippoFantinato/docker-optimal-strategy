@@ -1,0 +1,280 @@
+MODULE controller(man,goat,wolf,cabbage)
+--latches
+VAR
+plant.MON_0_SIM_cabbage : boolean;
+phi.EBR_0_ERROR_0 : boolean;
+plant.MON_0_SIM_wolf : boolean;
+phi.EBR_0_COUNTER_1 : boolean;
+plant.MON_0_ERROR_goat : boolean;
+phi.EBR_0_COUNTER_4 : boolean;
+plant.MON_0_ERROR_man : boolean;
+phi.EBR_0_COUNTER_0 : boolean;
+plant.MON_0_SIM_goat : boolean;
+phi.EBR_0_COUNTER_3 : boolean;
+plant.MON_0_SIM_man : boolean;
+plant.MON_0_ERROR_cabbage : boolean;
+phi.EBR_0_PAST_1 : boolean;
+plant.MON_0_ERROR_wolf : boolean;
+phi.EBR_0_COUNTER_2 : boolean;
+ASSIGN
+init(plant.MON_0_SIM_cabbage) := FALSE;
+next(plant.MON_0_SIM_cabbage) := !a38;
+init(phi.EBR_0_ERROR_0) := FALSE;
+next(phi.EBR_0_ERROR_0) := !a108;
+init(plant.MON_0_SIM_wolf) := FALSE;
+next(plant.MON_0_SIM_wolf) := !a132;
+init(phi.EBR_0_COUNTER_1) := FALSE;
+next(phi.EBR_0_COUNTER_1) := !a158;
+init(plant.MON_0_ERROR_goat) := FALSE;
+next(plant.MON_0_ERROR_goat) := !a170;
+init(phi.EBR_0_COUNTER_4) := FALSE;
+next(phi.EBR_0_COUNTER_4) := !a192;
+init(plant.MON_0_ERROR_man) := FALSE;
+next(plant.MON_0_ERROR_man) := !a202;
+init(phi.EBR_0_COUNTER_0) := FALSE;
+next(phi.EBR_0_COUNTER_0) := !a212;
+init(plant.MON_0_SIM_goat) := FALSE;
+next(plant.MON_0_SIM_goat) := !a234;
+init(phi.EBR_0_COUNTER_3) := FALSE;
+next(phi.EBR_0_COUNTER_3) := !a254;
+init(plant.MON_0_SIM_man) := FALSE;
+next(plant.MON_0_SIM_man) := !plant.MON_0_SIM_man;
+init(plant.MON_0_ERROR_cabbage) := FALSE;
+next(plant.MON_0_ERROR_cabbage) := !a264;
+init(phi.EBR_0_PAST_1) := FALSE;
+next(phi.EBR_0_PAST_1) := !a304;
+init(plant.MON_0_ERROR_wolf) := FALSE;
+next(plant.MON_0_ERROR_wolf) := !a314;
+init(phi.EBR_0_COUNTER_2) := FALSE;
+next(phi.EBR_0_COUNTER_2) := !a332;
+DEFINE
+--ands
+a20 := plant.MON_0_SIM_cabbage & !plant.MON_0_SIM_man;
+a22 := plant.MON_0_SIM_man & !plant.MON_0_SIM_cabbage;
+a24 := !a20 & !a22;
+a26 := a14 & a24;
+a28 := plant.MON_0_SIM_cabbage;
+a30 := FALSE;
+a32 := !a28 & !a30;
+a34 := a26 & !plant.MON_0_SIM_cabbage;
+a36 := !a26 & !a32;
+a38 := !a34 & !a36;
+a44 := !phi.EBR_0_ERROR_0 & phi.EBR_0_PAST_1;
+a46 := goat & !wolf;
+a48 := wolf & !goat;
+a50 := !a46 & !a48;
+a52 := goat & !cabbage;
+a54 := cabbage & !goat;
+a56 := !a52 & !a54;
+a58 := !a50 & !a56;
+a60 := goat & !man;
+a62 := man & !goat;
+a64 := !a60 & !a62;
+a66 := !a58 & !a64;
+a68 := cabbage & goat;
+a70 := a68 & wolf;
+a72 := a70 & man;
+a74 := a66 & !a72;
+a76 := !phi.EBR_0_ERROR_0 & a74;
+a78 := cabbage & goat;
+a80 := a78 & wolf;
+a82 := a80 & man;
+a84 := !phi.EBR_0_ERROR_0 & !a82;
+a86 := TRUE;
+a88 := FALSE;
+a90 := !a86 & !a88;
+a92 := FALSE;
+a94 := !a84 & !a90;
+a96 := !a92 & !a94;
+a98 := FALSE;
+a100 := !a76 & !a96;
+a102 := !a98 & !a100;
+a104 := FALSE;
+a106 := !a44 & !a102;
+a108 := !a104 & !a106;
+a114 := plant.MON_0_SIM_wolf & !plant.MON_0_SIM_man;
+a116 := plant.MON_0_SIM_man & !plant.MON_0_SIM_wolf;
+a118 := !a114 & !a116;
+a120 := a110 & a118;
+a122 := plant.MON_0_SIM_wolf;
+a124 := FALSE;
+a126 := !a122 & !a124;
+a128 := a120 & !plant.MON_0_SIM_wolf;
+a130 := !a120 & !a126;
+a132 := !a128 & !a130;
+a138 := phi.EBR_0_COUNTER_0 & phi.EBR_0_COUNTER_1;
+a142 := a138 & phi.EBR_0_COUNTER_2;
+a146 := a142 & phi.EBR_0_COUNTER_3;
+a150 := a146 & phi.EBR_0_COUNTER_4;
+a152 := phi.EBR_0_COUNTER_0 & phi.EBR_0_COUNTER_1;
+a154 := !phi.EBR_0_COUNTER_1 & !phi.EBR_0_COUNTER_0;
+a156 := !a152 & !a154;
+a158 := !a150 & !a156;
+a164 := plant.MON_0_SIM_goat & !goat;
+a166 := goat & !plant.MON_0_SIM_goat;
+a168 := !a164 & !a166;
+a170 := !plant.MON_0_ERROR_goat & a168;
+a172 := phi.EBR_0_COUNTER_0 & phi.EBR_0_COUNTER_1;
+a174 := a172 & phi.EBR_0_COUNTER_2;
+a176 := a174 & phi.EBR_0_COUNTER_3;
+a178 := a176 & phi.EBR_0_COUNTER_4;
+a180 := phi.EBR_0_COUNTER_1 & phi.EBR_0_COUNTER_0;
+a182 := phi.EBR_0_COUNTER_2 & a180;
+a184 := phi.EBR_0_COUNTER_3 & a182;
+a186 := a184 & phi.EBR_0_COUNTER_4;
+a188 := !phi.EBR_0_COUNTER_4 & !a184;
+a190 := !a186 & !a188;
+a192 := !a178 & !a190;
+a196 := plant.MON_0_SIM_man & !man;
+a198 := man & !plant.MON_0_SIM_man;
+a200 := !a196 & !a198;
+a202 := !plant.MON_0_ERROR_man & a200;
+a204 := phi.EBR_0_COUNTER_0 & phi.EBR_0_COUNTER_1;
+a206 := a204 & phi.EBR_0_COUNTER_2;
+a208 := a206 & phi.EBR_0_COUNTER_3;
+a210 := a208 & phi.EBR_0_COUNTER_4;
+a212 := !a210 & phi.EBR_0_COUNTER_0;
+a216 := plant.MON_0_SIM_goat & !plant.MON_0_SIM_man;
+a218 := plant.MON_0_SIM_man & !plant.MON_0_SIM_goat;
+a220 := !a216 & !a218;
+a222 := a214 & a220;
+a224 := plant.MON_0_SIM_goat;
+a226 := FALSE;
+a228 := !a224 & !a226;
+a230 := a222 & !plant.MON_0_SIM_goat;
+a232 := !a222 & !a228;
+a234 := !a230 & !a232;
+a236 := phi.EBR_0_COUNTER_0 & phi.EBR_0_COUNTER_1;
+a238 := a236 & phi.EBR_0_COUNTER_2;
+a240 := a238 & phi.EBR_0_COUNTER_3;
+a242 := a240 & phi.EBR_0_COUNTER_4;
+a244 := phi.EBR_0_COUNTER_1 & phi.EBR_0_COUNTER_0;
+a246 := phi.EBR_0_COUNTER_2 & a244;
+a248 := a246 & phi.EBR_0_COUNTER_3;
+a250 := !phi.EBR_0_COUNTER_3 & !a246;
+a252 := !a248 & !a250;
+a254 := !a242 & !a252;
+a258 := plant.MON_0_SIM_cabbage & !cabbage;
+a260 := cabbage & !plant.MON_0_SIM_cabbage;
+a262 := !a258 & !a260;
+a264 := !plant.MON_0_ERROR_cabbage & a262;
+a266 := goat & !wolf;
+a268 := wolf & !goat;
+a270 := !a266 & !a268;
+a272 := goat & !cabbage;
+a274 := cabbage & !goat;
+a276 := !a272 & !a274;
+a278 := !a270 & !a276;
+a280 := goat & !man;
+a282 := man & !goat;
+a284 := !a280 & !a282;
+a286 := !a278 & !a284;
+a288 := FALSE;
+a290 := FALSE;
+a292 := !a288 & !a290;
+a294 := phi.EBR_0_PAST_1;
+a296 := !phi.EBR_0_PAST_1 & !a292;
+a298 := !a294 & !a296;
+a300 := a286;
+a302 := !a286 & !a298;
+a304 := !a300 & !a302;
+a308 := plant.MON_0_SIM_wolf & !wolf;
+a310 := wolf & !plant.MON_0_SIM_wolf;
+a312 := !a308 & !a310;
+a314 := !plant.MON_0_ERROR_wolf & a312;
+a316 := phi.EBR_0_COUNTER_0 & phi.EBR_0_COUNTER_1;
+a318 := a316 & phi.EBR_0_COUNTER_2;
+a320 := a318 & phi.EBR_0_COUNTER_3;
+a322 := a320 & phi.EBR_0_COUNTER_4;
+a324 := phi.EBR_0_COUNTER_1 & phi.EBR_0_COUNTER_0;
+a326 := a324 & phi.EBR_0_COUNTER_2;
+a328 := !phi.EBR_0_COUNTER_2 & !a324;
+a330 := !a326 & !a328;
+a332 := !a322 & !a330;
+a334 := !plant.MON_0_ERROR_cabbage & !plant.MON_0_ERROR_goat;
+a336 := !plant.MON_0_ERROR_man & a334;
+a338 := !plant.MON_0_ERROR_wolf & a336;
+a340 := !a338;
+a342 := a2 & a4;
+a14 := a342;
+a344 := !a2 & a4;
+a110 := a344;
+a346 := a2 & !a4;
+a214 := a346;
+a348 := !a2 & !a4;
+a350 := a348;
+a352 := !phi.EBR_0_COUNTER_2 & !phi.EBR_0_COUNTER_1;
+a354 := phi.EBR_0_COUNTER_3 & !a352;
+a356 := !phi.EBR_0_COUNTER_4 & !a354;
+a358 := a356 & phi.EBR_0_ERROR_0;
+a360 := a358;
+a362 := !a356;
+a364 := !a340 & !a360;
+a406 := !cabbage & !wolf;
+a408 := !a406 & !wolf;
+a410 := !a408 & !man;
+a412 := !a410 & !man;
+a414 := cabbage & !wolf;
+a416 := !a414 & !wolf;
+a418 := !a416 & goat;
+a420 := !a418 & goat;
+a422 := !a420 & man;
+a424 := cabbage & wolf;
+a426 := !cabbage & !wolf;
+a428 := !a426 & !a424;
+a430 := a428 & !goat;
+a432 := !a430 & !goat;
+a434 := a432 & !man;
+a436 := !a434 & !a422;
+a2 := !a412;
+a4 := a436;
+--outputs
+formula := a364;
+move0 := a2;
+move1 := a4;
+
+MODULE plant(move0, move1)
+    VAR
+        man     : boolean;
+        wolf    : boolean;
+        goat    : boolean;
+        cabbage : boolean;
+    DEFINE
+        no_carry      := !move0 & !move1; -- move=e
+        carry_goat    := move0  & !move1; -- move=g
+        carry_wolf    := !move0 & move1;  -- move=w
+        carry_cabbage := move0  & move1;  -- move=c
+    ASSIGN
+        init(man)     := FALSE;
+        init(goat)    := FALSE;
+        init(wolf)    := FALSE;
+        init(cabbage) := FALSE;
+    ASSIGN
+        next(cabbage) := case
+            (carry_cabbage & cabbage=man) : !cabbage;
+            TRUE : cabbage;
+        esac;
+        next(goat) := case
+            (carry_goat & goat=man) : !goat;
+            TRUE : goat;
+        esac;
+        next(wolf) := case
+            (carry_wolf & wolf=man) : !wolf;
+            TRUE : wolf;
+        esac;
+        next(man) := !man;
+
+LTLSPEC (goat = wolf | goat = cabbage -> goat = man) U (cabbage & goat & wolf & man)
+
+FROZENVAR maxtime: 0..10;
+VAR time: 0..10;
+ASSIGN
+init(time) := 0;
+next(time) := case time < 10 : time + 1; TRUE: time; esac;
+-- compute worst-case time to reach the goal
+PARSYNTH r := { maxtime | VALID ((cabbage & goat & wolf & man) V ((goat = wolf | goat = cabbage -> goat = man) & time<=maxtime)) };
+
+MODULE main
+VAR
+    p : plant(c.move0, c.move1);
+    c : controller(p.man,p.goat,p.wolf,p.cabbage);

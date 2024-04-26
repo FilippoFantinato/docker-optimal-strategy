@@ -7,7 +7,7 @@ import csv
 x1 = [] 
 y1 = []
   
-with open("./driver-finally.csv",'r') as csvfile: 
+with open("./data/driver/driver-finally.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -17,7 +17,7 @@ with open("./driver-finally.csv",'r') as csvfile:
 x2 = [] 
 y2 = []
 
-with open("./driver-until.csv",'r') as csvfile: 
+with open("./data/driver/driver-until.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 

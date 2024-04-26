@@ -8,6 +8,6 @@ IVAR
 	u4 : boolean;
 	u5 : boolean;
 	u6 : boolean;
-LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,6](c <-> u1))) & X X(G[0,3](F[0,6](c <-> u2))) & X X X(G[0,3](F[0,6](c <-> u3))) & X X X X(G[0,3](F[0,6](c <-> u4))) & X X X X X(G[0,3](F[0,6](c <-> u5))) & X X X X X X(G[0,3](F[0,6](c <-> u6)))
+LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,3](c <-> u1))) & X X(G[0,3](F[0,3](c <-> u2))) & X X X(G[0,3](F[0,3](c <-> u3))) & X X X X(G[0,3](F[0,3](c <-> u4))) & X X X X X(G[0,3](F[0,3](c <-> u5))) & X X X X X X(G[0,3](F[0,3](c <-> u6)))
 --OUTPUT : c
 --INPUT : u0,u1,u2,u3,u4,u5,u6

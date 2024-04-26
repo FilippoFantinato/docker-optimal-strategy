@@ -36,6 +36,22 @@ generate_ltl_spec() {
     echo -e "LTLSPEC $ltlspec"
 }
 
+generate_synth_problem() {
+    synth_param="F[0,6]($c_var <-> $u_var0) & X F[0,6]((!$c_var <-> $u_var1) & time<=maxtime)"
+    k=$((n - 1))
+    for i in `seq 1 $k`; do
+        a=$(( 2 * i ))
+        synth_param="$synth_param & `generate_next $a`(F[0,6]($c_var <-> $u_var0) & X (F[0,6]((!$c_var <-> $u_var1) & time<=maxtime)))"
+    done
+    max_time=$((n * 7))
+    echo -e "VAR       time: 0..$max_time;" >> $controller
+    echo -e "FROZENVAR maxtime: 0..$max_time;" >> $controller
+    echo -e "ASSIGN" >> $controller
+    echo -e "  init(time) := 0;" >> $controller
+    echo -e "  next(time) := case time < $max_time : time + 1; TRUE: time; esac;" >> $controller
+    echo -e "PARSYNTH r := { maxtime | VALID  $synth_param};" >> $controller
+}
+
 generate_comments() {
     c_comment="--OUTPUT : c"
     u_comment="--INPUT : u0,u1"
@@ -51,6 +67,7 @@ generate_controller() {
     echo -e "\tinit($c_var) := TRUE;" >> $controller
     echo -e "\tnext($c_var) := !$c_var;" >> $controller
     echo `generate_ltl_spec` >> $controller
+    generate_synth_problem
 }
 
 generate_formula() {

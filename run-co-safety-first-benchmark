@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./run-benchmark -d ./benchmark/formulas/co-safety/first -o ./co-safety-first.csv -t 10 -u 100 --co-safety
+./run-benchmark -d ./benchmark/formulas/co-safety/first -o ./co-safety-first.csv -t 3 --co-safety
 

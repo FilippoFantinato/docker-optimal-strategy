@@ -8,6 +8,6 @@ IVAR
 	u4 : boolean;
 	u5 : boolean;
 	u6 : boolean;
-LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u0)) & X X((!c)U(c <-> u0)) & X X X((!c)U(c <-> u0)) & X X X X((!c)U(c <-> u0)) & X X X X X((!c)U(c <-> u0)) & X X X X X X((!c)U(c <-> u0))
+LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u1)) & X X((!c)U(c <-> u2)) & X X X((!c)U(c <-> u3)) & X X X X((!c)U(c <-> u4)) & X X X X X((!c)U(c <-> u5)) & X X X X X X((!c)U(c <-> u6))
 --OUTPUT : c
 --INPUT : u0,u1,u2,u3,u4,u5,u6

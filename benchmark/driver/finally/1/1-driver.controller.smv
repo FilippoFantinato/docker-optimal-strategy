@@ -81,10 +81,10 @@ init(state) := 1;
 next(state) := case
    TRUE: state;
 esac;
-LTLSPEC F ((x0) & (y0))
+LTLSPEC F (((x0) & (y0)))
 VAR       time: 0..3;
 FROZENVAR maxtime: 0..3;
 ASSIGN
   init(time) := 0;
   next(time) := case time < 3 : time + 1; TRUE: time; esac;
-  PARSYNTH r := { maxtime | VALID  F (s1 & time<=maxtime)};
+PARSYNTH r := { maxtime | VALID  F (((x0) & (y0) & time<=maxtime))};

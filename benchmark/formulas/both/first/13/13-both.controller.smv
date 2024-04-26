@@ -28,3 +28,9 @@ ASSIGN
 	c11 := u11;
 	c12 := u12;
 LTLSPEC F[0,6](c0 <-> u0) & X(F[0,6](c1 <-> u1)) & X X(F[0,6](c2 <-> u2)) & X X X(F[0,6](c3 <-> u3)) & X X X X(F[0,6](c4 <-> u4)) & X X X X X(F[0,6](c5 <-> u5)) & X X X X X X(F[0,6](c6 <-> u6)) & X X X X X X X(F[0,6](c7 <-> u7)) & X X X X X X X X(F[0,6](c8 <-> u8)) & X X X X X X X X X(F[0,6](c9 <-> u9)) & X X X X X X X X X X(F[0,6](c10 <-> u10)) & X X X X X X X X X X X(F[0,6](c11 <-> u11)) & X X X X X X X X X X X X(F[0,6](c12 <-> u12))
+VAR       time: 0..91;
+FROZENVAR maxtime: 0..91;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 91 : time + 1; TRUE: time; esac;
+PARSYNTH r := { maxtime | VALID  F[0,6]((c0 <-> u0) & time <= maxtime) & X(F[0,6]((c1 <-> u1) & time <= maxtime)) & X X(F[0,6]((c2 <-> u2) & time <= maxtime)) & X X X(F[0,6]((c3 <-> u3) & time <= maxtime)) & X X X X(F[0,6]((c4 <-> u4) & time <= maxtime)) & X X X X X(F[0,6]((c5 <-> u5) & time <= maxtime)) & X X X X X X(F[0,6]((c6 <-> u6) & time <= maxtime)) & X X X X X X X(F[0,6]((c7 <-> u7) & time <= maxtime)) & X X X X X X X X(F[0,6]((c8 <-> u8) & time <= maxtime)) & X X X X X X X X X(F[0,6]((c9 <-> u9) & time <= maxtime)) & X X X X X X X X X X(F[0,6]((c10 <-> u10) & time <= maxtime)) & X X X X X X X X X X X(F[0,6]((c11 <-> u11) & time <= maxtime)) & X X X X X X X X X X X X(F[0,6]((c12 <-> u12) & time <= maxtime))};

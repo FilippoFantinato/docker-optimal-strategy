@@ -17,58 +17,58 @@ DEFINE
 ASSIGN
 move0 := case
    state=0: case
-       (((FALSE) & !x0) & !x1) & !x2  : FALSE;
-       (((FALSE) | x0) | x1) | x2  : TRUE;
-       (((FALSE) & !y0) & !y1) & !y2  : FALSE;
+       (((FALSE) & !x0) & !x1) & !x2 : FALSE;
+       (((FALSE) | x0) | x1) | x2 : TRUE;
+       (((FALSE) & !y0) & !y1) & !y2 : FALSE;
        (((FALSE) | y0) | y1) | y2  : TRUE;
        TRUE : FALSE;
    esac;
    state=1: case
-       (((FALSE) | !x0) & !x1) & !x2  : FALSE;
-       (((FALSE) & x0) | x1) | x2  : TRUE;
-       (((FALSE) | !y0) & !y1) & !y2  : FALSE;
+       (((FALSE) | !x0) & !x1) & !x2 : FALSE;
+       (((FALSE) & x0) | x1) | x2 : TRUE;
+       (((FALSE) | !y0) & !y1) & !y2 : FALSE;
        (((FALSE) & y0) | y1) | y2  : TRUE;
        TRUE : FALSE;
    esac;
    state=2: case
-       (((FALSE) & !x0) | !x1) & !x2  : FALSE;
-       (((FALSE) | x0) & x1) | x2  : TRUE;
-       (((FALSE) & !y0) | !y1) & !y2  : FALSE;
+       (((FALSE) & !x0) | !x1) & !x2 : FALSE;
+       (((FALSE) | x0) & x1) | x2 : TRUE;
+       (((FALSE) & !y0) | !y1) & !y2 : FALSE;
        (((FALSE) | y0) & y1) | y2  : TRUE;
        TRUE : FALSE;
    esac;
    state=3: case
-       (((FALSE) | !x0) | !x1) & !x2  : FALSE;
-       (((FALSE) & x0) & x1) | x2  : TRUE;
-       (((FALSE) | !y0) | !y1) & !y2  : FALSE;
+       (((FALSE) | !x0) | !x1) & !x2 : FALSE;
+       (((FALSE) & x0) & x1) | x2 : TRUE;
+       (((FALSE) | !y0) | !y1) & !y2 : FALSE;
        (((FALSE) & y0) & y1) | y2  : TRUE;
        TRUE : FALSE;
    esac;
    state=4: case
-       (((FALSE) & !x0) & !x1) | !x2  : FALSE;
-       (((FALSE) | x0) | x1) & x2  : TRUE;
-       (((FALSE) & !y0) & !y1) | !y2  : FALSE;
+       (((FALSE) & !x0) & !x1) | !x2 : FALSE;
+       (((FALSE) | x0) | x1) & x2 : TRUE;
+       (((FALSE) & !y0) & !y1) | !y2 : FALSE;
        (((FALSE) | y0) | y1) & y2  : TRUE;
        TRUE : FALSE;
    esac;
    state=5: case
-       (((FALSE) | !x0) & !x1) | !x2  : FALSE;
-       (((FALSE) & x0) | x1) & x2  : TRUE;
-       (((FALSE) | !y0) & !y1) | !y2  : FALSE;
+       (((FALSE) | !x0) & !x1) | !x2 : FALSE;
+       (((FALSE) & x0) | x1) & x2 : TRUE;
+       (((FALSE) | !y0) & !y1) | !y2 : FALSE;
        (((FALSE) & y0) | y1) & y2  : TRUE;
        TRUE : FALSE;
    esac;
    state=6: case
-       (((FALSE) & !x0) | !x1) | !x2  : FALSE;
-       (((FALSE) | x0) & x1) & x2  : TRUE;
-       (((FALSE) & !y0) | !y1) | !y2  : FALSE;
+       (((FALSE) & !x0) | !x1) | !x2 : FALSE;
+       (((FALSE) | x0) & x1) & x2 : TRUE;
+       (((FALSE) & !y0) | !y1) | !y2 : FALSE;
        (((FALSE) | y0) & y1) & y2  : TRUE;
        TRUE : FALSE;
    esac;
    state=7: case
-       (((FALSE) | !x0) | !x1) | !x2  : FALSE;
-       (((FALSE) & x0) & x1) & x2  : TRUE;
-       (((FALSE) | !y0) | !y1) | !y2  : FALSE;
+       (((FALSE) | !x0) | !x1) | !x2 : FALSE;
+       (((FALSE) & x0) & x1) & x2 : TRUE;
+       (((FALSE) | !y0) | !y1) | !y2 : FALSE;
        (((FALSE) & y0) & y1) & y2  : TRUE;
        TRUE : FALSE;
    esac;
@@ -76,199 +76,195 @@ move0 := case
 esac;
 move1 := case
    state=0: case
-       (((FALSE) & !x0) & !x1) & !x2  : TRUE;
-       (((FALSE) | x0) | x1) | x2  : TRUE;
-       (((FALSE) & !y0) & !y1) & !y2  : FALSE;
-       (((FALSE) | y0) | y1) | y2  : FALSE;
+       (((FALSE) & !x0) & !x1) & !x2 : TRUE;
+       (((FALSE) | x0) | x1) | x2 : TRUE;
+       (((FALSE) & !y0) & !y1) & !y2 : FALSE;
+       (((FALSE) | y0) | y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=1: case
-       (((FALSE) | !x0) & !x1) & !x2  : TRUE;
-       (((FALSE) & x0) | x1) | x2  : TRUE;
-       (((FALSE) | !y0) & !y1) & !y2  : FALSE;
-       (((FALSE) & y0) | y1) | y2  : FALSE;
+       (((FALSE) | !x0) & !x1) & !x2 : TRUE;
+       (((FALSE) & x0) | x1) | x2 : TRUE;
+       (((FALSE) | !y0) & !y1) & !y2 : FALSE;
+       (((FALSE) & y0) | y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=2: case
-       (((FALSE) & !x0) | !x1) & !x2  : TRUE;
-       (((FALSE) | x0) & x1) | x2  : TRUE;
-       (((FALSE) & !y0) | !y1) & !y2  : FALSE;
-       (((FALSE) | y0) & y1) | y2  : FALSE;
+       (((FALSE) & !x0) | !x1) & !x2 : TRUE;
+       (((FALSE) | x0) & x1) | x2 : TRUE;
+       (((FALSE) & !y0) | !y1) & !y2 : FALSE;
+       (((FALSE) | y0) & y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=3: case
-       (((FALSE) | !x0) | !x1) & !x2  : TRUE;
-       (((FALSE) & x0) & x1) | x2  : TRUE;
-       (((FALSE) | !y0) | !y1) & !y2  : FALSE;
-       (((FALSE) & y0) & y1) | y2  : FALSE;
+       (((FALSE) | !x0) | !x1) & !x2 : TRUE;
+       (((FALSE) & x0) & x1) | x2 : TRUE;
+       (((FALSE) | !y0) | !y1) & !y2 : FALSE;
+       (((FALSE) & y0) & y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=4: case
-       (((FALSE) & !x0) & !x1) | !x2  : TRUE;
-       (((FALSE) | x0) | x1) & x2  : TRUE;
-       (((FALSE) & !y0) & !y1) | !y2  : FALSE;
-       (((FALSE) | y0) | y1) & y2  : FALSE;
+       (((FALSE) & !x0) & !x1) | !x2 : TRUE;
+       (((FALSE) | x0) | x1) & x2 : TRUE;
+       (((FALSE) & !y0) & !y1) | !y2 : FALSE;
+       (((FALSE) | y0) | y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=5: case
-       (((FALSE) | !x0) & !x1) | !x2  : TRUE;
-       (((FALSE) & x0) | x1) & x2  : TRUE;
-       (((FALSE) | !y0) & !y1) | !y2  : FALSE;
-       (((FALSE) & y0) | y1) & y2  : FALSE;
+       (((FALSE) | !x0) & !x1) | !x2 : TRUE;
+       (((FALSE) & x0) | x1) & x2 : TRUE;
+       (((FALSE) | !y0) & !y1) | !y2 : FALSE;
+       (((FALSE) & y0) | y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=6: case
-       (((FALSE) & !x0) | !x1) | !x2  : TRUE;
-       (((FALSE) | x0) & x1) & x2  : TRUE;
-       (((FALSE) & !y0) | !y1) | !y2  : FALSE;
-       (((FALSE) | y0) & y1) & y2  : FALSE;
+       (((FALSE) & !x0) | !x1) | !x2 : TRUE;
+       (((FALSE) | x0) & x1) & x2 : TRUE;
+       (((FALSE) & !y0) | !y1) | !y2 : FALSE;
+       (((FALSE) | y0) & y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=7: case
-       (((FALSE) | !x0) | !x1) | !x2  : TRUE;
-       (((FALSE) & x0) & x1) & x2  : TRUE;
-       (((FALSE) | !y0) | !y1) | !y2  : FALSE;
-       (((FALSE) & y0) & y1) & y2  : FALSE;
+       (((FALSE) | !x0) | !x1) | !x2 : TRUE;
+       (((FALSE) & x0) & x1) & x2 : TRUE;
+       (((FALSE) | !y0) | !y1) | !y2 : FALSE;
+       (((FALSE) & y0) & y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    TRUE: FALSE;
 esac;
 move2 := case
    state=0: case
-       (((FALSE) & !x0) & !x1) & !x2  : FALSE;
+       (((FALSE) & !x0) & !x1) & !x2 : FALSE;
        (((FALSE) | x0) | x1) | x2  : FALSE;
-       (((FALSE) & !y0) & !y1) & !y2  : FALSE;
-       (((FALSE) | y0) | y1) | y2  : FALSE;
+       (((FALSE) & !y0) & !y1) & !y2 : FALSE;
+       (((FALSE) | y0) | y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=1: case
-       (((FALSE) | !x0) & !x1) & !x2  : FALSE;
+       (((FALSE) | !x0) & !x1) & !x2 : FALSE;
        (((FALSE) & x0) | x1) | x2  : FALSE;
-       (((FALSE) | !y0) & !y1) & !y2  : FALSE;
-       (((FALSE) & y0) | y1) | y2  : FALSE;
+       (((FALSE) | !y0) & !y1) & !y2 : FALSE;
+       (((FALSE) & y0) | y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=2: case
-       (((FALSE) & !x0) | !x1) & !x2  : FALSE;
+       (((FALSE) & !x0) | !x1) & !x2 : FALSE;
        (((FALSE) | x0) & x1) | x2  : FALSE;
-       (((FALSE) & !y0) | !y1) & !y2  : FALSE;
-       (((FALSE) | y0) & y1) | y2  : FALSE;
+       (((FALSE) & !y0) | !y1) & !y2 : FALSE;
+       (((FALSE) | y0) & y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=3: case
-       (((FALSE) | !x0) | !x1) & !x2  : FALSE;
+       (((FALSE) | !x0) | !x1) & !x2 : FALSE;
        (((FALSE) & x0) & x1) | x2  : FALSE;
-       (((FALSE) | !y0) | !y1) & !y2  : FALSE;
-       (((FALSE) & y0) & y1) | y2  : FALSE;
+       (((FALSE) | !y0) | !y1) & !y2 : FALSE;
+       (((FALSE) & y0) & y1) | y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=4: case
-       (((FALSE) & !x0) & !x1) | !x2  : FALSE;
+       (((FALSE) & !x0) & !x1) | !x2 : FALSE;
        (((FALSE) | x0) | x1) & x2  : FALSE;
-       (((FALSE) & !y0) & !y1) | !y2  : FALSE;
-       (((FALSE) | y0) | y1) & y2  : FALSE;
+       (((FALSE) & !y0) & !y1) | !y2 : FALSE;
+       (((FALSE) | y0) | y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=5: case
-       (((FALSE) | !x0) & !x1) | !x2  : FALSE;
+       (((FALSE) | !x0) & !x1) | !x2 : FALSE;
        (((FALSE) & x0) | x1) & x2  : FALSE;
-       (((FALSE) | !y0) & !y1) | !y2  : FALSE;
-       (((FALSE) & y0) | y1) & y2  : FALSE;
+       (((FALSE) | !y0) & !y1) | !y2 : FALSE;
+       (((FALSE) & y0) | y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=6: case
-       (((FALSE) & !x0) | !x1) | !x2  : FALSE;
+       (((FALSE) & !x0) | !x1) | !x2 : FALSE;
        (((FALSE) | x0) & x1) & x2  : FALSE;
-       (((FALSE) & !y0) | !y1) | !y2  : FALSE;
-       (((FALSE) | y0) & y1) & y2  : FALSE;
+       (((FALSE) & !y0) | !y1) | !y2 : FALSE;
+       (((FALSE) | y0) & y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    state=7: case
-       (((FALSE) | !x0) | !x1) | !x2  : FALSE;
+       (((FALSE) | !x0) | !x1) | !x2 : FALSE;
        (((FALSE) & x0) & x1) & x2  : FALSE;
-       (((FALSE) | !y0) | !y1) | !y2  : FALSE;
-       (((FALSE) & y0) & y1) & y2  : FALSE;
+       (((FALSE) | !y0) | !y1) | !y2 : FALSE;
+       (((FALSE) & y0) & y1) & y2 : FALSE;
        TRUE : FALSE;
    esac;
    TRUE: FALSE;
 esac;
 move3 := case
    state=0: case
-       (((FALSE) & !x0) & !x1) & !x2  : FALSE;
-       (((FALSE) | x0) | x1) | x2  : FALSE;
-       (((FALSE) & !y0) & !y1) & !y2  : FALSE;
-       (((FALSE) | y0) | y1) | y2  : FALSE;
+       (((FALSE) & !x0) & !x1) & !x2 : FALSE;
+       (((FALSE) | x0) | x1) | x2 : FALSE;
+       (((FALSE) & !y0) & !y1) & !y2 : FALSE;
+       (((FALSE) | y0) | y1) | y2 : FALSE;
        TRUE : TRUE;
    esac;
    state=1: case
-       (((FALSE) | !x0) & !x1) & !x2  : FALSE;
-       (((FALSE) & x0) | x1) | x2  : FALSE;
-       (((FALSE) | !y0) & !y1) & !y2  : FALSE;
-       (((FALSE) & y0) | y1) | y2  : FALSE;
+       (((FALSE) | !x0) & !x1) & !x2 : FALSE;
+       (((FALSE) & x0) | x1) | x2 : FALSE;
+       (((FALSE) | !y0) & !y1) & !y2 : FALSE;
+       (((FALSE) & y0) | y1) | y2 : FALSE;
        TRUE : TRUE;
    esac;
    state=2: case
-       (((FALSE) & !x0) | !x1) & !x2  : FALSE;
-       (((FALSE) | x0) & x1) | x2  : FALSE;
-       (((FALSE) & !y0) | !y1) & !y2  : FALSE;
-       (((FALSE) | y0) & y1) | y2  : FALSE;
+       (((FALSE) & !x0) | !x1) & !x2 : FALSE;
+       (((FALSE) | x0) & x1) | x2 : FALSE;
+       (((FALSE) & !y0) | !y1) & !y2 : FALSE;
+       (((FALSE) | y0) & y1) | y2 : FALSE;
        TRUE : TRUE;
    esac;
    state=3: case
-       (((FALSE) | !x0) | !x1) & !x2  : FALSE;
-       (((FALSE) & x0) & x1) | x2  : FALSE;
-       (((FALSE) | !y0) | !y1) & !y2  : FALSE;
-       (((FALSE) & y0) & y1) | y2  : FALSE;
+       (((FALSE) | !x0) | !x1) & !x2 : FALSE;
+       (((FALSE) & x0) & x1) | x2 : FALSE;
+       (((FALSE) | !y0) | !y1) & !y2 : FALSE;
+       (((FALSE) & y0) & y1) | y2 : FALSE;
        TRUE : TRUE;
    esac;
    state=4: case
-       (((FALSE) & !x0) & !x1) | !x2  : FALSE;
-       (((FALSE) | x0) | x1) & x2  : FALSE;
-       (((FALSE) & !y0) & !y1) | !y2  : FALSE;
-       (((FALSE) | y0) | y1) & y2  : FALSE;
+       (((FALSE) & !x0) & !x1) | !x2 : FALSE;
+       (((FALSE) | x0) | x1) & x2 : FALSE;
+       (((FALSE) & !y0) & !y1) | !y2 : FALSE;
+       (((FALSE) | y0) | y1) & y2 : FALSE;
        TRUE : TRUE;
    esac;
    state=5: case
-       (((FALSE) | !x0) & !x1) | !x2  : FALSE;
-       (((FALSE) & x0) | x1) & x2  : FALSE;
-       (((FALSE) | !y0) & !y1) | !y2  : FALSE;
-       (((FALSE) & y0) | y1) & y2  : FALSE;
+       (((FALSE) | !x0) & !x1) | !x2 : FALSE;
+       (((FALSE) & x0) | x1) & x2 : FALSE;
+       (((FALSE) | !y0) & !y1) | !y2 : FALSE;
+       (((FALSE) & y0) | y1) & y2 : FALSE;
        TRUE : TRUE;
    esac;
    state=6: case
-       (((FALSE) & !x0) | !x1) | !x2  : FALSE;
-       (((FALSE) | x0) & x1) & x2  : FALSE;
-       (((FALSE) & !y0) | !y1) | !y2  : FALSE;
-       (((FALSE) | y0) & y1) & y2  : FALSE;
+       (((FALSE) & !x0) | !x1) | !x2 : FALSE;
+       (((FALSE) | x0) & x1) & x2 : FALSE;
+       (((FALSE) & !y0) | !y1) | !y2 : FALSE;
+       (((FALSE) | y0) & y1) & y2 : FALSE;
        TRUE : TRUE;
    esac;
    state=7: case
-       (((FALSE) | !x0) | !x1) | !x2  : FALSE;
-       (((FALSE) & x0) & x1) & x2  : FALSE;
-       (((FALSE) | !y0) | !y1) | !y2  : FALSE;
-       (((FALSE) & y0) & y1) & y2  : FALSE;
+       (((FALSE) | !x0) | !x1) | !x2 : FALSE;
+       (((FALSE) & x0) & x1) & x2 : FALSE;
+       (((FALSE) | !y0) | !y1) | !y2 : FALSE;
+       (((FALSE) & y0) & y1) & y2 : FALSE;
        TRUE : TRUE;
    esac;
    TRUE: TRUE;
 esac;
 init(state) := 1;
 next(state) := case
-   s0: 1;
    s1: 2;
    s2: 3;
    s3: 4;
    s4: 5;
    s5: 6;
    s6: 7;
-   s7: 0;
    TRUE: state;
 esac;
-LTLSPEC (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((!x2 & !x1 & x0) & (!y2 & !y1 & y0))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((!x2 & x1 & !x0) & (!y2 & y1 & !y0))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((!x2 & x1 & x0) & (!y2 & y1 & y0))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & !x1 & !x0) & (y2 & !y1 & !y0))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & !x1 & x0) & (y2 & !y1 & y0))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & x1 & !x0) & (y2 & y1 & !y0))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & x1 & x0) & (y2 & y1 & y0)))
-VAR       time: 0..21;
-FROZENVAR maxtime: 0..21;
+LTLSPEC (!(((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)))) U (((x2 & x1 & x0) & (y2 & y1 & y0)) & O (((x2 & x1 & !x0) & (y2 & y1 & !y0)) & O (((x2 & !x1 & x0) & (y2 & !y1 & y0)) & O (((x2 & !x1 & !x0) & (y2 & !y1 & !y0)) & O (((!x2 & x1 & x0) & (!y2 & y1 & y0)) & O (((!x2 & x1 & !x0) & (!y2 & y1 & !y0)) & O (((!x2 & !x1 & x0) & (!y2 & !y1 & y0)))))))))
+VAR       time: 0..70;
+FROZENVAR maxtime: 0..70;
 ASSIGN
   init(time) := 0;
-  next(time) := case
-  s0 | s1 | s2 | s3 | s4 | s5 | s6 | s7 : 0;
-  time < 21 : time + 1; TRUE: time; esac;
-  PARSYNTH r := { maxtime | VALID  (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((!x2 & !x1 & x0) & (!y2 & !y1 & y0) & (time <= maxtime))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((!x2 & x1 & !x0) & (!y2 & y1 & !y0) & (time <= maxtime))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((!x2 & x1 & x0) & (!y2 & y1 & y0) & (time <= maxtime))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & !x1 & !x0) & (y2 & !y1 & !y0) & (time <= maxtime))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & !x1 & x0) & (y2 & !y1 & y0) & (time <= maxtime))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & x1 & !x0) & (y2 & y1 & !y0) & (time <= maxtime))) & (!(((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0)) | ((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & !y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (!y2 & y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0)) | ((x2 & x1 & x0) & (y2 & y1 & !y0))) U ((x2 & x1 & x0) & (y2 & y1 & y0) & (time <= maxtime)))};
+  next(time) := case time < 70 : time + 1; TRUE: time; esac;
+PARSYNTH r := { maxtime | VALID  (((x2 & x1 & x0) & (y2 & y1 & y0)) & O (((x2 & x1 & !x0) & (y2 & y1 & !y0)) & O (((x2 & !x1 & x0) & (y2 & !y1 & y0)) & O (((x2 & !x1 & !x0) & (y2 & !y1 & !y0)) & O (((!x2 & x1 & x0) & (!y2 & y1 & y0)) & O (((!x2 & x1 & !x0) & (!y2 & y1 & !y0)) & O (((!x2 & !x1 & x0) & (!y2 & !y1 & y0))))))))) V (!(((!x2 & !x1 & !x0) & (!y2 & !y1 & y0)) | ((!x2 & !x1 & x0) & (!y2 & y1 & !y0)) | ((!x2 & x1 & !x0) & (!y2 & y1 & y0)) | ((!x2 & x1 & x0) & (y2 & !y1 & !y0)) | ((x2 & !x1 & !x0) & (y2 & !y1 & y0)) | ((x2 & !x1 & x0) & (y2 & y1 & !y0)) | ((x2 & x1 & !x0) & (y2 & y1 & y0))) & time<=maxtime)};

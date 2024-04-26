@@ -1,0 +1,63 @@
+MODULE controller(f_x0,f_x1,f_x2,f_y0,f_y1,f_y2,c_x0,c_x1,c_x2,c_y0,c_y1,c_y2,d_x0,d_x1,d_x2,d_y0,d_y1,d_y2,f_counter0,d_counter0,d_counter1)
+VAR
+   move0: boolean;
+   move1: boolean;
+   move2: boolean;
+   move3: boolean;
+TRANS
+move0 = case
+    ((!f_x2 & c_x2) | (f_x2 = c_x2 & !f_x1 & c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & !f_x0 & c_x0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((f_x2 & !c_x2) | (f_x2 = c_x2 & f_x1 & !c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & f_x0 & !c_x0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : TRUE;
+    ((!f_y2 & c_y2) | (f_y2 = c_y2 & !f_y1 & c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & !f_y0 & c_y0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((f_y2 & !c_y2) | (f_y2 = c_y2 & f_y1 & !c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & f_y0 & !c_y0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : TRUE;
+    TRUE : FALSE;
+esac;
+TRANS
+move1 = case
+    ((!f_x2 & c_x2) | (f_x2 = c_x2 & !f_x1 & c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & !f_x0 & c_x0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : TRUE;
+    ((f_x2 & !c_x2) | (f_x2 = c_x2 & f_x1 & !c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & f_x0 & !c_x0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : TRUE;
+    ((!f_y2 & c_y2) | (f_y2 = c_y2 & !f_y1 & c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & !f_y0 & c_y0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((f_y2 & !c_y2) | (f_y2 = c_y2 & f_y1 & !c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & f_y0 & !c_y0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    TRUE : FALSE;
+esac;
+TRANS
+move2 = case
+    ((!f_x2 & c_x2) | (f_x2 = c_x2 & !f_x1 & c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & !f_x0 & c_x0))  &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((f_x2 & !c_x2) | (f_x2 = c_x2 & f_x1 & !c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & f_x0 & !c_x0))  &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((!f_y2 & c_y2) | (f_y2 = c_y2 & !f_y1 & c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & !f_y0 & c_y0))  &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((f_y2 & !c_y2) | (f_y2 = c_y2 & f_y1 & !c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & f_y0 & !c_y0))  &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    TRUE : FALSE;
+esac;
+TRANS
+move3 = case
+    ((!f_x2 & c_x2) | (f_x2 = c_x2 & !f_x1 & c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & !f_x0 & c_x0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((f_x2 & !c_x2) | (f_x2 = c_x2 & f_x1 & !c_x1) | (f_x2 = c_x2 & f_x1 = c_x1 & f_x0 & !c_x0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((!f_y2 & c_y2) | (f_y2 = c_y2 & !f_y1 & c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & !f_y0 & c_y0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    ((f_y2 & !c_y2) | (f_y2 = c_y2 & f_y1 & !c_y1) | (f_y2 = c_y2 & f_y1 = c_y1 & f_y0 & !c_y0)) &
+    (next(f_x2) != next(d_x2) | (next(f_x2) = next(d_x2) & next(f_x1) != next(d_x1)) | (next(f_x2) = next(d_x2) & next(f_x1) = next(d_x1) & next(f_x0) != next(d_x0)) | next(f_y2) != next(d_y2) | (next(f_y2) = next(d_y2) & next(f_y1) != next(d_y1)) | (next(f_y2) = next(d_y2) & next(f_y1) = next(d_y1) & next(f_y0) != next(d_y0))) : FALSE;
+    TRUE : TRUE;
+esac;
+
+LTLSPEC (f_x2 != d_x2 | (f_x2 = d_x2 & f_x1 != d_x1) | (f_x2 = d_x2 & f_x1 = d_x1 & f_x0 != d_x0) | f_y2 != d_y2 | (f_y2 = d_y2 & f_y1 != d_y1) | (f_y2 = d_y2 & f_y1 = d_y1 & f_y0 != d_y0)) U (f_x2 = c_x2 & f_x1 = c_x1 & f_x0 = c_x0 & f_y2 = c_y2 & f_y1 = c_y1 & f_y0 = c_y0)
+
+VAR       time: 0..15;
+FROZENVAR maxtime: 0..15;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 15 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID (f_x2 != d_x2 | (f_x2 = d_x2 & f_x1 != d_x1) | (f_x2 = d_x2 & f_x1 = d_x1 & f_x0 != d_x0) | f_y2 != d_y2 | (f_y2 = d_y2 & f_y1 != d_y1) | (f_y2 = d_y2 & f_y1 = d_y1 & f_y0 != d_y0)) U (f_x2 = c_x2 & f_x1 = c_x1 & f_x0 = c_x0 & f_y2 = c_y2 & f_y1 = c_y1 & f_y0 = c_y0 & time<=maxtime)};

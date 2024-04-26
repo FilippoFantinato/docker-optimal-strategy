@@ -15,6 +15,6 @@ IVAR
 	u11 : boolean;
 	u12 : boolean;
 	u13 : boolean;
-LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u0)) & X X((!c)U(c <-> u0)) & X X X((!c)U(c <-> u0)) & X X X X((!c)U(c <-> u0)) & X X X X X((!c)U(c <-> u0)) & X X X X X X((!c)U(c <-> u0)) & X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X X X X((!c)U(c <-> u0))
+LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u1)) & X X((!c)U(c <-> u2)) & X X X((!c)U(c <-> u3)) & X X X X((!c)U(c <-> u4)) & X X X X X((!c)U(c <-> u5)) & X X X X X X((!c)U(c <-> u6)) & X X X X X X X((!c)U(c <-> u7)) & X X X X X X X X((!c)U(c <-> u8)) & X X X X X X X X X((!c)U(c <-> u9)) & X X X X X X X X X X((!c)U(c <-> u10)) & X X X X X X X X X X X((!c)U(c <-> u11)) & X X X X X X X X X X X X((!c)U(c <-> u12)) & X X X X X X X X X X X X X((!c)U(c <-> u13))
 --OUTPUT : c
 --INPUT : u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13

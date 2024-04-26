@@ -1,4 +1,0 @@
-read_model -i examples/ferryman/ferryman.smv
-go
-check_ltlspec
-quit

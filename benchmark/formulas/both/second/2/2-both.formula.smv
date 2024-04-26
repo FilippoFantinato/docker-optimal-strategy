@@ -3,6 +3,6 @@ IVAR
 	c : boolean;
 	u0 : boolean;
 	u1 : boolean;
-LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,6](c <-> u1)))
+LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,3](c <-> u1)))
 --OUTPUT : c
 --INPUT : u0,u1

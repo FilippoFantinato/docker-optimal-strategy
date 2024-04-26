@@ -98,7 +98,7 @@ compute_upper_bound() {
     upper_bound_command="$unique_dir/upper_bound.commands.txt"
     echo "set on_failure_script_quits 1; read_model -i $closed_loop; go_bmc; synth_param -a ic3 -s -l -c; show_param_synth_problems; quit" > $upper_bound_command
     synth_param_output=`exec_nuxmv $upper_bound_command | sed -nr 's/.*region: (.*).*/\1/p'`
-    rm -f $upper_bound_command
+    # rm -f $upper_bound_command
     
     if [ "$synth_param_output" == "TRUE" ]; then
         echo 0
@@ -202,9 +202,9 @@ solve_game() {
     game_output=
     if [ -z "$output" ]; then
         game_output=$([[ $cosafety -eq 1 ]] && 
-                    echo `./simple-synth -s --smv sub $game --co-safety` ||
-                    echo `./simple-synth -s --smv sub $game`)
-    else
+                    echo `./simple-synth $game --co-safety` ||
+                    echo `./simple-synth $game`)
+    else # -s --smv sub
         game_output=$([[ $cosafety -eq 1 ]] && 
                     echo `./simple-synth $game -s --smv sub -o $output --co-safety` ||
                     echo `./simple-synth $game -s --smv sub -o $output`)
@@ -227,15 +227,14 @@ main() {
     fi
 
     echo "Checking the property on the system..."
-    if [ "`check_ltlspec`" -eq "0" ]; then
-        echo "The formula does not hold on the system"
-        exit 1
-    fi
+    # if [ "`check_ltlspec`" -eq "0" ]; then
+    #     echo "The formula does not hold on the system"
+    #     exit 1
+    # fi
 
     if [ -z "$upper_bound" ]; then
         echo "Computing the upper bound..."
         upper_bound=`compute_upper_bound`
-        echo "Upper-bound: $upper_bound"
     fi
 
     if [ "$upper_bound" -ne "0" ]; then

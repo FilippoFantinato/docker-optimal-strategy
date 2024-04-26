@@ -12,3 +12,9 @@ ASSIGN
 	c3 := u3;
 	c4 := u4;
 LTLSPEC F[0,6](c0 <-> u0) & X(F[0,6](c1 <-> u1)) & X X(F[0,6](c2 <-> u2)) & X X X(F[0,6](c3 <-> u3)) & X X X X(F[0,6](c4 <-> u4))
+VAR       time: 0..35;
+FROZENVAR maxtime: 0..35;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 35 : time + 1; TRUE: time; esac;
+PARSYNTH r := { maxtime | VALID  F[0,6]((c0 <-> u0) & time <= maxtime) & X(F[0,6]((c1 <-> u1) & time <= maxtime)) & X X(F[0,6]((c2 <-> u2) & time <= maxtime)) & X X X(F[0,6]((c3 <-> u3) & time <= maxtime)) & X X X X(F[0,6]((c4 <-> u4) & time <= maxtime))};

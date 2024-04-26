@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./run-benchmark -d ./benchmark/formulas/both/first -o ./both-first.csv -t 10 -u 100
+./run-benchmark -d ./benchmark/formulas/both/first -o ./both-first.csv -t 3
 

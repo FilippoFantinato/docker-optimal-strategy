@@ -1,7 +1,7 @@
 MODULE controller(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10)
 VAR
 	c : boolean;
-	steps: 0..10
+	steps: 0..11;
 ASSIGN
 	c := case
 		steps=0 : u0;
@@ -15,8 +15,14 @@ ASSIGN
 		steps=8 : u8;
 		steps=9 : u9;
 		steps=10 : u10;
-		else : c;
+		TRUE : TRUE;
 	esac;
 	init(steps) := 0;
-	next(steps) := case steps < 10 : steps + 1; else : steps; esac;
-LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u0)) & X X((!c)U(c <-> u0)) & X X X((!c)U(c <-> u0)) & X X X X((!c)U(c <-> u0)) & X X X X X((!c)U(c <-> u0)) & X X X X X X((!c)U(c <-> u0)) & X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X((!c)U(c <-> u0)) & X X X X X X X X X X((!c)U(c <-> u0))
+	next(steps) := case steps < 10 : steps + 1; TRUE : steps; esac;
+LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u1)) & X X((!c)U(c <-> u2)) & X X X((!c)U(c <-> u3)) & X X X X((!c)U(c <-> u4)) & X X X X X((!c)U(c <-> u5)) & X X X X X X((!c)U(c <-> u6)) & X X X X X X X((!c)U(c <-> u7)) & X X X X X X X X((!c)U(c <-> u8)) & X X X X X X X X X((!c)U(c <-> u9)) & X X X X X X X X X X((!c)U(c <-> u10))
+VAR       time: 0..22;
+FROZENVAR maxtime: 0..22;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 22 : time + 1; TRUE: time; esac;
+PARSYNTH r := { maxtime | VALID  ((c <-> u0) & time <= maxtime)V(!c) & X(((c <-> u1) & time <= maxtime)V(!c)) & X X(((c <-> u2) & time <= maxtime)V(!c)) & X X X(((c <-> u3) & time <= maxtime)V(!c)) & X X X X(((c <-> u4) & time <= maxtime)V(!c)) & X X X X X(((c <-> u5) & time <= maxtime)V(!c)) & X X X X X X(((c <-> u6) & time <= maxtime)V(!c)) & X X X X X X X(((c <-> u7) & time <= maxtime)V(!c)) & X X X X X X X X(((c <-> u8) & time <= maxtime)V(!c)) & X X X X X X X X X(((c <-> u9) & time <= maxtime)V(!c)) & X X X X X X X X X X(((c <-> u10) & time <= maxtime)V(!c))};

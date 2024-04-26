@@ -1,13 +1,19 @@
 MODULE controller(u0,u1)
 VAR
 	c : boolean;
-	steps: 0..1
+	steps: 0..2;
 ASSIGN
 	c := case
 		steps=0 : u0;
 		steps=1 : u1;
-		else : c;
+		TRUE : TRUE;
 	esac;
 	init(steps) := 0;
-	next(steps) := case steps < 1 : steps + 1; else : steps; esac;
-LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u0))
+	next(steps) := case steps < 1 : steps + 1; TRUE : steps; esac;
+LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u1))
+VAR       time: 0..4;
+FROZENVAR maxtime: 0..4;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 4 : time + 1; TRUE: time; esac;
+PARSYNTH r := { maxtime | VALID  ((c <-> u0) & time <= maxtime)V(!c) & X(((c <-> u1) & time <= maxtime)V(!c))};

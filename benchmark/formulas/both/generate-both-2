@@ -31,9 +31,25 @@ generate_ltl_spec() {
     k=$((n - 1))
     for i in `seq 1 $k`; do
         next=`generate_next $i`
-        ltlspec="$ltlspec & $next(G[0,3](F[0,6]($c_var <-> ${u_vars[i]})))"
+        ltlspec="$ltlspec & $next(G[0,3](F[0,3]($c_var <-> ${u_vars[i]})))"
     done
     echo -e "LTLSPEC $ltlspec"
+}
+
+generate_synth_problem() {
+    synth_param="G[0,3](F[0,3](($c_var <-> ${u_vars[0]}) & time <= maxtime))"
+    k=$((n - 1))
+    for i in `seq 1 $k`; do
+        next=`generate_next $i`
+        synth_param="$synth_param & $next(G[0,3](F[0,3](($c_var <-> ${u_vars[i]}) & time <= maxtime)))"
+    done
+    max_time=$((n * 7))
+    echo -e "VAR       time: 0..$max_time;" >> $controller
+    echo -e "FROZENVAR maxtime: 0..$max_time;" >> $controller
+    echo -e "ASSIGN" >> $controller
+    echo -e "  init(time) := 0;" >> $controller
+    echo -e "  next(time) := case time < $max_time : time + 1; TRUE: time; esac;" >> $controller
+    echo -e "PARSYNTH r := { maxtime | VALID  $synth_param};" >> $controller
 }
 
 generate_comments() {
@@ -85,18 +101,22 @@ generate_controller() {
     echo "MODULE controller($us)" > $controller
     echo "VAR" >> $controller
     echo -e "\t$c_var : boolean;" >> $controller
-    echo -e "\tsteps: 0..$((n-1))" >> $controller
+    echo -e "\tsteps: 0..$n;" >> $controller
+	echo -e "\ttimes: 0..3;" >> $controller
     echo -e "ASSIGN" >> $controller
     echo -e "\t$c_var := case" >> $controller
     for i in `seq 0 $((n-1))`; do
-        echo -e "\t\tsteps=$i : ${u_vars[i]};" >> $controller
+        echo -e "\t\tsteps=$i & times=0 : ${u_vars[i]};" >> $controller
     done
-    echo -e "\t\telse : c;" >> $controller;
+    echo -e "\t\tTRUE : TRUE;" >> $controller;
     echo -e "\tesac;" >> $controller;
     echo -e "\tinit(steps) := 0;" >> $controller;
-    echo -e "\tnext(steps) := case steps < $((n-1)) : steps + 1; else : steps; esac;" >> $controller
+    echo -e "\tnext(steps) := case steps < $((n-1)) : steps + 1; TRUE : steps; esac;" >> $controller
+    echo -e "\tinit(times) := 0;" >> $controller
+	echo -e "\tnext(times) := (times + 1) mod 3;" >> $controller
 
     echo `generate_ltl_spec` >> $controller
+    generate_synth_problem
 }
 
 main() {

@@ -6,7 +6,7 @@ import csv
 x1 = [] 
 y1 = []
   
-with open("./co-safety-first.csv",'r') as csvfile: 
+with open("./data/co-safety/co-safety-first.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -16,7 +16,7 @@ with open("./co-safety-first.csv",'r') as csvfile:
 x2 = [] 
 y2 = []
 
-with open("./co-safety-second.csv",'r') as csvfile: 
+with open("./data/co-safety/co-safety-second.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 
@@ -26,7 +26,7 @@ with open("./co-safety-second.csv",'r') as csvfile:
 x3 = [] 
 y3 = []
 
-with open("./co-safety-third.csv",'r') as csvfile: 
+with open("./data/co-safety/co-safety-third.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     for row in plots: 

@@ -291,10 +291,10 @@ next(state) := case
    s7: 8;
    TRUE: state;
 esac;
-LTLSPEC F ((!x3 & !x2 & !x1 & x0) & (!y3 & !y2 & !y1 & y0)) & F ((!x3 & !x2 & x1 & !x0) & (!y3 & !y2 & y1 & !y0)) & F ((!x3 & !x2 & x1 & x0) & (!y3 & !y2 & y1 & y0)) & F ((!x3 & x2 & !x1 & !x0) & (!y3 & y2 & !y1 & !y0)) & F ((!x3 & x2 & !x1 & x0) & (!y3 & y2 & !y1 & y0)) & F ((!x3 & x2 & x1 & !x0) & (!y3 & y2 & y1 & !y0)) & F ((!x3 & x2 & x1 & x0) & (!y3 & y2 & y1 & y0)) & F ((x3 & !x2 & !x1 & !x0) & (y3 & !y2 & !y1 & !y0))
+LTLSPEC F (((x3 & !x2 & !x1 & !x0) & (y3 & !y2 & !y1 & !y0)) & O (((!x3 & x2 & x1 & x0) & (!y3 & y2 & y1 & y0)) & O (((!x3 & x2 & x1 & !x0) & (!y3 & y2 & y1 & !y0)) & O (((!x3 & x2 & !x1 & x0) & (!y3 & y2 & !y1 & y0)) & O (((!x3 & x2 & !x1 & !x0) & (!y3 & y2 & !y1 & !y0)) & O (((!x3 & !x2 & x1 & x0) & (!y3 & !y2 & y1 & y0)) & O (((!x3 & !x2 & x1 & !x0) & (!y3 & !y2 & y1 & !y0)) & O (((!x3 & !x2 & !x1 & x0) & (!y3 & !y2 & !y1 & y0))))))))))
 VAR       time: 0..24;
 FROZENVAR maxtime: 0..24;
 ASSIGN
   init(time) := 0;
   next(time) := case time < 24 : time + 1; TRUE: time; esac;
-  PARSYNTH r := { maxtime | VALID  F (s1 & time<=maxtime) & F (s2 & time<=maxtime) & F (s3 & time<=maxtime) & F (s4 & time<=maxtime) & F (s5 & time<=maxtime) & F (s6 & time<=maxtime) & F (s7 & time<=maxtime) & F (s8 & time<=maxtime)};
+PARSYNTH r := { maxtime | VALID  F (((x3 & !x2 & !x1 & !x0) & (y3 & !y2 & !y1 & !y0) & time<=maxtime) & O (((!x3 & x2 & x1 & x0) & (!y3 & y2 & y1 & y0)) & O (((!x3 & x2 & x1 & !x0) & (!y3 & y2 & y1 & !y0)) & O (((!x3 & x2 & !x1 & x0) & (!y3 & y2 & !y1 & y0)) & O (((!x3 & x2 & !x1 & !x0) & (!y3 & y2 & !y1 & !y0)) & O (((!x3 & !x2 & x1 & x0) & (!y3 & !y2 & y1 & y0)) & O (((!x3 & !x2 & x1 & !x0) & (!y3 & !y2 & y1 & !y0)) & O (((!x3 & !x2 & !x1 & x0) & (!y3 & !y2 & !y1 & y0))))))))))};

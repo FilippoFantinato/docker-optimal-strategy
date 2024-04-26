@@ -12,6 +12,7 @@ cosafety=0
 controller_extension=".controller.smv"
 plant_extension=".plant.smv"
 formula_extension=".formula.smv"
+upper_bound_extension=".upper-bound.smv"
 
 calc() { awk "BEGIN{ printf \"%.2f\n\", $* }"; }
 
@@ -34,14 +35,27 @@ running_benchmark() {
     else
         c=$controllables
     fi
+
+    local u=
+    if [ -f $dir/$name$upper_bound_extension ]; then
+        u=`cat $dir/$name$upper_bound_extension | sed -z 's/^\s*//; s/\s*$//'`
+    fi
     
     avg=0
     for i in `seq 1 $times`; do
         local ts=$(date +%s%N)
         if [ "$cosafety" -eq 1 ]; then
-            timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c --co-safety -u $upper_bound &> /dev/null
+            if [ -z "$u" ]; then
+                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c --co-safety &> /dev/null
+            else
+                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c --co-safety -u $u &> /dev/null
+            fi
         else
-            timeout 20m ./optimal-strategy -c $controller -p $p --controllables $c -u $upper_bound &> /dev/null
+            if [ -z "$u" ]; then
+                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c &> /dev/null
+            else
+                timeout 20s ./optimal-strategy -c $controller -p $p --controllables $c -u $u &> /dev/null
+            fi
         fi
         if [ "$?" -eq "124" ]; then
             avg=1200000
@@ -61,7 +75,6 @@ main() {
         echo "Running: $file"
         x=`basename $(dirname $file)`
         running_time=`running_benchmark $file`
-        # running_benchmark $file
         echo "$x,$running_time" >> $output
     done
 }

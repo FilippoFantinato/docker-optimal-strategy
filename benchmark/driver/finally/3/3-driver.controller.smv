@@ -141,10 +141,10 @@ next(state) := case
    s2: 3;
    TRUE: state;
 esac;
-LTLSPEC F ((!x1 & x0) & (!y1 & y0)) & F ((x1 & !x0) & (y1 & !y0)) & F ((x1 & x0) & (y1 & y0))
+LTLSPEC F (((x1 & x0) & (y1 & y0)) & O (((x1 & !x0) & (y1 & !y0)) & O (((!x1 & x0) & (!y1 & y0)))))
 VAR       time: 0..9;
 FROZENVAR maxtime: 0..9;
 ASSIGN
   init(time) := 0;
   next(time) := case time < 9 : time + 1; TRUE: time; esac;
-  PARSYNTH r := { maxtime | VALID  F (s1 & time<=maxtime) & F (s2 & time<=maxtime) & F (s3 & time<=maxtime)};
+PARSYNTH r := { maxtime | VALID  F (((x1 & x0) & (y1 & y0) & time<=maxtime) & O (((x1 & !x0) & (y1 & !y0)) & O (((!x1 & x0) & (!y1 & y0)))))};

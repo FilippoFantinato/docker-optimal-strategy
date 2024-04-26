@@ -4,6 +4,6 @@ IVAR
 	u0 : boolean;
 	u1 : boolean;
 	u2 : boolean;
-LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u0)) & X X((!c)U(c <-> u0))
+LTLSPEC (!c)U(c <-> u0) & X((!c)U(c <-> u1)) & X X((!c)U(c <-> u2))
 --OUTPUT : c
 --INPUT : u0,u1,u2

@@ -1,14 +1,23 @@
 MODULE controller(u0,u1,u2)
 VAR
 	c : boolean;
-	steps: 0..2
+	steps: 0..3;
+	times: 0..3;
 ASSIGN
 	c := case
-		steps=0 : u0;
-		steps=1 : u1;
-		steps=2 : u2;
-		else : c;
+		steps=0 & times=0 : u0;
+		steps=1 & times=0 : u1;
+		steps=2 & times=0 : u2;
+		TRUE : TRUE;
 	esac;
 	init(steps) := 0;
-	next(steps) := case steps < 2 : steps + 1; else : steps; esac;
-LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,6](c <-> u1))) & X X(G[0,3](F[0,6](c <-> u2)))
+	next(steps) := case steps < 2 : steps + 1; TRUE : steps; esac;
+	init(times) := 0;
+	next(times) := (times + 1) mod 3;
+LTLSPEC G[0,3](F[0,3](c <-> u0)) & X(G[0,3](F[0,3](c <-> u1))) & X X(G[0,3](F[0,3](c <-> u2)))
+VAR       time: 0..21;
+FROZENVAR maxtime: 0..21;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 21 : time + 1; TRUE: time; esac;
+PARSYNTH r := { maxtime | VALID  G[0,3](F[0,3]((c <-> u0) & time <= maxtime)) & X(G[0,3](F[0,3]((c <-> u1) & time <= maxtime))) & X X(G[0,3](F[0,3]((c <-> u2) & time <= maxtime)))};
