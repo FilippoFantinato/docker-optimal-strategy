@@ -7,80 +7,120 @@ cd $(dirname $0)
 basedir="./various-formulas"
 formula_extension=".formula.smv"
 
+running_times=()
+
+calc() { awk "BEGIN{ printf \"%.2f\n\", $* }"; }
+
+min() { awk -F " " '{min=$1; for(i=2;i<=NF;++i) if($i < min) min=$i; print min }' ; }
+max() { awk -F " " '{max=$1; for(i=2;i<=NF;++i) if($i > max) max=$i; print max }' ; }
+avg() { awk -F " " '{s=$1; for(i=2;i<=NF;++i) s=s+$i; print s/NF }' ; } 
+
 running_controller() {
     controller=$1
     plant=$2
     dir=`dirname $controller`
     filename=`basename $controller`
     name=${filename%%.*}
+    times=1
     
     local c=`awk '{if($1 ~ /--OUTPUT/){print $3} }' $dir/$name$formula_extension`
 
-    if [ -z "$plant" ]; then
-        ./optimal-strategy -c $controller --controllables $c --co-safety
-    else
-        ./optimal-strategy -c $controller -p $plant --controllables $c --co-safety
-    fi
+    avg=0
+    for i in `seq 1 $times`; do
+        local ts=$(date +%s%N)
+        if [ -z "$plant" ]; then
+            ./optimal-strategy -c $controller --controllables $c --co-safety &> /dev/null
+        else
+            ./optimal-strategy -c $controller -p $plant --controllables $c --co-safety &> /dev/null
+        fi
+        if [ "$?" -eq "124" ]; then
+            avg=1200000
+            times=1
+            break;
+        fi
+        local tt=$((($(date +%s%N) - $ts)/1000000))
+        avg=$((avg + tt))
+    done
+    echo `calc $avg/$times`
 }
 
 
-# for controller in `ls -1v $basedir/1/*.controller.smv`; do
-#     echo "Running $controller..."
-#     running_controller $controller
-#     echo ""
-# done
+for controller in `ls -1v $basedir/1/*.controller.smv`; do
+    echo "Running $controller..."
+    running_time=`running_controller $controller`
+    running_times+=("$running_time")
+    echo ""
+done
 
-# for controller in `ls -1v $basedir/2/*.controller.smv`; do
-#     echo "Running $controller..."
-#     running_controller $controller $basedir/2/plant.smv
-#     echo ""
-# done
+for controller in `ls -1v $basedir/2/*.controller.smv`; do
+    echo "Running $controller..."
+    running_time=`running_controller $controller $basedir/2/plant.smv`
+    running_times+=("$running_time")
+    echo ""
+done
 
-# for controller in `ls -1v $basedir/3/*.controller.smv`; do
-#     echo "Running $controller..."
-#     running_controller $controller $basedir/3/plant.smv
-#     echo ""
-# done
+for controller in `ls -1v $basedir/3/*.controller.smv`; do
+    echo "Running $controller..."
+    running_time=`running_controller $controller $basedir/3/plant.smv`
+    running_times+=("$running_time")
+    echo ""
+done
 
-# for controller in `ls -1v $basedir/4/*.controller.smv`; do
-#     echo "Running $controller..."
-#     running_controller $controller $basedir/4/plant.smv
-#     echo ""
-# done
+for controller in `ls -1v $basedir/4/*.controller.smv`; do
+    echo "Running $controller..."
+    running_time=`running_controller $controller $basedir/4/plant.smv`
+    running_times+=("$running_time")
+    echo ""
+done
 
 for controller in `ls -1v $basedir/5/*.controller.smv`; do
     echo "Running $controller..."
-    running_controller $controller $basedir/5/plant.smv
+    running_time=`running_controller $controller $basedir/5/plant.smv`
+    running_times+=("$running_time")
     echo ""
 done
 
 for controller in `ls -1v $basedir/6/*.controller.smv`; do
     echo "Running $controller..."
-    running_controller $controller $basedir/6/plant.smv
+    running_time=`running_controller $controller $basedir/6/plant.smv`
+    running_times+=("$running_time")
     echo ""
 done
 
 for controller in `ls -1v $basedir/7/*.controller.smv`; do
     echo "Running $controller..."
-    running_controller $controller $basedir/7/plant.smv
+    running_time=`running_controller $controller $basedir/7/plant.smv`
+    running_times+=("$running_time")
     echo ""
 done
 
 for controller in `ls -1v $basedir/8/*.controller.smv`; do
     echo "Running $controller..."
-    running_controller $controller $basedir/8/plant.smv
+    running_time=`running_controller $controller $basedir/8/plant.smv`
+    running_times+=("$running_time")
     echo ""
 done
 
 for controller in `ls -1v $basedir/9/*.controller.smv`; do
     echo "Running $controller..."
-    running_controller $controller $basedir/9/plant.smv
+    running_time=`running_controller $controller $basedir/9/plant.smv`
+    running_times+=("$running_time")
     echo ""
 done
 
 
 for controller in `ls -1v $basedir/10/*.controller.smv`; do
     echo "Running $controller..."
-    running_controller $controller $basedir/10/plant.smv
+    running_time=`running_controller $controller $basedir/10/plant.smv`
+    running_times+=("$running_time")
     echo ""
 done
+
+echo ${running_times[@]}
+
+echo -n "MIN: "
+echo "${running_times[@]}" | min
+echo -n "MAX: "
+echo "${running_times[@]}" | max
+echo -n "AVG: "
+echo "${running_times[@]}" | avg
