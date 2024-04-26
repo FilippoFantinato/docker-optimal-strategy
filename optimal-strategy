@@ -98,7 +98,7 @@ compute_upper_bound() {
     upper_bound_command="$unique_dir/upper_bound.commands.txt"
     echo "set on_failure_script_quits 1; read_model -i $closed_loop; go_bmc; synth_param -a ic3 -s -l -c; show_param_synth_problems; quit" > $upper_bound_command
     synth_param_output=`exec_nuxmv $upper_bound_command | sed -nr 's/.*region: (.*).*/\1/p'`
-    # rm -f $upper_bound_command
+    rm -f $upper_bound_command
     
     if [ "$synth_param_output" == "TRUE" ]; then
         echo 0
