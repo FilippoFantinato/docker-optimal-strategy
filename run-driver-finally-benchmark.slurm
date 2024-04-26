@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="All ASAP Benchmarks finally"
+#SBATCH --job-name="ASAP Benchmarks finally"
 #SBATCH --error=driver-finally.err
 #SBATCH --output=driver-finally.out
 #SBATCH --partition=allgroups

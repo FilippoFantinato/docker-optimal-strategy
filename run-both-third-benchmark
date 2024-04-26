@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./run-benchmark -d ./benchmark/formulas/both/third -p ./benchmark/formulas/both/both-plant-third.smv -o ./both-third.csv -t 10
+./run-benchmark -d ./benchmark/formulas/both/third -p ./benchmark/formulas/both/both-plant-third.smv -o ./both-third.csv -t 1

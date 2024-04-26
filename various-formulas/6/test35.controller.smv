@@ -1,0 +1,18 @@
+MODULE controller(u1,u2)
+VAR
+  c1 : boolean;
+  c2 : boolean;
+ASSIGN
+  init(c1) := FALSE;
+  init(c2) := FALSE;
+  next(c1) := !c1;
+  next(c2) := !c2;
+
+LTLSPEC  (F(c1) & F(c2)) | (F(u1) & F(u2))
+
+VAR       time: 0..3;
+FROZENVAR maxtime: 0..3;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 3 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  ((F(c1 & time<=maxtime) & F(c2 & time<=maxtime)) | (F(u1 & time<=maxtime) & F(u2 & time<=maxtime)))};

@@ -1,9 +1,0 @@
-MODULE main
-IVAR
-	c0 : boolean;
-	u0 : boolean;
-	c1 : boolean;
-	u1 : boolean;
-LTLSPEC F(c0 <-> u0) & X(F(c1 <-> u1))
---OUTPUT : c0,c1
---INPUT : u0,u1

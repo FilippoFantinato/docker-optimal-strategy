@@ -1,0 +1,31 @@
+MODULE controller(u)
+VAR
+  c1 : boolean;
+  c2 : boolean;
+  c3 : boolean;
+  c4 : boolean;
+  c5 : boolean;
+  c6 : boolean;
+ASSIGN
+  init(c1) := FALSE;
+  init(c2) := FALSE;
+  init(c3) := FALSE;
+  init(c4) := FALSE;
+  init(c5) := FALSE;
+  init(c6) := FALSE;
+  next(c1) := !c1;
+  next(c2) := !c2;
+  next(c3) := !c3;
+  next(c4) := !c4;
+  next(c5) := !c5;
+  next(c6) := !c6;
+
+
+LTLSPEC  F(c1) & X F(c2) & X X F(c3) & X X X F(c4) & X X X X F(c5) & X X X X X F (c6 | u)
+
+VAR       time: 0..8;
+FROZENVAR maxtime: 0..8;
+ASSIGN
+  init(time) := 0;
+  next(time) := case time < 8 : time + 1; TRUE: time; esac;
+  PARSYNTH r := { maxtime | VALID  F(c1) & X F(c2) & X X F(c3) & X X X F(c4) & X X X X F(c5) & X X X X X F ((c6 | u) & time <= maxtime)};

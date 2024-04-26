@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./optimal-strategy -p ./examples/fox-dog-chicken/plant.smv -c examples/fox-dog-chicken/slow-controller.smv --controllables move0,move1,move2,move3 --co-safety --output ./tmp.smv

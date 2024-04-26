@@ -1,6 +1,0 @@
-MODULE controller(u0)
-VAR
-	c : boolean;
-ASSIGN
-	c := u0;
-LTLSPEC G((c <-> u0))
