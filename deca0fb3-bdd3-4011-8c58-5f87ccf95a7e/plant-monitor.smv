@@ -1,0 +1,24 @@
+MODULE monitor_0(c,u0,u1)
+VAR
+   MON_0_ERROR_u1 : boolean;
+   MON_0_SIM_u1 : boolean;
+   MON_0_ERROR_u0 : boolean;
+   MON_0_SIM_u0 : boolean;
+DEFINE
+   MON_0_ERROR := (MON_0_ERROR_u1 | MON_0_ERROR_u0);
+ASSIGN
+   init(MON_0_ERROR_u1) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u1) := FALSE;
+ASSIGN
+   init(MON_0_ERROR_u0) := FALSE;
+ASSIGN
+   init(MON_0_SIM_u0) := TRUE;
+ASSIGN
+   next(MON_0_ERROR_u1) := (MON_0_ERROR_u1 | MON_0_SIM_u1 != u1);
+ASSIGN
+   next(MON_0_SIM_u1) := !MON_0_SIM_u1;
+ASSIGN
+   next(MON_0_ERROR_u0) := (MON_0_ERROR_u0 | MON_0_SIM_u0 != u0);
+ASSIGN
+   next(MON_0_SIM_u0) := !MON_0_SIM_u0;

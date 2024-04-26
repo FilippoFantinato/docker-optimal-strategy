@@ -1,0 +1,14 @@
+Running: ./benchmark/formulas/co-safety/first/1/1-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/2/2-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/3/3-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/4/4-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/5/5-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/6/6-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/7/7-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/8/8-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/9/9-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/10/10-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/11/11-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/12/12-co-safety.controller.smv
+Running: ./benchmark/formulas/co-safety/first/13/13-co-safety.controller.smv
+slurmstepd-hpblade08: error: *** JOB 802383 ON hpblade08 CANCELLED AT 2024-04-26T07:41:50 ***
