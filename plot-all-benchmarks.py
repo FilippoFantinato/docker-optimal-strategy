@@ -4,7 +4,7 @@ import sys
 import matplotlib.pyplot as plt 
 import csv 
 
-lines=40
+lines=20
 
 x1 = [] 
 y1 = []
@@ -12,7 +12,7 @@ y1 = []
 with open("./results/both/both-first.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
-    i=1
+    i=0
     for row in plots:
         if i == lines: break;
         i = i + 1
@@ -25,6 +25,7 @@ y2 = []
 with open("./results/both/both-second.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
+    i=0
     for row in plots:
         if i == lines: break;
         i = i + 1
@@ -47,7 +48,7 @@ with open("./results/both/both-third.csv",'r') as csvfile:
 x4 = [] 
 y4 = []
 
-with open("./results/co-safety/co-safety-third.csv",'r') as csvfile: 
+with open("./results/co-safety/co-safety-first.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     i=0
@@ -60,7 +61,7 @@ with open("./results/co-safety/co-safety-third.csv",'r') as csvfile:
 x5 = [] 
 y5 = []
 
-with open("./results/co-safety/co-safety-third.csv",'r') as csvfile: 
+with open("./results/co-safety/co-safety-second.csv",'r') as csvfile: 
     plots = csv.reader(csvfile, delimiter = ',') 
     next(plots, None)
     i=0
@@ -109,16 +110,25 @@ with open("./results/driver/driver-until.csv",'r') as csvfile:
         x8.append(float(row[0])) 
         y8.append(float(row[1])) 
 
-plt.plot(x1, y1, color = 'b', marker="") 
-plt.plot(x2, y2, color = 'g')
-plt.plot(x3, y3, color = 'r')
-plt.plot(x4, y4, color = 'b') 
-plt.plot(x5, y5, color = 'g')
-plt.plot(x6, y6, color = 'r')
-plt.plot(x7, y7, color = 'b') 
-plt.plot(x8, y8, color = 'g')
+plt.plot(x7, y7, color = 'blue') 
+plt.plot(x8, y8, color = 'green')
+plt.plot(x1, y1, color = 'yellow') 
+plt.plot(x2, y2, color = 'orange')
+plt.plot(x3, y3, color = 'red')
+plt.plot(x4, y4, color = 'pink') 
+plt.plot(x5, y5, color = 'black')
+plt.plot(x6, y6, color = 'violet')
 plt.yscale('log')
-plt.legend(['(1)', '(1)', '(1)', '(1)', '(1)', '(1)', '(1)', '(1)'])
+plt.legend([
+    '(3)', 
+    '(4)', 
+    '(5)', 
+    '(6)', 
+    '(7)', 
+    '(8)', 
+    '(9)', 
+    '(10)'
+])
 plt.xlabel('n') 
 plt.ylabel('Running time (ms)') 
 plt.show()
